@@ -1,7 +1,7 @@
 +++
-date = '2025-10-04T02:39:26+02:00'
-draft = true
-title = ''
+title = "Home"
+draft = false
 +++
 
-ffafdaf
+# Welcome
+Site is live!
