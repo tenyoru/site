@@ -1,6 +1,6 @@
 baseURL = 'https://tenyoru.github.io/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Tenyoru'
 
 [caches]
   [caches.images]
@@ -8,16 +8,11 @@ title = 'My New Hugo Site'
 
 [menus]
   [[menus.main]]
-    name = 'Home'
-    pageRef = '/'
-    weight = 10
-
-  [[menus.main]]
-    name = 'Posts'
+    name = 'Blog'
     pageRef = '/posts'
-    weight = 20
+    weight = 10
 
   [[menus.main]]
     name = 'Tags'
     pageRef = '/tags'
-    weight = 30
+    weight = 20
