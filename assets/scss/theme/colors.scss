@@ -1,0 +1,22 @@
+// Central theme tokens
+$themes: (
+  light: (
+    bg: #ffffff,
+    text: #222222,
+    accent: #0077ff,
+    card: #f6f6f6,
+    border: #dddddd,
+    link: #4dabf7,
+    link-hover: #1c7ed6
+  ),
+  dark: (
+    bg: #121212,
+    text: #ededed,
+    accent: #f5f5f5,
+    card: #1b1b1b,
+    border: #2a2a2a,
+    link: #74c0fc,
+    link-hover: #a5d8ff
+  )
+);
+$default-theme: dark !default;

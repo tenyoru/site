@@ -1,12 +1,9 @@
+@use "theme" as *;
 @use "sass:color";
 
-// Example variables
-$bg-color: #111111;   // dark background
-$text-color: #f5f5f5; // light text
-
 body {
-  background-color: $bg-color;
-  color: $text-color;
+  background-color: theme(bg);
+  color: theme(text);
   font-family: system-ui, sans-serif;
   line-height: 1.5;
   margin: 0;
@@ -17,13 +14,13 @@ h1, h2, h3 {
   // old: lighten($text-color, 10%)
   // `lighten()` adds 10 percentage points to HSL lightness.
   // Equivalent modern form:
-  color: color.adjust($text-color, $lightness: 10%);
+  color: theme(accent);
   // If you prefer a relative scale instead, use:
   // color: color.scale($text-color, $lightness: 10%);
 }
 
 a {
-  color: #4dabf7;
+  color: theme(link);
   text-decoration: none;
 
   &:hover {
