@@ -1,0 +1,99 @@
+@use "theme" as *;
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #333;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    .site-title {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .theme-switch {
+      display: inline-flex;          // Inline-flex allows vertical alignment with text
+      inline-size: 1.25rem;          // Icon width
+      block-size: 1.25rem;           // Icon height
+      margin-left: .25rem;           // Small space after site title
+      opacity: .8;                   // Slightly transparent by default
+      transition: opacity .2s ease;  // Smooth hover fade
+      vertical-align: -0.1em;        // Adjust alignment with surrounding text
+      color: currentColor;           // Inherit color from parent (matches theme text color)
+
+      input {
+        display:none;
+      }
+
+      .slider {
+        display: block;
+        inline-size: 100%;
+        block-size: 100%;
+      }
+
+      .slider::before {
+        content: "";
+        display: block;
+        inline-size: 100%;
+        block-size: 100%;
+        // Apply an icon mask — dark mode icon by default
+        -webkit-mask-image: url("/icons/dark_mode.svg");
+                mask-image: url("/icons/light_mode.svg");
+        -webkit-mask-repeat: no-repeat;
+                mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+                mask-position: center;
+        -webkit-mask-size: contain;
+                mask-size: contain;
+        background-color: currentColor;  // Fills the icon with the current text color
+        transition: transform .25s ease; // Smooth rotation animation
+      }
+
+      // When checkbox is checked, change the icon (light ↔ dark)
+      input:checked + .slider::before {
+        -webkit-mask-image: url("/icons/light_mode.svg");
+                mask-image: url("/icons/dark_mode.svg");
+        transform: rotate(360deg) scale(1.05); // Animate rotation and slight scale
+      }
+
+      &:hover {
+        opacity: 1; // Make it fully visible on hover
+      }
+    }
+  }
+
+  .header-menu {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      color: #4dabf7;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &.active {
+        font-weight: bold;
+        color: #f39c12;
+      }
+    }
+  }
+}

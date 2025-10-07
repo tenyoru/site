@@ -1,5 +1,6 @@
 @use "theme" as *;
 @use "sass:color";
+@use "components/menu";
 
 body {
   background-color: theme(bg);
