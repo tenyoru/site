@@ -42,34 +42,21 @@
       }
 
       .slider {
-        display: block;
+        display: flex;
         inline-size: 100%;
         block-size: 100%;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transform: rotate(30deg);
       }
 
       .slider::before {
-        content: "";
-        display: block;
-        inline-size: 100%;
-        block-size: 100%;
-        // Apply an icon mask — dark mode icon by default
-        -webkit-mask-image: url("/icons/dark_mode.svg");
-                mask-image: url("/icons/light_mode.svg");
-        -webkit-mask-repeat: no-repeat;
-                mask-repeat: no-repeat;
-        -webkit-mask-position: center;
-                mask-position: center;
-        -webkit-mask-size: contain;
-                mask-size: contain;
-        background-color: currentColor;  // Fills the icon with the current text color
-        transition: transform .25s ease; // Smooth rotation animation
+        content: "◐";
       }
 
-      // When checkbox is checked, change the icon (light ↔ dark)
       input:checked + .slider::before {
-        -webkit-mask-image: url("/icons/light_mode.svg");
-                mask-image: url("/icons/dark_mode.svg");
-        transform: rotate(360deg) scale(1.05); // Animate rotation and slight scale
+        content: "◑";
       }
 
       &:hover {
