@@ -2,6 +2,12 @@
 
 $header-height: 3rem;
 
+@supports selector(:has(*)) {
+  html:has(.menu-mobile[open]) {
+    overflow: hidden;
+  }
+}
+
 .site-header {
   display: flex;
   height: $header-height;
