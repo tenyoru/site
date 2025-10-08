@@ -2,28 +2,44 @@
 <!-- {{ partial "menu.html" (dict "menuID" "main" "page" .) }} -->
 
 
-<header class="site-header">
-  <!-- Left side: Name + Theme switch -->
-  <div class="header-left">
-    <h1 class="site-title">
-      <a href="{{ "/" | relURL }}">{{ site.Title }}</a>
-    </h1>
-    <label id="theme-switch" class="theme-switch" for="theme-checkbox">
-      <input type="checkbox" id="theme-checkbox" aria-label="Toggle theme">
-      <span class="slider"></span>
-    </label>
-  </div>
+<!-- Ljft side: Name + Theme switch -->
+<div class="header-left">
+  <h1 class="site-title">
+    <a href="{{ "/" | relURL }}">{{ site.Title }}</a>
+  </h1>
+</div>
 
-  <!-- Right side: Menu -->
-  <nav class="header-menu">
+<!-- Right side: Menu -->
+<nav class="header-menu">
+  <details class="menu-mobile">
+    <summary class="menu-toggle" aria-label="Toggle menu">
+      <span class="menu-open">[ menu ]</span>
+      <span class="menu-close">[ X ]</span>
+    </summary>
+
+    <div class="menu-panel">
+      <nav class="menu-list">
+        {{ $page := . }}
+        {{ with site.Menus.main }}
+          {{ range . }}
+            <a href="{{ .URL }}" class="{{ if $page.IsMenuCurrent .Menu . }}active{{ end }}">
+              {{ .Name }}
+            </a>
+          {{ end }}
+        {{ end }}
+      </nav>
+    </div>
+  </details>
+
+  <!-- desktop menu -->
+  <div class="menu-desktop">
     {{ $page := . }}
     {{ with site.Menus.main }}
       {{ range . }}
-        <a href="{{ .URL }}"
-           class="{{ if $page.IsMenuCurrent .Menu . }}active{{ end }}">
+        <a href="{{ .URL }}" class="{{ if $page.IsMenuCurrent .Menu . }}active{{ end }}">
           {{ .Name }}
         </a>
       {{ end }}
     {{ end }}
-  </nav>
-</header>
+  </div>
+</nav>

@@ -14,27 +14,28 @@
   @return string.unquote("var(--#{$key})");
 }
 
-/* Default theme + prepare UA color-scheme hint */
+// Default theme + prepare UA color-scheme hint
 :root {
   @include emit-theme-vars(map.get(c.$themes, c.$default-theme));
-  color-scheme: light dark;
+  // color-scheme: light dark; // support both light and dark UA themes
+  color-scheme: dark;
 }
 
-// Automatic selection: if the user explicitly prefers a light theme — switch :root to light
-@media (prefers-color-scheme: light) {
-  :root {
-    @include emit-theme-vars(map.get(c.$themes, light));
-  }
-}
+// // Automatic selection: if the user explicitly prefers a light theme — switch :root to light
+// @media (prefers-color-scheme: light) {
+//   :root {
+//     @include emit-theme-vars(map.get(c.$themes, light));
+//   }
+// }
 
-/* Generate [data-theme="name"] blocks for each theme */
-@each $name, $map in c.$themes {
-  [data-theme="#{$name}"] {
-    @include emit-theme-vars($map);
-  }
-}
+// // Generate [data-theme="name"] blocks for each theme
+// @each $name, $map in c.$themes {
+//   [data-theme="#{$name}"] {
+//     @include emit-theme-vars($map);
+//   }
+// }
 
-/* Optional: smoother switch */
+// Optional: smoother switch
 .theme-transition * {
   transition: background-color .2s ease, color .2s ease, border-color .2s ease;
 }

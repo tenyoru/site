@@ -8,7 +8,11 @@ body {
   font-family: system-ui, sans-serif;
   line-height: 1.5;
   margin: 0;
-  padding: 2rem;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -27,4 +31,10 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.layout-container {
+  margin-inline: auto;
+  max-width: min(60ch, 100% - 2rem); // не шире экрана с учётом отступов
+  padding-inline: 1rem;               // безопасные боковые поля
 }
