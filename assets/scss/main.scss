@@ -10,11 +10,6 @@ body {
   margin: 0;
 }
 
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
 h1, h2, h3 {
   // old: lighten($text-color, 10%)
   // `lighten()` adds 10 percentage points to HSL lightness.
@@ -33,8 +28,62 @@ a {
   }
 }
 
-.layout-container {
+.container {
+  max-width: 100%;
   margin-inline: auto;
-  max-width: min(60ch, 100% - 2rem); // не шире экрана с учётом отступов
-  padding-inline: 1rem;               // безопасные боковые поля
+  padding-inline: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+    padding-inline: 2rem;
+  }
+}
+
+.content {
+  max-width: clamp(60ch, 80%, 85ch);
+  // min-height: max(100dvh,64rem);
+  line-height: 1.6;
+}
+
+.relative {
+  position: relative;
+}
+
+.flex{
+  display: flex;
+}
+
+.flex-col{
+  flex-direction: column;
+}
+
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.highlight, pre {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: pre;
+  border-radius: 0.5rem;
+  // padding: 1rem;
+  background: #1e1e1e; // или theme(bg-code)
+  color: #ddd;
+}
+
+code {
+  font-size: 0.9rem;
+  line-height: 1.5;
 }

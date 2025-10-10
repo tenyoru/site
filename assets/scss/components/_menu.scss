@@ -15,16 +15,16 @@ $header-height: 3rem;
   justify-content: space-between;
   position: sticky;
   border-bottom: 1px solid #333;
-  padding-inline: 0.5rem;
+  // padding-inline: 0.5rem;
   // box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
 
   @media (min-width: 768px) {
     padding-inline: 2rem;
   }
 
-  @media (min-width: 1200px) {
-    padding-inline: clamp(1rem, calc((100vw - 70rem) / 1.8), 150rem);
-  }
+  // @media (min-width: 1200px) {
+  //   padding-inline: clamp(1rem, calc((100vw - 70rem) / 1.7), 100rem);
+  // }
 
   .header-left {
     display: flex;
@@ -63,7 +63,6 @@ $header-height: 3rem;
     .menu-toggle {
       cursor: pointer;
       list-style: none;
-      padding: .5rem .75rem;
       user-select: none;
       display: inline-flex;
       align-items: center;
