@@ -1,118 +1,109 @@
 @use "theme" as *;
 
 $header-height: 3rem;
+$bp-md: 768px;
 
+/* Prevent background scroll when mobile menu is open */
 @supports selector(:has(*)) {
-  html:has(.menu-mobile[open]) {
-    overflow: hidden;
-  }
+  html:has(.menu-mobile[open]) { overflow: hidden; }
 }
 
+/* Header bar */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
-  height: $header-height;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
-  border-bottom: 1px solid #333;
-  // padding-inline: 0.5rem;
-  // box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
+  inline-size: 100%;
+  block-size: $header-height;
+  background: theme(bg);
+  border-block-end: 1px solid #333;
+  padding-inline: 1rem;
+}
 
-  @media (min-width: 768px) {
-    padding-inline: 2rem;
-  }
+/* Left side */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
 
-  // @media (min-width: 1200px) {
-  //   padding-inline: clamp(1rem, calc((100vw - 70rem) / 1.7), 100rem);
-  // }
+.site-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.site-title a {
+  color: inherit;
+  text-decoration: none;
+}
 
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
+/* Right side (menus) */
+.header-menu { /* container hook if needed */ }
 
-    .site-title {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: bold;
+.menu-desktop {
+  display: flex;
+  gap: 1rem;
+}
+.menu-desktop a {
+  color: theme(text);
+  text-decoration: none;
+}
 
-      a {
-        color: inherit;
-        text-decoration: none;
+/* Mobile trigger (<details class="menu-mobile"> + <summary class="menu-toggle">) */
+.menu-mobile { display: none; }
 
-        &:hover {
-          // text-decoration: underline;
-        }
-      }
-    }
-  }
+.menu-toggle {
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-toggle::-webkit-details-marker { display: none; }
 
+/* Toggle icons */
+.menu-open  { color: theme(accent); }
+.menu-close { display: none; color: theme(accent); }
+.menu-mobile[open] .menu-open  { display: none; }
+.menu-mobile[open] .menu-close { display: inline; }
 
-  .header-menu {
-    .menu-desktop {
-      display: flex;
-      gap: 1rem;
+/* Fullscreen mobile panel */
+.menu-list {
+  position: fixed;
+  inset: calc(#{$header-height} + 1px) 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: theme(bg);
+  color: theme(text);
+  z-index: 999;
 
-      a {
-        color: theme(text);            // default link color
-        text-decoration: none;
-      }
-    }
-    .menu-mobile   { display: none; }
+  counter-reset: menu;
+}
+.menu-list a {
+  position: relative;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  counter-increment: menu;
+}
+.menu-list a::before {
+  content: counter(menu, decimal-leading-zero) " ";
+  opacity: 0.5;
+  font-weight: 400;
+}
 
-    .menu-toggle {
-      cursor: pointer;
-      list-style: none;
-      user-select: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      &::-webkit-details-marker { display: none; }
-    }
-
-    /* Default: show [ menu ], hide [ X ] */
-    .menu-close { display: none; color: theme(accent)}
-    .menu-close { display: none; }
-    .menu-open { color: theme(accent)  }
-    .menu-mobile[open] .menu-open { display: none; }
-    .menu-mobile[open] .menu-close { display: inline; }
-
-    /* ----------- Fullscreen mobile menu ----------- */
-    .menu-list {
-      display: flex;
-      flex-direction: column;
-      padding: 2rem;
-      gap: 1rem;
-      background: theme(bg);
-      color: theme(text);
-      position: fixed;
-      inset: calc(#{$header-height} + 1px) 0 0 0;
-      // justify-content: center;
-      align-items: center;
-      z-index: 999;
-      counter-reset: menu;      /* start counter at 0 */
-
-      a {
-        font-size: 1.5rem;
-        text-decoration: none;
-        color: inherit;
-        position: relative;
-        counter-increment: menu;   /* increase counter */
-      }
-
-      /* Numbering: 01, 02, 03... */
-      a::before {
-        content: counter(menu, decimal-leading-zero) " ";
-        font-weight: 400;
-        opacity: 0.5;
-      }
-
-      // a.active { text-decoration: underline; }
-    }
-
-    @media (max-width: 768px) {
-      .menu-desktop { display: none; }
-      .menu-mobile  { display: block; }
-    }
-  }
+/* Responsive switches */
+@media (min-width: $bp-md) {
+  .site-header { padding-inline: 2rem; }
+}
+@media (max-width: $bp-md) {
+  .menu-desktop { display: none; }
+  .menu-mobile  { display: block; }
 }
