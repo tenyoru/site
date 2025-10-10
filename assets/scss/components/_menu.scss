@@ -10,17 +10,18 @@ $bp-md: 768px;
 
 /* Header bar */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  inline-size: 100%;
-  block-size: $header-height;
-  background: theme(bg);
-  border-block-end: 1px solid #333;
-  padding-inline: 1rem;
+  // border-bottom: 1px solid theme(border);
+
+  .header-inner {
+    height: $header-height;
+    max-width: clamp(65ch, 90%, 95ch);
+    margin-inline: auto;
+    padding-inline: 1rem;  // keep some side breathing space
+    // width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 /* Left side */

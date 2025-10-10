@@ -5,7 +5,9 @@
 </header>
 <body>
   <header class="site-header">
-    {{ partial "header.html" . }}
+    <div class="header-inner content flex">
+      {{ partial "header.html" . }}
+    </div>
   </header>
   <main class="container content flex flex-col">
     {{ block "main" . }}{{ end }}
