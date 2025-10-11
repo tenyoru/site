@@ -8,17 +8,13 @@
 
 /* Header bar */
 .site-header {
+  height: v.$header-height;
+  max-width: v.header-width();
+  margin-inline: auto;
+  padding-inline: v.$padding-inline;
+  justify-content: space-between;
+  align-items: center;
   // border-bottom: 1px solid theme(border);
-
-  .header-inner {
-    height: v.$header-height;
-    max-width: v.header-width();
-    margin-inline: auto;
-    padding-inline: v.$padding-inline;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
 }
 
 /* Left side */
