@@ -1,7 +1,5 @@
 @use "theme" as *;
-
-$header-height: 3rem;
-$bp-md: 768px;
+@use "vars" as v;
 
 /* Prevent background scroll when mobile menu is open */
 @supports selector(:has(*)) {
@@ -13,11 +11,10 @@ $bp-md: 768px;
   // border-bottom: 1px solid theme(border);
 
   .header-inner {
-    height: $header-height;
-    max-width: clamp(65ch, 90%, 95ch);
+    height: v.$header-height;
+    max-width: v.header-width();
     margin-inline: auto;
-    padding-inline: 1rem;  // keep some side breathing space
-    // width: 100%;
+    padding-inline: v.$padding-inline;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,7 +72,7 @@ $bp-md: 768px;
 /* Fullscreen mobile panel */
 .menu-list {
   position: fixed;
-  inset: calc(#{$header-height} + 1px) 0 0 0;
+  inset: v.$header-height 0 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,10 +98,10 @@ $bp-md: 768px;
 }
 
 /* Responsive switches */
-@media (min-width: $bp-md) {
-  .site-header { padding-inline: 2rem; }
+@media (min-width: v.mq(md)) {
+  .site-header {  }
 }
-@media (max-width: $bp-md) {
+@media (max-width: v.mq(md)) {
   .menu-desktop { display: none; }
   .menu-mobile  { display: block; }
 }

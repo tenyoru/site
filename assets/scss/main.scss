@@ -1,12 +1,13 @@
 @use "theme" as *;
 @use "sass:color";
 @use "components/menu";
+@use "vars" as v;
 
 body {
   background-color: theme(bg);
   color: theme(text);
   font-family: system-ui, sans-serif;
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -31,27 +32,12 @@ a {
 .container {
   max-width: 100%;
   margin-inline: auto;
-  padding-inline: 1rem;
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-    padding-inline: 1.5rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-    padding-inline: 2rem;
-  }
+  padding-inline: v.$padding-inline;
 }
 
 .content {
-  max-width: clamp(60ch, 80%, 85ch);
-  // min-height: max(100dvh,64rem);
-  line-height: 1.6;
+  max-width: v.content-width();
+  min-height: max(100dvh,64rem);
 }
 
 .relative {
