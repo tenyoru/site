@@ -37,7 +37,7 @@ a {
 
 .content {
   max-width: v.content-width();
-  min-height: max(100dvh,64rem);
+  min-height: calc(100dvh - v.$header-height);
 }
 
 .relative {
