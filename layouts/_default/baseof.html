@@ -5,14 +5,14 @@
 </header>
 <body>
   <header class="site-header">
-    <div class="header-inner content flex">
+    <div class="header-inner flex">
       {{ partial "header.html" . }}
     </div>
   </header>
   <main class="container content flex flex-col">
     {{ block "main" . }}{{ end }}
   </main>
-  <footer>
+  <footer class="container">
     {{ partial "footer.html" . }}
   </footer>
 </body>
