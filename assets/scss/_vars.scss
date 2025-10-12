@@ -1,3 +1,5 @@
+@use "sass:map";
+
 @function fluid-width($pref, $max, $min: 60ch) {
   @return clamp($min, $pref, $max);
 }
@@ -20,5 +22,5 @@ $breakpoints: (
   xl: 80rem    // 1280px
 );
 @function mq($from){
-  @return map-get($breakpoints, $from);
+  @return map.get($breakpoints, $from);
 }
