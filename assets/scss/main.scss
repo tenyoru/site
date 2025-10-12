@@ -16,10 +16,13 @@ body {
 
 h1, h2, h3 {
   color: theme(accent);
-  line-height: 1.1;
-  padding: 0;
-  margin-block: 0.75rem;
 }
+
+h1 { margin-block: 1rem 0.5rem; }
+h2 { margin-block: 0.85rem 0.4rem; }
+
+h1 + .section-rule,
+h2 + .section-rule { margin-block-start: 0.5rem; }
 
 a {
   color: theme(link);
