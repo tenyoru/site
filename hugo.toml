@@ -16,3 +16,8 @@ title = 'Tenyoru'
     name = 'Tags'
     pageRef = '/tags'
     weight = 20
+
+[security]
+  enableInlineShortcodes = true
+[markup.goldmark.renderer]
+unsafe = true

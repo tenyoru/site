@@ -12,12 +12,10 @@ body {
 }
 
 h1, h2, h3 {
-  // old: lighten($text-color, 10%)
-  // `lighten()` adds 10 percentage points to HSL lightness.
-  // Equivalent modern form:
   color: theme(accent);
-  // If you prefer a relative scale instead, use:
-  // color: color.scale($text-color, $lightness: 10%);
+  line-height: 1.1;
+  padding: 0;
+  margin-block: 0.75rem;   // top, bottom
 }
 
 a {
@@ -37,7 +35,10 @@ a {
 
 .content {
   max-width: v.content-width();
-  min-height: calc(100dvh - v.$header-height);
+  padding-block: 2rem;            // top & bottom
+  padding-inline: v.$padding-inline;
+  box-sizing: border-box;         // include padding in the min-size
+  min-block-size: calc(100dvh - v.$header-height);
 }
 
 .relative {
@@ -72,4 +73,67 @@ img, video, iframe {
 code {
   font-size: 0.9rem;
   line-height: 1.5;
+}
+
+
+.ff-line {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  margin-block: .15rem;
+}
+.ff-key   { color: theme(terminal); font-weight: 600; }   /* green */
+.ff-colon { color: theme(terminal); margin-inline: .05rem; }
+.ff-val   {
+  color: theme(text);
+  display: inline-block;     /* bigger hit area */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: theme(accent);
+}
+// /* In case a parent somewhere disabled events */
+.ff-line, .ff-line * { pointer-events: auto; }
+
+/* wrapper: image | panel */
+.ff-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  // align-items: stretch;
+  gap: 1rem;
+}
+
+/* image sizing */
+.ff-img {
+  width: 160px;
+  aspect-ratio: 1;      // делает квадрат
+  object-fit: cover;    // кадрирует внутрь квадрата
+  border-radius: 12px;  // скругленные углы
+  display: block;
+}
+
+/* panel just holds your ff lines (each is a block) */
+.ff-panel {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  white-space: nowrap;
+
+  p, li {
+    margin: 0;           // remove default bottom gaps
+  }
+}
+
+/* mobile: stack */
+@media (max-width: v.mq(lg)) {
+  .ff-wrap { grid-template-columns: 1fr; }
+  .ff-img  { inline-size: 40vw; max-inline-size: 220px; }
+  .content { padding-inline: 1rem; }
+}
+
+hr {
+  border-top: 1px solid theme(danger);
+  width: 100%;
 }

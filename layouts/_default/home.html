@@ -1,7 +1,12 @@
 {{ define "main" }}
+    <div class="ff-wrap">
+    <img src="images/photo-dark.png" alt="Photo">
+    {{ with site.GetPage "page" "home/fastfetch" }}
+      <section class="ff-panel">
+        {{ .Content }}
+      </section>
+    {{ end }}
+  </div>
+
   {{ .Content }}
-  {{ range site.RegularPages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
-  {{ end }}
 {{ end }}

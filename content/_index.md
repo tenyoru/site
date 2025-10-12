@@ -3,5 +3,7 @@ title = "Home"
 draft = false
 +++
 
-# Welcome
+---
+# About
+---
 Site is live!
