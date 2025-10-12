@@ -1,0 +1,12 @@
+{{- $path := .Get "file" -}}
+
+{{- if not $path -}}
+  {{- errorf "include shortcode: missing required parameter 'file'" -}}
+{{- end -}}
+
+{{- if not (fileExists $path) -}}
+  {{- errorf "include shortcode: file %q not found" $path -}}
+{{- end -}}
+
+{{- $content := readFile $path -}}
+{{- $content | markdownify -}}
