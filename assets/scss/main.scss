@@ -6,6 +6,7 @@
 /* Shared layout sizing */
 :root {
   --layout-header-width: min(100%, 72rem);
+  --layout-header-padding: clamp(1rem, 4vw, 3rem);
 }
 
 /* ---------- BASE ---------- */
@@ -175,8 +176,15 @@ $ring-size-max: 72rem;
 
 .rings {
   position: relative;
-  --rings-size: clamp(#{$ring-size-min}, var(--layout-header-width, min(100%, 72rem)), #{$ring-size-max});
-  width: var(--rings-size);
+  --rings-size: clamp(
+    #{$ring-size-min},
+    calc(
+      var(--layout-header-width, min(100%, 72rem))
+      - (2 * var(--layout-header-padding, clamp(1rem, 4vw, 3rem)))
+    ),
+    #{$ring-size-max}
+  );
+  width: min(100%, var(--rings-size));
   aspect-ratio: 1;
   margin-inline: auto;
   margin-block: clamp(1.5rem, 6vw, 4rem);
