@@ -1,6 +1,5 @@
 @use "theme" as *;
 @use "sass:color";
-@use "sass:math";
 @use "components/menu";
 @use "vars" as v;
 
@@ -160,36 +159,43 @@ hr {
 
 /* --------- rings ------------ */
 $rings: 7;
+$ring-scale-max: 1;
+$ring-scale-min: 0.3;
+$ring-scale-step: ($ring-scale-max - $ring-scale-min) / ($rings - 1);
 
-$base-scale: 0.5;
-$scale-multiplier: 1;
-$base-border: 15px;
-
-$color: rgba(210, 180, 140, 0.25);
-$base-size: clamp(200px, 35vw, 700px);
+$ring-color: rgba(210, 180, 140, 0.25);
+$ring-size-min: 240px;
+$ring-size-max: 820px;
+$ring-size-fluid: min(70vw, #{v.content-width()});
 
 
 .rings {
   position: relative;
-  width: $base-size;
-  height: $base-size;
-  margin: 0 auto;
+  width: min(100%, clamp($ring-size-min, $ring-size-fluid, $ring-size-max));
+  max-width: v.content-width();
+  aspect-ratio: 1;
+  margin-inline: auto;
+  margin-block: clamp(1.5rem, 6vw, 4rem);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  transform: rotateX(68deg);
+  filter: brightness(0.85);
 
-  transform: rotateX(75deg);
-  filter: brightness(0.8);
+  --rings-size: clamp(#{$ring-size-min}, #{$ring-size-fluid}, #{$ring-size-max});
+  --rings-border-base: clamp(4px, calc(var(--rings-size) / 28), 18px);
 
   @for $i from 1 through $rings {
-    $scale: math.pow($base-scale * $i, $scale-multiplier);
-    $border: $base-border / $scale;
+    $scale: $ring-scale-max - (($i - 1) * $ring-scale-step);
 
     .ring-#{$i} {
       position: absolute;
       inset: 0;
-      border: #{$border} solid $color;
+      border: calc(var(--rings-border-base) / #{$scale}) solid $ring-color;
       border-radius: 50%;
-
       transform: scale($scale);
       transform-origin: center;
+      z-index: $rings - $i;
     }
   }
 }
