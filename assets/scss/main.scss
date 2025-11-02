@@ -1,5 +1,6 @@
 @use "theme" as *;
 @use "sass:color";
+@use "sass:math";
 @use "components/menu";
 @use "vars" as v;
 
@@ -7,10 +8,6 @@
 :root {
   --layout-header-width: min(100%, 72rem);
   --layout-header-padding: clamp(1rem, 4vw, 3rem);
-  --layout-header-inner: calc(
-    var(--layout-header-width, min(100%, 72rem))
-    - (2 * var(--layout-header-padding, clamp(1rem, 4vw, 3rem)))
-  );
 }
 
 /* ---------- BASE ---------- */
@@ -171,7 +168,7 @@ hr {
 $rings: 7;
 $ring-scale-max: 1;
 $ring-scale-min: 0.3;
-$ring-scale-step: ($ring-scale-max - $ring-scale-min) / ($rings - 1);
+$ring-scale-step: math.div($ring-scale-max - $ring-scale-min, $rings - 1);
 
 $ring-color: rgba(210, 180, 140, 0.25);
 $ring-size-min: 240px;
@@ -180,18 +177,9 @@ $ring-size-max: 72rem;
 
 .rings {
   position: relative;
-  --rings-size: clamp(
-    #{$ring-size-min},
-    var(
-      --layout-header-inner,
-      var(--layout-header-width, min(100%, 72rem))
-    ),
-    #{$ring-size-max}
-  );
-  width: min(100%, var(--rings-size));
-  min-width: $ring-size-min;
-  max-width: $ring-size-max;
-  min-block-size: $ring-size-min;
+  --rings-size: clamp($ring-size-min, 70vw, $ring-size-max);
+  width: var(--rings-size);
+  max-width: var(--layout-header-width, min(100%, 72rem));
   aspect-ratio: 1;
   margin-inline: auto;
   margin-block: clamp(1.5rem, 6vw, 4rem);
@@ -201,7 +189,7 @@ $ring-size-max: 72rem;
   transform: rotateX(68deg);
   filter: brightness(0.85);
 
-  --rings-border-base: clamp(4px, calc(var(--rings-size) / 28), 18px);
+  --rings-border-base: clamp(4px, 0.8vw, 18px);
 
   @for $i from 1 through $rings {
     $scale: $ring-scale-max - (($i - 1) * $ring-scale-step);
@@ -215,5 +203,15 @@ $ring-size-max: 72rem;
       transform-origin: center;
       z-index: $rings - $i;
     }
+  }
+}
+
+@supports (width: calc(min(100%, 72rem) - 2rem)) {
+  .rings {
+    width: clamp(
+      $ring-size-min,
+      calc(min(100%, 72rem) - (2 * clamp(1rem, 4vw, 3rem))),
+      $ring-size-max
+    );
   }
 }
