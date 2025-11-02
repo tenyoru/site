@@ -172,15 +172,18 @@ $ring-scale-min: 0.3;
 $ring-scale-step: math.div($ring-scale-max - $ring-scale-min, $rings - 1);
 
 $ring-color: rgba(210, 180, 140, 0.25);
-$ring-size-min: 240px;
-$ring-size-max: 72rem;
+$ring-size-min: 260px;
+$ring-size-max: 65rem;
 
 
 .rings {
   position: relative;
-  --rings-size: clamp($ring-size-min, 70vw, $ring-size-max);
-  width: var(--rings-size);
-  max-width: var(--layout-header-width, min(100%, 72rem));
+  --rings-size: clamp(
+    $ring-size-min,
+    var(--layout-header-width, min(100%, 72rem)),
+    $ring-size-max
+  );
+  width: min(100%, var(--rings-size));
   aspect-ratio: 1;
   margin-inline: auto;
   margin-block: clamp(1.5rem, 6vw, 4rem);
@@ -190,7 +193,7 @@ $ring-size-max: 72rem;
   transform: rotateX(68deg);
   filter: brightness(0.85);
 
-  --rings-border-base: clamp(4px, 0.8vw, 18px);
+  --rings-border-base: clamp(3px, calc(var(--rings-size) / 48), 14px);
 
   @for $i from 1 through $rings {
     $scale: $ring-scale-max - (($i - 1) * $ring-scale-step);
