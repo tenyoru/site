@@ -46,9 +46,10 @@ a {
 }
 
 .container {
-  max-width: 100%;
+  width: min(100%, var(--layout-header-width, min(100%, 72rem)));
+  box-sizing: border-box;
   margin-inline: auto;
-  padding-inline: v.$padding-inline;
+  padding-inline: var(--layout-header-padding, v.$padding-inline);
 }
 
 .content {

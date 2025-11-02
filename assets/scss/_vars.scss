@@ -9,7 +9,7 @@
 }
 
 @function content-width() {
-  @return fluid-width(80%, 85ch); // main content/text
+  @return header-width(); // align main content with header span
 }
 
 $padding-inline: 1rem;
