@@ -8,45 +8,30 @@
     {{ end }}
   </header>
 
-  {{- $pages := .RegularPages -}}
-  {{- if not hugo.IsDevelopment }}
+  {{- $pages := sort .RegularPages "Date" "desc" -}}
+  {{- $showDrafts := or hugo.IsDevelopment .Site.BuildDrafts -}}
+  {{- if not $showDrafts }}
     {{- $pages = where $pages "Draft" false -}}
-  {{- end }}
-  {{- $paginator := .Paginate (sort $pages "Date" "desc") -}}
-  {{ if gt (len $paginator.Pages) 0 }}
-    <div class="post-grid">
-      {{ range $paginator.Pages }}
-        {{ $image := or .Params.image (or .Params.cover .Params.thumbnail) }}
-        {{ $summary := default .Summary .Params.summary }}
-        {{ $cleanSummary := replaceRE "\\s+" " " ($summary | plainify) }}
-        {{ $excerpt := cond (gt (len $cleanSummary) 0) ($cleanSummary | truncate 160) "" }}
-        {{ $alt := printf "%s cover image" .Title }}
+  {{- end -}}
 
-        <article class="post-card">
-          <a class="post-card__media" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
-            {{ with $image }}
-              <img src="{{ . }}" loading="lazy" decoding="async" alt="{{ $alt }}">
-            {{ else }}
-              <span class="post-card__placeholder" aria-hidden="true">{{ upper (substr .Title 0 1) }}</span>
-            {{ end }}
-          </a>
-          <div class="post-card__body">
-            <div class="post-card__meta">
-              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-            </div>
-            <h2 class="post-card__title">
-              <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-            </h2>
-            {{ if $excerpt }}
-              <p class="post-card__excerpt">{{ $excerpt }}</p>
-            {{ end }}
-            <a class="post-card__cta" href="{{ .RelPermalink }}">Read more →</a>
-          </div>
-        </article>
+  {{- $scratch := newScratch -}}
+  {{- $scratch.Set "list" $pages -}}
+  {{- if not $showDrafts -}}
+    {{- $scratch.Set "paginator" (.Paginate $pages) -}}
+    {{- $scratch.Set "list" (($scratch.Get "paginator").Pages) -}}
+  {{- end -}}
+
+  {{- $list := $scratch.Get "list" -}}
+  {{- $paginator := $scratch.Get "paginator" -}}
+
+  {{ if gt (len $list) 0 }}
+    <div class="post-grid">
+      {{ range $list }}
+        {{ partial "post/card.html" (dict "page" .) }}
       {{ end }}
     </div>
 
-    {{ if gt $paginator.TotalPages 1 }}
+    {{ if and (not $showDrafts) (gt $paginator.TotalPages 1) }}
       <nav class="post-pagination" aria-label="Pagination">
         {{ template "_internal/pagination.html" $paginator }}
       </nav>
