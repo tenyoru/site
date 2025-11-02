@@ -1,0 +1,45 @@
+@use "../theme" as *;
+
+body {
+  background-color: theme(bg);
+  color: theme(text);
+  width: 100%;
+  min-width: 20rem;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  color: theme(accent);
+}
+
+h1 {
+  margin-block: 1rem 0.5rem;
+}
+
+h2 {
+  margin-block: 0.85rem 0.4rem;
+}
+
+h1 + .section-rule,
+h2 + .section-rule {
+  margin-block-start: 0.5rem;
+}
+
+a {
+  color: theme(link);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid theme(accent);
+    outline-offset: 2px;
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,56 @@
+@use "sass:color";
+@use "../vars" as v;
+@use "../theme" as *;
+
+.container {
+  width: min(100%, var(--layout-header-width, min(100%, 72rem)));
+  box-sizing: border-box;
+  margin-inline: auto;
+  padding-inline: var(--layout-header-padding, v.$padding-inline);
+}
+
+.content {
+  max-width: v.content-width();
+  margin-inline: auto;
+  padding-block: 2rem;
+  padding-inline: v.$padding-inline;
+  box-sizing: border-box;
+  min-block-size: calc(100dvh - v.$header-height);
+}
+
+.relative {
+  position: relative;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.section-rule {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color.adjust(#7a1a1a, $alpha: -0.2) 40%,
+    transparent
+  );
+  max-inline-size: v.content-width();
+  margin: 1.25rem auto 0.75rem;
+}
+
+hr {
+  width: 100%;
+}

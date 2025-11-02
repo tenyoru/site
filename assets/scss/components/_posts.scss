@@ -1,0 +1,140 @@
+@use "../theme" as *;
+
+.section-head {
+  margin-block-end: clamp(1rem, 4vw, 2.5rem);
+  text-align: left;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin: 0;
+}
+
+.section-intro {
+  margin-block-start: 0.75rem;
+  max-width: clamp(32ch, 60vw, 60ch);
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.post-grid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  background: color-mix(in srgb, theme(bg) 85%, theme(card) 15%);
+  border: 1px solid color-mix(in srgb, theme(border) 80%, transparent);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+  height: 100%;
+}
+
+.post-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 50px rgba(0, 0, 0, 0.25);
+  border-color: color-mix(in srgb, theme(accent) 28%, theme(border) 72%);
+}
+
+.post-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(125, 76, 219, 0.35), rgba(34, 197, 94, 0.35));
+}
+
+.post-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 320ms ease;
+}
+
+.post-card:hover .post-card__media img {
+  transform: scale(1.05);
+}
+
+.post-card__placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  font-weight: 600;
+  color: color-mix(in srgb, theme(text) 72%, theme(bg) 28%);
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.35), rgba(14, 116, 144, 0.35));
+}
+
+.post-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+  padding: clamp(1rem, 3vw, 1.6rem);
+}
+
+.post-card__meta {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
+}
+
+.post-card__meta time {
+  font-variant-numeric: tabular-nums;
+}
+
+.post-card__title {
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.post-card__title a {
+  color: theme(text);
+  text-decoration: none;
+}
+
+.post-card__title a:hover {
+  color: theme(accent);
+}
+
+.post-card__excerpt {
+  margin: 0;
+  color: color-mix(in srgb, theme(text) 80%, theme(bg) 20%);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.post-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: theme(accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.post-card__cta:hover {
+  color: color-mix(in srgb, theme(accent) 75%, theme(text) 25%);
+}
+
+.post-pagination {
+  margin-block: clamp(2rem, 5vw, 3rem);
+}
+
+.post-empty {
+  color: color-mix(in srgb, theme(text) 70%, theme(bg) 30%);
+}
