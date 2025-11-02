@@ -71,11 +71,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-width: 6.5rem;
+  padding: 0.4rem 0.9rem;
 }
 .menu-toggle::-webkit-details-marker { display: none; }
 
 /* Toggle icons */
-.menu-open  { color: theme(accent); }
+.menu-toggle span {
+  min-width: 100%;
+  text-align: center;
+}
+
+.menu-open  { color: theme(accent); display: inline; }
 .menu-close { display: none; color: theme(accent); }
 .menu-mobile[open] .menu-open  { display: none; }
 .menu-mobile[open] .menu-close { display: inline; }
