@@ -9,7 +9,7 @@
 /* Header bar */
 .site-header {
   height: v.$header-height;
-  width: min(100%, 72rem);
+  width: var(--layout-header-width, min(100%, 72rem));
   margin-inline: auto;
   padding-inline: clamp(1rem, 4vw, 3rem);
   justify-content: space-between;
