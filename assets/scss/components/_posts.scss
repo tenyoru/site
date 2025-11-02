@@ -25,8 +25,7 @@
 }
 
 .post-card {
-  display: flex;
-  flex-direction: column;
+  display: block;
   background: color-mix(in srgb, theme(bg) 85%, theme(card) 15%);
   border: 1px solid color-mix(in srgb, theme(border) 80%, transparent);
   border-radius: 1.25rem;
@@ -45,9 +44,16 @@
   border-color: color-mix(in srgb, theme(accent) 28%, theme(border) 72%);
 }
 
+.post-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
 .post-card__media {
   position: relative;
-  display: block;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: linear-gradient(135deg, rgba(125, 76, 219, 0.35), rgba(34, 197, 94, 0.35));
@@ -80,7 +86,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  flex: 1;
   padding: clamp(1rem, 3vw, 1.6rem);
 }
 
@@ -101,34 +106,10 @@
   margin: 0;
 }
 
-.post-card__title a {
-  color: theme(text);
-  text-decoration: none;
-}
-
-.post-card__title a:hover {
-  color: theme(accent);
-}
-
 .post-card__excerpt {
   margin: 0;
   color: color-mix(in srgb, theme(text) 80%, theme(bg) 20%);
   line-height: 1.6;
-  flex: 1;
-}
-
-.post-card__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: theme(accent);
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 200ms ease;
-}
-
-.post-card__cta:hover {
-  color: color-mix(in srgb, theme(accent) 75%, theme(text) 25%);
 }
 
 .post-pagination {
