@@ -10,33 +10,35 @@
 
   {{- $pages := sort .RegularPages "Date" "desc" -}}
   {{- $showDrafts := or hugo.IsDevelopment .Site.BuildDrafts -}}
-  {{- if not $showDrafts }}
-    {{- $pages = where $pages "Draft" false -}}
-  {{- end -}}
 
-  {{- $scratch := newScratch -}}
-  {{- $scratch.Set "list" $pages -}}
-  {{- if not $showDrafts -}}
-    {{- $scratch.Set "paginator" (.Paginate $pages) -}}
-    {{- $scratch.Set "list" (($scratch.Get "paginator").Pages) -}}
-  {{- end -}}
-
-  {{- $list := $scratch.Get "list" -}}
-  {{- $paginator := $scratch.Get "paginator" -}}
-
-  {{ if gt (len $list) 0 }}
+  {{- if $showDrafts -}}
+    {{ if gt (len $pages) 0 }}
     <div class="post-grid">
-      {{ range $list }}
+      {{ range $pages }}
         {{ partial "post/card.html" (dict "page" .) }}
       {{ end }}
     </div>
 
-    {{ if and (not $showDrafts) (gt $paginator.TotalPages 1) }}
-      <nav class="post-pagination" aria-label="Pagination">
-        {{ template "_internal/pagination.html" $paginator }}
-      </nav>
+    {{ else }}
+      <p class="post-empty">No posts available yet. Check back soon!</p>
     {{ end }}
-  {{ else }}
-    <p class="post-empty">No posts available yet. Check back soon!</p>
-  {{ end }}
+  {{- else -}}
+    {{- $published := where $pages "Draft" false -}}
+    {{- if gt (len $published) 0 -}}
+      {{- $paginator := .Paginate $published -}}
+      <div class="post-grid">
+        {{ range $paginator.Pages }}
+          {{ partial "post/card.html" (dict "page" .) }}
+        {{ end }}
+      </div>
+
+      {{ if gt $paginator.TotalPages 1 }}
+        <nav class="post-pagination" aria-label="Pagination">
+          {{ template "_internal/pagination.html" $paginator }}
+        </nav>
+      {{ end }}
+    {{- else -}}
+      <p class="post-empty">No posts available yet. Check back soon!</p>
+    {{- end -}}
+  {{- end -}}
 {{ end }}
