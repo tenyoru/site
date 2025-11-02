@@ -8,8 +8,11 @@
     {{ end }}
   </header>
 
-  {{ $posts := where .RegularPages "Draft" false }}
-  {{ $paginator := .Paginate (sort $posts "Date" "desc") }}
+  {{- $pages := .RegularPages -}}
+  {{- if not hugo.IsDevelopment }}
+    {{- $pages = where $pages "Draft" false -}}
+  {{- end }}
+  {{- $paginator := .Paginate (sort $pages "Date" "desc") -}}
   {{ if gt (len $paginator.Pages) 0 }}
     <div class="post-grid">
       {{ range $paginator.Pages }}
