@@ -178,12 +178,12 @@ $ring-size-max: 65rem;
 
 .rings {
   position: relative;
-  --rings-size: clamp(
+  --rings-span: clamp(
     $ring-size-min,
     var(--layout-header-width, min(100%, 72rem)),
     $ring-size-max
   );
-  width: min(100%, var(--rings-size));
+  width: var(--rings-span);
   aspect-ratio: 1;
   margin-inline: auto;
   margin-block: clamp(1.5rem, 6vw, 4rem);
@@ -193,7 +193,7 @@ $ring-size-max: 65rem;
   transform: rotateX(68deg);
   filter: brightness(0.85);
 
-  --rings-border-base: clamp(3px, calc(var(--rings-size) / 48), 14px);
+  --rings-border-base: clamp(3px, calc(var(--rings-span) / 48), 12px);
 
   @for $i from 1 through $rings {
     $scale: $ring-scale-max - (($i - 1) * $ring-scale-step);
@@ -207,15 +207,5 @@ $ring-size-max: 65rem;
       transform-origin: center;
       z-index: $rings - $i;
     }
-  }
-}
-
-@supports (width: calc(min(100%, 72rem) - 2rem)) {
-  .rings {
-    width: clamp(
-      $ring-size-min,
-      calc(min(100%, 72rem) - (2 * clamp(1rem, 4vw, 3rem))),
-      $ring-size-max
-    );
   }
 }
