@@ -53,6 +53,13 @@
   outline: none;
 }
 
+.post-card__link:hover,
+.post-card__link:focus,
+.post-card__link:focus-visible {
+  text-decoration: none;
+  color: inherit;
+}
+
 .post-card__media {
   position: relative;
   aspect-ratio: 16 / 9;
