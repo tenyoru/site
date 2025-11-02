@@ -1,5 +1,6 @@
 @use "theme" as *;
 @use "sass:color";
+@use "sass:math";
 @use "components/menu";
 @use "vars" as v;
 
@@ -155,4 +156,40 @@ hr {
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition: none !important; }
+}
+
+/* --------- rings ------------ */
+$rings: 7;
+
+$base-scale: 0.5;
+$scale-multiplier: 1;
+$base-border: 15px;
+
+$color: rgba(210, 180, 140, 0.25);
+$base-size: clamp(200px, 35vw, 700px);
+
+
+.rings {
+  position: relative;
+  width: $base-size;
+  height: $base-size;
+  margin: 0 auto;
+
+  transform: rotateX(75deg);
+  filter: brightness(0.8);
+
+  @for $i from 1 through $rings {
+    $scale: math.pow($base-scale * $i, $scale-multiplier);
+    $border: $base-border / $scale;
+
+    .ring-#{$i} {
+      position: absolute;
+      inset: 0;
+      border: #{$border} solid $color;
+      border-radius: 50%;
+
+      transform: scale($scale);
+      transform-origin: center;
+    }
+  }
 }
