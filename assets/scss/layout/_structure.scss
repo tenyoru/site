@@ -16,7 +16,6 @@
   padding-inline: v.$padding-inline;
   box-sizing: border-box;
   min-block-size: calc(100dvh - v.$header-height);
-  position: relative;
 }
 
 .relative {
