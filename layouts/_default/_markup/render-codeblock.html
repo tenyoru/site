@@ -1,14 +1,4 @@
-{{- $scratch := newScratch -}}
-{{- $scratch.Set "lang" "text" -}}
-{{- with .Attributes -}}
-  {{- with index . "language" -}}
-    {{- $scratch.Set "lang" . -}}
-  {{- end -}}
-  {{- with index . "lang" -}}
-    {{- $scratch.Set "lang" . -}}
-  {{- end -}}
-{{- end -}}
-{{- $lang := $scratch.Get "lang" -}}
+{{- $lang := .Language | default "text" -}}
 {{- $options := dict "lineNos" false "tabWidth" 2 -}}
 {{- $highlighted := highlight .Inner $lang $options -}}
 {{- $id := printf "code-%s" (md5 .Inner) -}}
