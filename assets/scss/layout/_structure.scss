@@ -2,12 +2,9 @@
 @use "../vars" as v;
 @use "../theme" as *;
 
-.container {
-  width: min(100%, var(--layout-header-width, min(100%, 72rem)));
-  box-sizing: border-box;
-  margin-inline: auto;
-  padding-inline: var(--layout-header-padding, v.$padding-inline);
-}
+// .container {
+//   // width: min(100%, var(--layout-header-width, v.header-width()));
+// }
 
 .content {
   max-width: v.content-width();
@@ -28,6 +25,19 @@
 
 .flex-col {
   flex-direction: column;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 img,

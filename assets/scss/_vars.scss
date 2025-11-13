@@ -5,11 +5,11 @@
 }
 
 @function header-width() {
-  @return fluid-width(90%, 95ch); // header/footer
+  @return fluid-width(88%, 88ch, 64ch);
 }
 
 @function content-width() {
-  @return header-width(); // align main content with header span
+  @return fluid-width(84%, 76ch, 60ch);
 }
 
 $padding-inline: 1rem;
