@@ -147,6 +147,22 @@
   color: inherit;
   counter-increment: menu;
   text-align: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.75rem;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.menu-list a:hover,
+.menu-list a:focus-visible,
+.menu-list a:active {
+  text-decoration: none;
+  outline: none;
+  background-color: color-mix(in srgb, theme(accent) 15%, transparent);
+  color: theme(accent);
+}
+.menu-list a::selection {
+  background-color: color-mix(in srgb, theme(accent) 25%, transparent);
+  color: theme(bg);
 }
 .menu-list a::before {
   content: counter(menu, decimal-leading-zero) " ";
