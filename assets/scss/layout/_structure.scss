@@ -2,15 +2,25 @@
 @use "../vars" as v;
 @use "../theme" as *;
 
-// .container {
-//   // width: min(100%, var(--layout-header-width, v.header-width()));
-// }
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+  }
+}
 
 .content {
-  max-width: v.content-width();
-  margin-inline: auto;
+  // margin-inline: auto;
   padding-block: 2rem;
-  padding-inline: v.$padding-inline;
   box-sizing: border-box;
   min-block-size: calc(100dvh - v.$header-height);
 }
