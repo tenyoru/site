@@ -2,6 +2,43 @@ baseURL = 'https://tenyoru.github.io/'
 languageCode = 'en-us'
 title = 'Tenyoru'
 
+[params.contact.hero]
+title = "Let's build something together"
+body = "Have an idea you want to validate, need a hand improving a system, or just want to talk shop? Drop me a line and we'll take it from there."
+note = "I usually respond within one weekday."
+
+  [params.contact.hero.cta]
+  label = "Email me"
+  url = "mailto:hi@tenyoru.dev"
+
+[params.contact.contacts]
+heading = "Pick the channel that suits you"
+intro = "Every message lands in my personal inbox, so feel free to be detailed."
+
+  [[params.contact.contacts.items]]
+  label = "Email"
+  value = "hi@tenyoru.dev"
+  url = "mailto:hi@tenyoru.dev"
+  icon = "mail"
+
+  [[params.contact.contacts.items]]
+  label = "Matrix"
+  value = "@tenyoru:matrix.org"
+  url = "https://matrix.to/#/@tenyoru:matrix.org"
+  icon = "matrix"
+
+  [[params.contact.contacts.items]]
+  label = "Telegram"
+  value = "@tenyoru"
+  url = "https://t.me/tenyoru"
+  icon = "telegram"
+
+  [[params.contact.contacts.items]]
+  label = "WhatsApp"
+  value = "+34 680 555 123"
+  url = "https://wa.me/34680555123"
+  icon = "whatsapp"
+
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
