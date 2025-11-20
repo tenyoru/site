@@ -1,0 +1,132 @@
+@use "../theme" as *;
+@use "../vars" as v;
+
+.contact-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(1.5rem, 5vw, 2.75rem);
+  margin-block: clamp(1rem, 4vw, 2.5rem);
+  border-radius: 1.5rem;
+  border: 1px solid color-mix(in srgb, theme(border) 60%, transparent);
+  background: color-mix(in srgb, theme(card) 85%, theme(bg) 15%);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.contact-hero__body {
+  display: grid;
+  gap: 0.75rem;
+  color: color-mix(in srgb, theme(text) 92%, theme(bg) 8%);
+  line-height: 1.6;
+}
+
+.contact-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  text-decoration: none;
+  color: #0b0b0b;
+  background: theme(accent);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+  width: fit-content;
+}
+
+.contact-hero__cta:hover,
+.contact-hero__cta:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.contact-hero__note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, theme(text) 70%, theme(bg) 30%);
+}
+
+.contact-list-wrapper {
+  margin-block: clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.contact-list-wrapper h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+}
+
+.contact-list__intro {
+  margin: 0;
+  color: color-mix(in srgb, theme(text) 85%, theme(bg) 15%);
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: clamp(1rem, 3vw, 1.5rem) 0 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: v.mq(sm)) {
+  .contact-list {
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
+}
+
+.contact-list li {
+  display: flex;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid color-mix(in srgb, theme(border) 70%, transparent);
+  border-radius: 1rem;
+  background: color-mix(in srgb, theme(card) 88%, theme(bg) 12%);
+  align-items: center;
+}
+
+.contact-list__icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.9rem;
+  background: color-mix(in srgb, theme(border) 50%, transparent);
+  display: grid;
+  place-items: center;
+  color: theme(text);
+}
+
+.contact-list__icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+}
+
+.contact-list__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.contact-list__label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, theme(text) 65%, theme(bg) 35%);
+}
+
+.contact-list__body a {
+  font-weight: 600;
+  text-decoration: none;
+  color: color-mix(in srgb, theme(text) 95%, theme(bg) 5%);
+}
+
+.contact-list__body a:hover,
+.contact-list__body a:focus-visible {
+  color: theme(link-hover);
+}

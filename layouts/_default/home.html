@@ -9,14 +9,6 @@
     <div class="ring-6"></div>
     <div class="ring-7"></div>
   </div>
-  <div class="ff-wrap">
-    <img src="images/photo-dark.png" alt="Photo">
-    {{ with site.GetPage "page" "home/fastfetch" }}
-      <section class="ff-panel">
-        {{ .Content }}
-      </section>
-    {{ end }}
-  </div>
 
   {{ .Content }}
 {{ end }}

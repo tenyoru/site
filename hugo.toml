@@ -9,12 +9,12 @@ title = 'Tenyoru'
 [menus]
   [[menus.main]]
     name = 'Blog'
-    pageRef = '/posts'
+    pageRef = '/blog'
     weight = 10
 
   [[menus.main]]
-    name = 'Tags'
-    pageRef = '/tags'
+    name = 'Contact'
+    pageRef = '/Contact'
     weight = 20
 
 [security]

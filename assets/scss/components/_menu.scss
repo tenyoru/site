@@ -9,6 +9,12 @@
 }
 
 /* Header bar */
+.site-header-outer {
+  background: theme(bg);
+  box-shadow: 0 0.6rem 1.6rem color-mix(in srgb, #000 65%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, theme(border) 90%, transparent);
+}
+
 .site-header {
   height: v.$header-height;
   box-sizing: border-box;
@@ -110,7 +116,7 @@
 /* Fullscreen mobile panel */
 .menu-panel {
   position: fixed;
-  inset: v.$header-height 0 0 0;
+  inset: calc(v.$header-height + 1px) 0 0 0;
   display: flex;
   justify-content: center;
   pointer-events: none;

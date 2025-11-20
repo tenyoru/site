@@ -2,26 +2,31 @@
 @use "../vars" as v;
 @use "../theme" as *;
 
-.container {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 1rem;
-  padding-left: 1rem;
+.shell {
+  margin-inline: auto;
+  box-sizing: border-box;
+  padding: v.$padding-inline;
 }
 
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
-  }
+.shell--wide {
+  max-width: v.header-width()
+}
+
+
+.shell--narrow {
+  max-width: v.content-width()
+}
+
+.inner {
+  // display: flex;
+  justify-content: center; /* центрует содержимое по горизонтали */
+  align-items: center;     /* центрирует по вертикали */
+  width: 100%;
+  min-height: 80vh;
 }
 
 .content {
-  // margin-inline: auto;
   padding-block: 2rem;
-  box-sizing: border-box;
   min-block-size: calc(100dvh - v.$header-height);
 }
 
@@ -35,6 +40,11 @@
 
 .flex-col {
   flex-direction: column;
+}
+
+.page-title {
+  text-align: left;
+  margin-block-end: clamp(1rem, 3vw, 1.5rem);
 }
 
 .sr-only {
