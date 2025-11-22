@@ -9,12 +9,12 @@
         <time class="post-date" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
         <span class="post-readtime">{{ .ReadingTime }} min read</span>
       </div>
+
+      {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
     </header>
 
     <div class="post-content">
       {{ .Content }}
     </div>
-
-    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
   </article>
 {{ end }}

@@ -284,6 +284,49 @@
   color: color-mix(in srgb, theme(text) 55%, theme(bg) 45%);
 }
 
+.post-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.post-tags__label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
+}
+
+.post-tags__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.post-tags__list a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, theme(border) 60%, transparent);
+  text-decoration: none;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, theme(text) 70%, theme(bg) 30%);
+}
+
+.post-tags__list a:hover,
+.post-tags__list a:focus-visible {
+  color: theme(accent);
+  border-color: color-mix(in srgb, theme(accent) 30%, theme(border) 70%);
+}
+
 .post-content {
   width: 100%;
   margin: 0 auto;
