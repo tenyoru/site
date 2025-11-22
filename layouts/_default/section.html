@@ -1,6 +1,15 @@
 {{ define "main" }}
   <header class="section-head">
-    <h1 class="section-title">{{ .Title }}</h1>
+    <div class="section-title-row">
+      <h1 class="section-title">{{ .Title }}</h1>
+      {{- if and .IsSection (eq .Section "blog") -}}
+        {{- with .OutputFormats.Get "RSS" -}}
+          <a class="section-rss" href="{{ .RelPermalink }}" rel="alternate" aria-label="Subscribe to the blog RSS feed" title="RSS feed for {{ $.Title }}">
+            {{ partial "svg.html" "rss" }}
+          </a>
+        {{- end -}}
+      {{- end -}}
+    </div>
     {{ with .Content }}
       <div class="section-intro">
         {{ . }}
