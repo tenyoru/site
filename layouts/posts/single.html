@@ -5,7 +5,10 @@
 
       {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
       {{ $dateHuman := .Date | time.Format ":date_long" }}
-      <time class="post-date" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+      <div class="post-meta">
+        <time class="post-date" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+        <span class="post-readtime">{{ .ReadingTime }} min read</span>
+      </div>
     </header>
 
     <div class="post-content">
