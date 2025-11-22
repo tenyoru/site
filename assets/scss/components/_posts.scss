@@ -119,6 +119,15 @@
   font-variant-numeric: tabular-nums;
 }
 
+.post-card__readtime {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, theme(text) 50%, theme(bg) 50%);
+  margin-top: 0.15rem;
+}
+
 .post-card__excerpt {
   margin: 0;
   color: color-mix(in srgb, theme(text) 78%, theme(bg) 22%);

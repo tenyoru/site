@@ -13,6 +13,7 @@
     </h2>
     <div class="post-card__date">
       <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "Jan 2, 2006" }}</time>
+      <span class="post-card__readtime">{{ $page.ReadingTime }} min read</span>
     </div>
   </header>
   {{ if $excerpt }}
