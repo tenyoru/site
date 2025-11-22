@@ -1,9 +1,6 @@
 {{ define "main" }}
-  {{- $headClasses := (slice "section-head") -}}
-  {{- if and .IsSection (eq .Section "blog") -}}
-    {{- $headClasses = append $headClasses "section-head--center" -}}
-  {{- end -}}
-  <header class="{{ delimit $headClasses " " }}">
+  {{- $centerHead := and .IsSection (eq .Section "blog") -}}
+  <header class="section-head{{ if $centerHead }} section-head--center{{ end }}">
     <div class="section-title-row">
       <h1 class="section-title">{{ .Title }}</h1>
       {{- if and .IsSection (eq .Section "blog") -}}
