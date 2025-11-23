@@ -1,4 +1,3 @@
-@use "sass:color";
 @use "../vars" as v;
 @use "../theme" as *;
 
@@ -74,7 +73,7 @@ iframe {
   background: linear-gradient(
     90deg,
     transparent,
-    color.adjust(#7a1a1a, $alpha: -0.2) 40%,
+    theme(divider-glow) 40%,
     transparent
   );
   max-inline-size: v.content-width();

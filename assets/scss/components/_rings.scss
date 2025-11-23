@@ -6,7 +6,7 @@ $ring-scale-max: 1;
 $ring-scale-min: 0.3;
 $ring-scale-step: math.div($ring-scale-max - $ring-scale-min, $rings - 1);
 
-$ring-color: rgba(210, 180, 140, 0.25);
+$ring-color: theme(ring-border);
 $ring-size-min: 260px;
 $ring-size-max: 65rem;
 

@@ -10,7 +10,7 @@
   border-radius: 1.5rem;
   border: 1px solid color-mix(in srgb, theme(border) 60%, transparent);
   background: color-mix(in srgb, theme(card) 85%, theme(bg) 15%);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 20px 40px color-mix(in srgb, theme(shadow) 12%, transparent);
 }
 
 .contact-hero__body {
@@ -30,7 +30,7 @@
   border: 1px solid transparent;
   font-weight: 600;
   text-decoration: none;
-  color: #0b0b0b;
+  color: theme(accent-contrast);
   background: theme(accent);
   transition:
     transform 160ms ease,
@@ -41,7 +41,7 @@
 .contact-hero__cta:hover,
 .contact-hero__cta:focus-visible {
   transform: translateY(-1px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 30px color-mix(in srgb, theme(shadow) 20%, transparent);
 }
 
 .contact-hero__note {
