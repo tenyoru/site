@@ -50,9 +50,14 @@ intro = "Every message lands in my personal inbox, so feel free to be detailed."
     weight = 10
 
   [[menus.main]]
+    name = 'Tags'
+    pageRef = '/tags'
+    weight = 20
+
+  [[menus.main]]
     name = 'Contact'
     pageRef = '/Contact'
-    weight = 20
+    weight = 30
 
 [security]
   enableInlineShortcodes = true
