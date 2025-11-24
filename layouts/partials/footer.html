@@ -1,1 +1,20 @@
-<p>Copyright {{ now.Year }}. All rights reserved.</p>
+{{- $footer := site.Params.footer -}}
+<footer class="footer-inline">
+  {{ with site.Params.media }}
+    <div class="footer-inline__social">
+      {{ range . }}
+        <a href="{{ .url }}" target="_blank" rel="noopener me" aria-label="{{ .label }}">
+          {{ partial "svg.html" .icon }}
+          <span class="sr-only">{{ .label }}</span>
+        </a>
+      {{ end }}
+    </div>
+  {{ end }}
+  <div class="footer-inline__meta">
+    {{ with $footer.contactLink }}
+      <a href="{{ . | relLangURL }}">{{ or $footer.contactLabel "Contact" }}</a>
+      <span>•</span>
+    {{ end }}
+    <span>{{ or $footer.credits (printf "© %d %s" now.Year site.Title) }}</span>
+  </div>
+</footer>

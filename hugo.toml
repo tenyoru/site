@@ -5,7 +5,6 @@ title = 'Tenyoru'
 [params.contact.hero]
 title = "Let's build something together"
 body = "Have an idea you want to validate, need a hand improving a system, or just want to talk shop? Drop me a line and we'll take it from there."
-note = "I usually respond within one weekday."
 
   [params.contact.hero.cta]
   label = "Email me"
@@ -38,6 +37,26 @@ intro = "Every message lands in my personal inbox, so feel free to be detailed."
   value = "+34 680 555 123"
   url = "https://wa.me/34680555123"
   icon = "whatsapp"
+
+[[params.media]]
+label = "GitHub"
+url = "https://github.com/Tenyoru"
+icon = "github"
+
+[[params.media]]
+label = "Mastodon"
+url = "https://mastodon.social/@Tenyoru"
+icon = "mastodon"
+
+[[params.media]]
+label = "Telegram"
+url = "https://t.me/tenyoru"
+icon = "telegram"
+
+[params.footer]
+contactLink = "/contact"
+contactLabel = "Contact"
+credits = "© 2025 Tenyoru"
 
 [caches]
   [caches.images]
