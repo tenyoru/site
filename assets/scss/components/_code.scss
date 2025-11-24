@@ -11,9 +11,18 @@ $scrollbar-thumb-hover: color-mix(in srgb, theme(accent) 40%, theme(text) 60%);
 @mixin code-scrollbars {
   scrollbar-width: thin;
   scrollbar-color: #{$scrollbar-thumb} #{$scrollbar-track};
+  scrollbar-gutter: stable both-edges;
 
   &::-webkit-scrollbar {
     height: 1rem;
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar:horizontal {
+    height: 1rem;
+  }
+
+  &::-webkit-scrollbar:vertical {
     width: 1rem;
   }
 
@@ -30,6 +39,10 @@ $scrollbar-thumb-hover: color-mix(in srgb, theme(accent) 40%, theme(text) 60%);
 
   &::-webkit-scrollbar-thumb:hover {
     background: $scrollbar-thumb-hover;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: $scrollbar-track;
   }
 }
 

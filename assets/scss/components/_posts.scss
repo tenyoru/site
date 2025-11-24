@@ -1,4 +1,5 @@
 @use "../theme" as *;
+@use "./code" as code;
 
 .section-head {
   margin-block-end: clamp(1rem, 4vw, 2.5rem);
@@ -404,7 +405,7 @@
   padding: 1rem 1.25rem;
   border: 1px solid color-mix(in srgb, theme(border) 70%, transparent);
   border-radius: 1rem;
-  background: color-mix(in srgb, theme(card) 85%, theme(bg) 15%);
+  background: code.$code-bg;
   font-size: 0.95rem;
 }
 
