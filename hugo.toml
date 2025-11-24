@@ -82,3 +82,6 @@ credits = "© 2025 Tenyoru"
   enableInlineShortcodes = true
 [markup.goldmark.renderer]
 unsafe = true
+[markup.highlight]
+noClasses = false
+style = "monokai"

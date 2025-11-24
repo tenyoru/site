@@ -1,17 +1,53 @@
 @use "../theme" as *;
 
+$code-bg: color-mix(in srgb, theme(card) 80%, theme(bg) 20%);
+$code-border: color-mix(in srgb, theme(border) 60%, transparent);
+$code-color: color-mix(in srgb, theme(text) 96%, theme(bg) 4%);
+$code-padding: 1rem 1.25rem;
+
 .highlight,
-pre {
+pre:not(.chroma) {
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: pre;
-  border-radius: 0.5rem;
-  background: theme(bg-code);
-  color: theme(code);
+  border-radius: 0.9rem;
+  background: $code-bg;
+  border: 1px solid $code-border;
+  color: $code-color;
+  padding: $code-padding;
+  box-shadow: 0 10px 30px color-mix(in srgb, theme(shadow) 10%, transparent);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
-code {
+.highlight {
+  padding: 0;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: $code-padding;
+}
+
+:not(pre) > code {
   font-size: 0.9rem;
   line-height: 1.5;
+  background: $code-bg;
+  color: $code-color;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.35rem;
+  border: 1px solid $code-border;
+  font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.highlight code,
+pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
