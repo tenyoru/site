@@ -19,6 +19,8 @@
       {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
     </header>
 
+    {{ partial "post/toc.html" . }}
+
     <div class="post-content">
       {{ .Content }}
     </div>
