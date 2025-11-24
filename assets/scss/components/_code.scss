@@ -4,6 +4,34 @@ $code-bg: color-mix(in srgb, theme(card) 80%, theme(bg) 20%);
 $code-border: color-mix(in srgb, theme(border) 60%, transparent);
 $code-color: color-mix(in srgb, theme(text) 96%, theme(bg) 4%);
 $code-padding: 1rem 1.25rem;
+$scrollbar-track: color-mix(in srgb, theme(bg) 70%, theme(card) 30%);
+$scrollbar-thumb: color-mix(in srgb, theme(border) 40%, theme(text) 60%);
+$scrollbar-thumb-hover: color-mix(in srgb, theme(accent) 40%, theme(text) 60%);
+
+@mixin code-scrollbars {
+  scrollbar-width: thin;
+  scrollbar-color: #{$scrollbar-thumb} #{$scrollbar-track};
+
+  &::-webkit-scrollbar {
+    height: 1rem;
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-track;
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $scrollbar-thumb;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, theme(text) 15%, transparent);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $scrollbar-thumb-hover;
+  }
+}
 
 .highlight,
 pre:not(.chroma) {
@@ -20,6 +48,7 @@ pre:not(.chroma) {
   font-size: 0.95rem;
   line-height: 1.55;
   font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  @include code-scrollbars;
 }
 
 .highlight {
@@ -29,6 +58,7 @@ pre:not(.chroma) {
 .highlight pre {
   margin: 0;
   padding: $code-padding;
+  @include code-scrollbars;
 }
 
 :not(pre) > code {
