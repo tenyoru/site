@@ -401,11 +401,11 @@
 }
 
 .post-toc {
-  margin: 1.5rem 0;
-  padding: 1rem 1.25rem;
-  border: 1px solid color-mix(in srgb, theme(border) 70%, transparent);
-  border-radius: 1rem;
-  background: code.$code-bg;
+  margin: 1.25rem 0;
+  padding: 0.85rem 1rem;
+  border-left: 2px solid color-mix(in srgb, theme(accent) 35%, theme(border) 65%);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, theme(bg) 98%, theme(card) 2%);
   font-size: 0.95rem;
 }
 
@@ -419,6 +419,7 @@
   color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
   cursor: pointer;
   list-style: none;
+  padding: 0.2rem 0;
 }
 
 .post-toc__summary::-webkit-details-marker {
