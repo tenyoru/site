@@ -1,14 +1,15 @@
 {{ define "main" }}
-  <header class="section-head section-head--center">
-    <div class="section-title-row">
-      <h1 class="section-title">{{ .Title }}</h1>
-    </div>
-    {{ with .Content }}
-      <div class="section-intro">
-        {{ . }}
+  <article class="tags-panel">
+    <header class="section-head section-head--center">
+      <div class="section-title-row">
+        <h1 class="section-title">{{ .Title }}</h1>
       </div>
-    {{ end }}
-  </header>
+      {{ with .Content }}
+        <div class="section-intro">
+          {{ . }}
+        </div>
+      {{ end }}
+    </header>
 
   {{- $showDrafts := or hugo.IsDevelopment .Site.BuildDrafts -}}
   {{ if not $showDrafts }}
@@ -71,4 +72,5 @@
       <p class="post-empty">No tags found yet.</p>
     {{ end }}
   {{ end }}
+  </article>
 {{ end }}
