@@ -16,7 +16,7 @@ For a given taxonomy, renders a list of terms assigned to the page.
     <span class="post-tags__label">{{ $label }}:</span>
     <ul class="post-tags__list">
       {{- range . }}
-        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+        <li><a href="{{ .RelPermalink }}">{{ .Term }}</a></li>
       {{- end }}
     </ul>
   </div>
