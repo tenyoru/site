@@ -231,6 +231,11 @@
   text-decoration: none;
 }
 
+.term-list__link:hover,
+.term-list__link:focus-visible {
+  text-decoration: none;
+}
+
 .term-list__name {
   font-weight: 600;
   font-size: 0.85rem;
