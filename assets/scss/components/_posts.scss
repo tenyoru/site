@@ -523,3 +523,13 @@
   padding-inline-start: 1.25rem;
   list-style-position: outside;
 }
+
+.post-content img,
+.post-content video,
+.post-content iframe {
+  border-radius: 0.75rem;
+  margin: 1.5rem auto;
+  width: 100%;
+  height: auto;
+  display: block;
+}
