@@ -218,27 +218,26 @@
 }
 
 .term-list li {
+  list-style: none;
+}
+
+.term-list__link {
   @include tag-pill;
   @include tag-pill-hover;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   padding-inline: 0.95rem;
-  font-size: 0.78rem;
-  gap: 0.4rem;
+  text-decoration: none;
 }
 
-.term-list a {
-  color: inherit;
-  text-decoration: none;
+.term-list__name {
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 
-.term-list a:hover,
-.term-list a:focus-visible {
-  text-decoration: none;
-}
-
-.term-list span {
-  font-size: 0.7rem;
+.term-list__count {
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: color-mix(in srgb, theme(text) 55%, theme(bg) 45%);

@@ -16,8 +16,10 @@
       <ul class="term-list">
         {{ range . }}
           <li>
-            <a href="{{ .Page.RelPermalink }}">{{ .Term }}</a>
-            <span>{{ .Count }} Posts</span>
+            <a class="term-list__link" href="{{ .Page.RelPermalink }}">
+              <span class="term-list__name">{{ .Term }}</span>
+              <span class="term-list__count">{{ .Count }} Posts</span>
+            </a>
           </li>
         {{ end }}
       </ul>
@@ -57,8 +59,10 @@
           {{- $count := $scratch.Get $countKey | default 0 -}}
           {{- if gt $count 0 }}
             <li>
-              <a href="{{ (printf "/tags/%s" $slug) | relLangURL }}">{{ $tagName }}</a>
-              <span>{{ $count }} Posts</span>
+              <a class="term-list__link" href="{{ (printf "/tags/%s" $slug) | relLangURL }}">
+                <span class="term-list__name">{{ $tagName }}</span>
+                <span class="term-list__count">{{ $count }} Posts</span>
+              </a>
             </li>
           {{- end -}}
         {{ end }}
