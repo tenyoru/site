@@ -309,16 +309,19 @@
 .post-meta {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   flex-wrap: wrap;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, theme(text) 55%, theme(bg) 45%);
 }
 
 .post-date {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.9rem;
-  color: color-mix(in srgb, theme(text) 65%, theme(bg) 35%);
+  font-size: inherit;
+  color: inherit;
 }
 
 .post-date time {
@@ -328,11 +331,11 @@
 .post-readtime {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: color-mix(in srgb, theme(text) 55%, theme(bg) 45%);
+  gap: 0.25rem;
+  font-size: inherit;
+  text-transform: none;
+  letter-spacing: inherit;
+  color: inherit;
 }
 
 .post-readtime span {
@@ -341,19 +344,22 @@
 
 .clock-icon,
 .date-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 0.8rem;
+  height: 0.8rem;
   flex-shrink: 0;
+  color: color-mix(in srgb, theme(text) 45%, theme(bg) 55%);
 }
 
 .clock-icon {
   fill: none;
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 1.5;
 }
 
 .date-icon {
-  fill: currentColor;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
 }
 
 .post-tags {
