@@ -252,11 +252,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, theme(border) 70%, transparent);
-  background-color: color-mix(in srgb, theme(bg) 95%, theme(card) 5%);
-  color: color-mix(in srgb, theme(text) 90%, theme(bg) 10%);
+  border: 1px solid color-mix(in srgb, theme(border) 75%, transparent);
+  background-color: color-mix(in srgb, theme(bg) 85%, theme(card) 15%);
+  box-shadow: 0 0.6rem 1.5rem color-mix(in srgb, theme(shadow) 8%, transparent);
+  color: color-mix(in srgb, theme(text) 92%, theme(bg) 8%);
   text-decoration: none;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
@@ -264,7 +265,7 @@
 .term-back__link:hover,
 .term-back__link:focus-visible {
   color: theme(accent);
-  border-color: color-mix(in srgb, theme(accent) 30%, theme(border) 70%);
+  border-color: color-mix(in srgb, theme(accent) 35%, theme(border) 65%);
 }
 
 .term-back__icon {
