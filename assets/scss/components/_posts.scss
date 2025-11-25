@@ -414,11 +414,11 @@
 
 .post-toc {
   margin: 0.75rem 0 0.5rem;
-  padding: 0.85rem 1rem;
-  border-left: 2px solid color-mix(in srgb, theme(accent) 35%, theme(border) 65%);
-  border-radius: 0.5rem;
-  background: color-mix(in srgb, theme(bg) 98%, theme(card) 2%);
-  font-size: 0.95rem;
+  padding: 0.65rem 0.85rem;
+  border-left: 2px solid color-mix(in srgb, theme(accent) 30%, theme(border) 70%);
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, theme(bg) 97%, theme(card) 3%);
+  font-size: 0.9rem;
 }
 
 .post-toc__summary {
