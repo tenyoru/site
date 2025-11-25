@@ -488,7 +488,8 @@
 .post-content {
   width: 100%;
   margin: 0 auto;
-  line-height: 1.7;
+  line-height: 1.75;
+  color: color-mix(in srgb, theme(text) 90%, theme(bg) 10%);
 }
 
 .post-content > :first-child {
