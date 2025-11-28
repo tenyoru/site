@@ -19,7 +19,7 @@
 
         {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
 
-        {{ with .Description }}
+        {{ with .Summary }}
           <p class="post-description">{{ . }}</p>
         {{ end }}
       </header>
