@@ -63,6 +63,19 @@ contactLink = "/contact"
 contactLabel = "Contact"
 credits = "© 2025 Tenyoru"
 
+[params.giscus]
+repo = "tenyoru/Tenyoru.github.io"
+repoID = "R_kgDOP75SYA"
+category = "Announcements"
+categoryID = "DIC_kwDOP75SYM4CwgqS"
+mapping = "pathname"
+strict = "0"
+reactionsEnabled = "1"
+emitMetadata = "0"
+inputPosition = "bottom"
+theme = "preferred_color_scheme"
+lang = "en"
+
 [caches]
   [caches.images]
     dir = ':cacheDir/images'

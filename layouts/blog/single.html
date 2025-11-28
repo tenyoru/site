@@ -29,6 +29,8 @@
       <div class="post-content">
         {{ .Content }}
       </div>
+
+      {{ partial "post/comments.html" . }}
     </div>
   </article>
 {{ end }}
