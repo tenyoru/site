@@ -399,6 +399,13 @@
   @include tag-pill-hover;
 }
 
+.post-description {
+  margin-top: 0.85rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, theme(text) 80%, theme(bg) 20%);
+}
+
 .post-toc {
   margin: 0.75rem 0 0.5rem;
   padding: 0.65rem 0.85rem;

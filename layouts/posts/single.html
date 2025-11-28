@@ -18,6 +18,10 @@
         </div>
 
         {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+
+        {{ with .Description }}
+          <p class="post-description">{{ . }}</p>
+        {{ end }}
       </header>
 
       {{ partial "post/toc.html" . }}
