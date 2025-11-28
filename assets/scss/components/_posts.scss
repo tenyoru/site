@@ -419,6 +419,9 @@
   cursor: pointer;
   list-style: none;
   padding: 0.2rem 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 .post-toc__summary::-webkit-details-marker {
