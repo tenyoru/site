@@ -1,4 +1,4 @@
-const storageKey = `toc-state:${window.location.pathname}`;
+const storageKey = "toc-state";
 
 const safeStorage = (() => {
   try {
