@@ -40,17 +40,17 @@ intro = "Every message lands in my personal inbox, so feel free to be detailed."
 
 [[params.media]]
 label = "GitHub"
-url = "https://github.com/Tenyoru"
+url = "https://github.com/tenyoru"
 icon = "github"
 
 [[params.media]]
 label = "Codeberg"
-url = "https://codeberg.org/Tenyoru"
+url = "https://codeberg.org/tenyoru"
 icon = "codeberg"
 
 [[params.media]]
 label = "Mastodon"
-url = "https://metalhead.club/@Tenyoru"
+url = "https://metalhead.club/@tenyoru"
 icon = "mastodon"
 
 [[params.media]]
