@@ -16,14 +16,14 @@ intro = "Every message lands in my personal inbox, so feel free to be detailed."
 
   [[params.contact.contacts.items]]
   label = "Email"
-  value = "hi@tenyoru.dev"
-  url = "mailto:hi@tenyoru.dev"
+  value = "mail@tenyoru.io"
+  url = "mailto:mail@tenyoru.io"
   icon = "mail"
 
   [[params.contact.contacts.items]]
   label = "Matrix"
-  value = "@tenyoru:matrix.org"
-  url = "https://matrix.to/#/@tenyoru:matrix.org"
+  value = "@a:tenyoru.io"
+  url = "https://matrix.to/#/@a:tenyoru.io"
   icon = "matrix"
 
   [[params.contact.contacts.items]]
