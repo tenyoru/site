@@ -11,6 +11,8 @@
     </div>
   {{ end }}
   <div class="footer-inline__meta">
+    <a href="{{ "/" | relLangURL }}">Home</a>
+    <span>•</span>
     {{ with $footer.contactLink }}
       <a href="{{ . | relLangURL }}">{{ or $footer.contactLabel "Contact" }}</a>
       <span>•</span>
