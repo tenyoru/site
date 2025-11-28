@@ -44,8 +44,13 @@ url = "https://github.com/Tenyoru"
 icon = "github"
 
 [[params.media]]
+label = "Codeberg"
+url = "https://codeberg.org/Tenyoru"
+icon = "codeberg"
+
+[[params.media]]
 label = "Mastodon"
-url = "https://mastodon.social/@Tenyoru"
+url = "https://metalhead.club/@Tenyoru"
 icon = "mastodon"
 
 [[params.media]]
