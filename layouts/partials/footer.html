@@ -12,10 +12,12 @@
   {{ end }}
   {{ with site.Menus.main }}
     <div class="footer-inline__meta">
-      {{ $last := sub (len .) 1 }}
-      {{ range $index, $entry := . }}
+      <a href="{{ "/" | relLangURL }}">Home</a>
+      {{ if gt (len .) 0 }}<span>•</span>{{ end }}
+      {{ $total := len . }}
+      {{ range $index, $entry := (reverse .) }}
         <a href="{{ $entry.URL }}">{{ $entry.Name }}</a>
-        {{ if lt $index $last }}
+        {{ if lt (add $index 1) $total }}
           <span>•</span>
         {{ end }}
       {{ end }}
