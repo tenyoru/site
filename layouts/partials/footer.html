@@ -19,7 +19,7 @@
       {{ range $i, $n := seq (sub $count 1) 0 }}
         {{ $entry := index $menu $n }}
         <a href="{{ $entry.URL }}">{{ $entry.Name }}</a>
-        {{ if lt (add $n 1) $count }}
+        {{ if gt $n 0 }}
           <span>•</span>
         {{ end }}
       {{ end }}
