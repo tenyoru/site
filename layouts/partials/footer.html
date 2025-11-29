@@ -10,14 +10,16 @@
       {{ end }}
     </div>
   {{ end }}
-  {{ with site.Menus.main }}
+  {{ $menu := site.Menus.main }}
+  {{ with $menu }}
     <div class="footer-inline__meta">
       <a href="{{ "/" | relLangURL }}">Home</a>
       {{ if gt (len .) 0 }}<span>•</span>{{ end }}
-      {{ $total := len . }}
-      {{ range $index, $entry := (reverse .) }}
+      {{ $count := len . }}
+      {{ range $i, $n := seq (sub $count 1) 0 }}
+        {{ $entry := index $menu $n }}
         <a href="{{ $entry.URL }}">{{ $entry.Name }}</a>
-        {{ if lt (add $index 1) $total }}
+        {{ if lt (add $n 1) $count }}
           <span>•</span>
         {{ end }}
       {{ end }}
