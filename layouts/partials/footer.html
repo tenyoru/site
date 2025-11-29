@@ -10,15 +10,18 @@
       {{ end }}
     </div>
   {{ end }}
-  <div class="footer-inline__meta">
-    {{ with $footer.contactLink }}
-      <a href="{{ . | relLangURL }}">{{ or $footer.contactLabel "Contact" }}</a>
-      <span>•</span>
-    {{ end }}
-    <a href="{{ "/" | relLangURL }}">Home</a>
-    <span>•</span>
-    <a href="{{ "/blog/" | relLangURL }}">Blog</a>
-    <span>•</span>
-    <span>{{ or $footer.credits (printf "© %d %s" now.Year site.Title) }}</span>
+  {{ with site.Menus.main }}
+    <div class="footer-inline__meta">
+      {{ $last := sub (len .) 1 }}
+      {{ range $index, $entry := . }}
+        <a href="{{ $entry.URL }}">{{ $entry.Name }}</a>
+        {{ if lt $index $last }}
+          <span>•</span>
+        {{ end }}
+      {{ end }}
+    </div>
+  {{ end }}
+  <div class="footer-inline__meta footer-inline__branding">
+    {{ or $footer.credits (printf "© %d %s" now.Year site.Title) }}
   </div>
 </footer>
