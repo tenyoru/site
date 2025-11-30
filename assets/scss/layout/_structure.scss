@@ -126,7 +126,7 @@ hr {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: color-mix(in srgb, var(--text-subtle) 85%, var(--text-base) 15%);
+  color: var(--text-muted-strong);
 }
 
 .footer-inline__list {
@@ -182,7 +182,7 @@ hr {
 
 .footer-inline__branding {
   text-align: left;
-  color: color-mix(in srgb, var(--text-subtle) 85%, var(--text-base) 15%);
+  color: var(--text-muted-strong);
 }
 .footer-inline__theme {
   display: flex;
