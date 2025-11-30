@@ -2,7 +2,7 @@
 
 $code-bg: color-mix(in srgb, theme(card) 65%, theme(bg) 35%);
 $code-border: color-mix(in srgb, theme(border) 60%, transparent);
-$code-color: color-mix(in srgb, theme(text) 98%, theme(bg) 2%);
+$code-color: theme(code);
 $code-padding: 1rem 1.25rem;
 $scrollbar-track: color-mix(in srgb, theme(bg) 70%, theme(card) 30%);
 $scrollbar-thumb: color-mix(in srgb, theme(border) 40%, theme(text) 60%);
