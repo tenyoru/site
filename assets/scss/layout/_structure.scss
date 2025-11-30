@@ -84,6 +84,11 @@ hr {
   width: 100%;
 }
 
+.footer-shell {
+  background: color-mix(in srgb, theme(card) 85%, theme(bg) 15%);
+  border-top: 1px solid color-mix(in srgb, theme(border) 70%, transparent);
+}
+
 .footer-inline {
   padding-block: 2rem;
   display: flex;
