@@ -11,8 +11,8 @@
 /* Header bar */
 .site-header-outer {
   background: theme(bg);
-  box-shadow: 0 0.4rem 1.4rem color-mix(in srgb, theme(shadow) 35%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, theme(border) 85%, transparent);
+  box-shadow: 0 0.4rem 1.4rem color-mix(in srgb, theme(shadow) 25%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, theme(border) 95%, theme(bg) 5%);
 }
 
 .site-header {
