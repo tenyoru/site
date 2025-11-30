@@ -21,17 +21,8 @@
   box-shadow: 0 0 0 2px color-mix(in srgb, theme(accent) 35%, transparent);
 }
 
-.theme-toggle__icon {
-  display: none;
-}
-
-:root:not([data-theme]),
-:root[data-theme="dark"] {
-  .theme-toggle__icon--moon {
-    display: inline-flex;
-  }
-}
-
-:root[data-theme="light"] .theme-toggle__icon--sun {
-  display: inline-flex;
+.theme-toggle svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: currentColor;
 }
