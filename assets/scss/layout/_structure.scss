@@ -207,8 +207,9 @@ hr {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  color: color-mix(in srgb, theme(text) 80%, theme(bg) 20%);
+  color: theme(accent);
   text-decoration: none;
+  font-weight: 600;
 }
 
 .footer-inline__contacts a:hover,
