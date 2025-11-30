@@ -186,8 +186,9 @@ hr {
 }
 .footer-inline__theme {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
   flex: 0 0 auto;
   align-self: flex-start;
+  padding-top: 0.1rem;
 }
