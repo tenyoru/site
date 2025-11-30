@@ -187,3 +187,8 @@ hr {
   color: theme(link-hover);
   outline: none;
 }
+
+.footer-inline__branding {
+  text-align: left;
+  color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
+}
