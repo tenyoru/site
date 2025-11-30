@@ -10,7 +10,7 @@
 
 /* Header bar */
 .site-header-outer {
-  background: color-mix(in srgb, theme(card) 85%, theme(bg) 15%);
+  background: theme(bg);
   box-shadow: 0 0.6rem 1.6rem color-mix(in srgb, theme(shadow) 65%, transparent);
   border-bottom: 1px solid color-mix(in srgb, theme(border) 90%, transparent);
 }
