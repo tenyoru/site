@@ -4,7 +4,7 @@
 {{- $excerpt := cond (gt (len $cleanSummary) 0) ($cleanSummary | truncate 200) "" -}}
 {{- $tags := $page.Params.tags -}}
 
-<article class="post-card">
+<article class="post-card" role="link" tabindex="0" aria-label="Read {{ $page.Title }}" data-card-link="{{ $page.RelPermalink }}">
   <header class="post-card__head">
     <h2 class="post-card__title">
       <a class="post-card__title-link" href="{{ $page.RelPermalink }}" aria-label="{{ $page.Title }}">
