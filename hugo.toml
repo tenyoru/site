@@ -75,6 +75,8 @@ emitMetadata = "0"
 inputPosition = "bottom"
 theme = "preferred_color_scheme"
 lang = "en"
+themeLight = "light"
+themeDark = "dark"
 
 [caches]
   [caches.images]
