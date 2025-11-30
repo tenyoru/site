@@ -13,16 +13,21 @@ body {
 h1,
 h2,
 h3 {
-  color: var(--text-heading);
   font-weight: 600;
 }
 
 h1 {
   margin-block: 1rem 0.5rem;
+  color: var(--heading-primary);
 }
 
 h2 {
   margin-block: 0.85rem 0.4rem;
+  color: var(--heading-secondary);
+}
+
+h3 {
+  color: var(--heading-tertiary);
 }
 
 h1 + .section-rule,
