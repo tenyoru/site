@@ -51,14 +51,14 @@
   align-items: center;
 }
 .menu-desktop a {
-  color: var(--text-heading);
+  color: var(--heading-secondary);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 500;
 }
 .menu-desktop a:hover,
 .menu-desktop a:focus-visible {
-  color: var(--text-highlight);
+  color: var(--heading-tertiary);
   outline: none;
 }
 

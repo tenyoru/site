@@ -65,7 +65,7 @@
 .section-title {
   font-size: clamp(2rem, 4vw, 2.75rem);
   margin: 0;
-  color: var(--text-heading);
+  color: var(--heading-primary);
 }
 
 .section-title-row {
@@ -161,7 +161,7 @@
   margin: 0;
   font-size: clamp(1.15rem, 3vw, 1.45rem);
   line-height: 1.25;
-  color: var(--text-heading);
+  color: var(--heading-secondary);
 }
 
 .post-card__title-link {
@@ -171,7 +171,7 @@
 
 .post-card__title-link:hover,
 .post-card__title-link:focus-visible {
-  color: var(--text-highlight);
+  color: var(--heading-tertiary);
   text-decoration: none;
 }
 
