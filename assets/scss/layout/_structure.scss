@@ -192,7 +192,9 @@ hr {
   text-align: left;
   color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
 }
-.footer-inline__theme-toggle {
+.footer-inline__theme {
   margin-left: auto;
-  align-self: flex-start;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
