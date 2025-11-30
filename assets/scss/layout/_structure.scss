@@ -93,16 +93,57 @@ hr {
   padding-block: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1.5rem;
   font-size: 0.95rem;
   color: color-mix(in srgb, theme(text) 75%, theme(bg) 25%);
   text-align: center;
 }
 
+.footer-inline__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.footer-inline__col {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-inline__heading {
+  margin: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
+}
+
+.footer-inline__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer-inline__links a {
+  color: theme(accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-inline__links a:hover,
+.footer-inline__links a:focus-visible {
+  color: theme(link-hover);
+  outline: none;
+}
+
 .footer-inline__social {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.9rem;
 }
 
