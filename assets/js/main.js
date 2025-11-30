@@ -12,6 +12,25 @@ const safeStorage = (() => {
   }
 })();
 
+const setGiscusTheme = (theme) => {
+  const iframe = document.querySelector("iframe.giscus-frame");
+  const script = document.querySelector("[data-giscus-script]");
+  if (!iframe || !script) return;
+  const lightTheme = script.dataset.themeLight || "light";
+  const darkTheme = script.dataset.themeDark || "dark";
+  const desired = theme === "light" ? lightTheme : darkTheme;
+  iframe.contentWindow?.postMessage(
+    {
+      giscus: {
+        setConfig: {
+          theme: desired,
+        },
+      },
+    },
+    "https://giscus.app"
+  );
+};
+
 const applyTheme = (theme) => {
   const resolved = theme === "light" ? "light" : "dark";
   document.documentElement.dataset.theme = resolved;
@@ -21,6 +40,7 @@ const applyTheme = (theme) => {
     "aria-label",
     resolved === "light" ? "Switch to dark theme" : "Switch to light theme"
   );
+  setGiscusTheme(resolved);
 };
 
 const initTheme = () => {
@@ -43,6 +63,23 @@ document.addEventListener("DOMContentLoaded", () => {
       applyTheme(next);
       safeStorage?.setItem(THEME_STORAGE_KEY, next);
     });
+  }
+
+  const syncGiscusOnLoad = () => {
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (!iframe) return false;
+    iframe.addEventListener("load", () => {
+      const current = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+      setGiscusTheme(current);
+    });
+    return true;
+  };
+
+  if (!syncGiscusOnLoad()) {
+    const observer = new MutationObserver(() => {
+      if (syncGiscusOnLoad()) observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 
   const toc = document.querySelector("[data-post-toc]");
