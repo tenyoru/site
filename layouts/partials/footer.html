@@ -3,7 +3,7 @@
   <div class="footer-inline__top">
     <div class="footer-inline__row">
       <div class="footer-inline__col">
-        <h3 class="footer-inline__heading">Navigation</h3>
+        <h2 class="footer-inline__heading">Navigation</h2>
         <div class="footer-inline__list">
           <a href="{{ "/" | relLangURL }}">Home</a>
           {{ with site.Menus.main }}
@@ -15,7 +15,7 @@
       </div>
       {{ with site.Params.media }}
         <div class="footer-inline__col">
-          <h3 class="footer-inline__heading">Media</h3>
+          <h2 class="footer-inline__heading">Media</h2>
           <div class="footer-inline__list">
             {{ range . }}
               <a href="{{ .url }}" target="_blank" rel="noopener me" aria-label="{{ .label }}">
@@ -28,7 +28,7 @@
       {{ end }}
       {{ with site.Params.contact.contacts }}
         <div class="footer-inline__col footer-inline__col--contact">
-          <h3 class="footer-inline__heading">Contact me</h3>
+          <h2 class="footer-inline__heading">Contact me</h2>
           <div class="footer-inline__list">
             {{ range .items }}
               <a href="{{ .url }}">

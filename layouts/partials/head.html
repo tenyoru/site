@@ -1,6 +1,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+{{- $desc := "" -}}
+{{- with .Description }}{{ $desc = . }}{{ end -}}
+{{- if not $desc }}{{ with .Params.description }}{{ $desc = . }}{{ end }}{{ end -}}
+{{- if not $desc }}{{ with .Summary }}{{ $desc = . }}{{ end }}{{ end -}}
+{{- if not $desc }}{{ with site.Params.description }}{{ $desc = . }}{{ end }}{{ end -}}
+{{- if not $desc }}{{ $desc = site.Title }}{{ end -}}
+{{- $desc = $desc | plainify | htmlEscape | truncate 160 -}}
+<meta name="description" content="{{ $desc }}">
 <script>
   (function () {
     try {
