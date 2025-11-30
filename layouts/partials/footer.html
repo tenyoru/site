@@ -10,21 +10,13 @@
       {{ end }}
     </div>
   {{ end }}
-  {{ $menu := site.Menus.main }}
-  {{ with $menu }}
-    <div class="footer-inline__meta">
-      <a href="{{ "/" | relLangURL }}">Home</a>
-      {{ if gt (len .) 0 }}<span>•</span>{{ end }}
-      {{ $count := len . }}
-      {{ range $i, $n := seq (sub $count 1) 0 }}
-        {{ $entry := index $menu $n }}
-        <a href="{{ $entry.URL }}">{{ $entry.Name }}</a>
-        {{ if gt $n 0 }}
-          <span>•</span>
-        {{ end }}
-      {{ end }}
-    </div>
-  {{ end }}
+  <div class="footer-inline__meta">
+    <a href="{{ "/contact/" | relLangURL }}">Contact</a>
+    <span>•</span>
+    <a href="{{ "/" | relLangURL }}">Home</a>
+    <span>•</span>
+    <a href="{{ "/blog/" | relLangURL }}">Blog</a>
+  </div>
   <div class="footer-inline__meta footer-inline__branding">
     {{ or $footer.credits (printf "© %d %s" now.Year site.Title) }}
   </div>

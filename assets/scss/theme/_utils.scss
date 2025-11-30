@@ -17,23 +17,16 @@
 // Default theme + prepare UA color-scheme hint
 :root {
   @include emit-theme-vars(map.get(c.$themes, c.$default-theme));
-  // color-scheme: light dark; // support both light and dark UA themes
-  color-scheme: dark;
+  color-scheme: #{if(c.$default-theme == light, light, dark)};
 }
 
-// // Automatic selection: if the user explicitly prefers a light theme — switch :root to light
-// @media (prefers-color-scheme: light) {
-//   :root {
-//     @include emit-theme-vars(map.get(c.$themes, light));
-//   }
-// }
-
-// // Generate [data-theme="name"] blocks for each theme
-// @each $name, $map in c.$themes {
-//   [data-theme="#{$name}"] {
-//     @include emit-theme-vars($map);
-//   }
-// }
+// Generate [data-theme="name"] blocks for each theme
+@each $name, $map in c.$themes {
+  :root[data-theme="#{$name}"] {
+    @include emit-theme-vars($map);
+    color-scheme: #{if($name == light, light, dark)};
+  }
+}
 
 // Optional: smoother switch
 .theme-transition * {
