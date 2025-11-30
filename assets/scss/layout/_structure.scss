@@ -197,3 +197,28 @@ hr {
   display: flex;
   align-items: flex-start;
 }
+.footer-inline__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer-inline__contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: color-mix(in srgb, theme(text) 80%, theme(bg) 20%);
+  text-decoration: none;
+}
+
+.footer-inline__contacts a:hover,
+.footer-inline__contacts a:focus-visible {
+  color: theme(link-hover);
+  outline: none;
+}
+
+.footer-inline__contacts svg {
+  width: 1rem;
+  height: 1rem;
+  color: currentColor;
+}

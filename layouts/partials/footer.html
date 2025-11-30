@@ -25,6 +25,19 @@
         </div>
       </div>
     {{ end }}
+    {{ with site.Params.contact.contacts }}
+      <div class="footer-inline__col">
+        <h3 class="footer-inline__heading">Contact me</h3>
+        <div class="footer-inline__contacts">
+          {{ range .items }}
+            <a href="{{ .url }}">
+              {{ if .icon }}{{ partial "svg.html" .icon }}{{ end }}
+              <span>{{ or .value .label }}</span>
+            </a>
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
     <div class="footer-inline__theme">
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">
         {{ partial "svg.html" "theme-mode" }}
