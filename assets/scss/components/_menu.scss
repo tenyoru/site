@@ -36,7 +36,7 @@
   font-weight: 700;
 }
 .site-title a {
-  color: var(--heading-primary);
+  color: var(--text-highlight);
   text-decoration: none;
 }
 
@@ -51,14 +51,14 @@
   align-items: center;
 }
 .menu-desktop a {
-  color: var(--heading-primary);
+  color: var(--text-heading);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 500;
 }
 .menu-desktop a:hover,
 .menu-desktop a:focus-visible {
-  color: var(--heading-tertiary);
+  color: var(--text-highlight);
   outline: none;
 }
 
