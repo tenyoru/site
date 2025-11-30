@@ -71,12 +71,13 @@ const loadGiscus = () => {
 const applyTheme = (theme) => {
   const resolved = theme === "light" ? "light" : "dark";
   document.documentElement.dataset.theme = resolved;
-  const toggle = document.querySelector("[data-theme-toggle]");
-  if (!toggle) return;
-  toggle.setAttribute(
-    "aria-label",
-    resolved === "light" ? "Switch to dark theme" : "Switch to light theme"
-  );
+  const toggles = document.querySelectorAll("[data-theme-toggle]");
+  toggles.forEach((toggle) => {
+    toggle.setAttribute(
+      "aria-label",
+      resolved === "light" ? "Switch to dark theme" : "Switch to light theme"
+    );
+  });
   setGiscusTheme(resolved);
 };
 
@@ -93,15 +94,15 @@ const initTheme = () => {
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   loadGiscus();
-  const themeToggle = document.querySelector("[data-theme-toggle]");
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
+  const themeToggles = document.querySelectorAll("[data-theme-toggle]");
+  themeToggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
       const current = getCurrentTheme();
       const next = current === "light" ? "dark" : "light";
       applyTheme(next);
       safeStorage?.setItem(THEME_STORAGE_KEY, next);
     });
-  }
+  });
 
   const observer = new MutationObserver(() => {
     const iframe = document.querySelector("iframe.giscus-frame");

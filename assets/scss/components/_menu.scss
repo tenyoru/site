@@ -48,6 +48,7 @@
   flex-wrap: wrap;
   gap: clamp(0.75rem, 2vw, 2rem);
   justify-content: flex-end;
+  align-items: center;
 }
 .menu-desktop a {
   color: theme(accent);

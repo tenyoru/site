@@ -176,4 +176,6 @@ hr {
 .footer-inline__theme {
   display: flex;
   justify-content: flex-end;
+  align-self: flex-start;
+  justify-self: end;
 }
