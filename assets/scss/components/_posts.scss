@@ -135,19 +135,17 @@
   text-decoration: none;
   cursor: pointer;
   outline: none;
-  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
   user-select: none;
 }
 
 .post-card:focus-visible {
   box-shadow: 0 0 0 2px color-mix(in srgb, theme(accent) 40%, transparent), 0 0.6rem 1.5rem color-mix(in srgb, theme(shadow) 12%, transparent);
-  border-color: color-mix(in srgb, theme(accent) 65%, theme(border) 35%);
 }
 
 .post-card:hover {
   box-shadow: 0 1rem 2.25rem color-mix(in srgb, theme(shadow) 15%, transparent);
   transform: translateY(-3px);
-  border-color: color-mix(in srgb, theme(accent) 55%, theme(border) 45%);
 }
 
 .post-card__head {
