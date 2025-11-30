@@ -58,7 +58,7 @@
 }
 .menu-desktop a:hover,
 .menu-desktop a:focus-visible {
-  color: color-mix(in srgb, var(--text-highlight) 80%, theme(bg) 20%);
+  color: var(--text-highlight);
   outline: none;
 }
 
