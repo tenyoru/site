@@ -23,20 +23,20 @@ $themes: (
     divider-glow: rgba(122, 26, 26, 0.8)
   ),
   dark: (
-    bg: #121112,
-    text: #ededed,
-    accent: #c9a46b,
-    card: #1a1719,
-    border: #2b272b,
+    bg: #0f0e0d,
+    text: #f1ede7,
+    accent: #b88a4a,
+    card: #181410,
+    border: #2a2119,
     link: #f0d9b5,
     link-hover: #fce8bd,
     terminal: #22c55e,   // mid-grey (good for muted text on dark)
     muted:  #9ca3af, // instead of 'grey'
     code: #f6f6f6,
-    text-base: #f5f5f5,
-    text-subtle: #b0b0b8,
+    text-base: #f1ede7,
+    text-subtle: #bdae9e,
     text-heading: #e8d8b6,
-    text-highlight: #f5e6c7,
+    text-highlight: #f4dcb4,
     text-accent: #ffeacc,
     danger: #ef4444,
     accent-contrast: #0b0b0b,
