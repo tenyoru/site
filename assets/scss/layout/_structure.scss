@@ -97,6 +97,7 @@ hr {
   font-size: 0.95rem;
   color: color-mix(in srgb, theme(text) 75%, theme(bg) 25%);
   text-align: center;
+  position: relative;
 }
 
 .footer-inline__row {
@@ -193,8 +194,7 @@ hr {
   color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
 }
 .footer-inline__theme {
-  margin-left: auto;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
 }
