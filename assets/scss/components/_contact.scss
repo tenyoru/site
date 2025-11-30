@@ -16,7 +16,7 @@
 .contact-hero__body {
   display: grid;
   gap: 0.75rem;
-  color: color-mix(in srgb, theme(text) 92%, theme(bg) 8%);
+  color: var(--text-base);
   line-height: 1.6;
 }
 
@@ -27,11 +27,11 @@
   gap: 0.5rem;
   padding: 0.85rem 1.75rem;
   border-radius: 999px;
-  border: 1px solid transparent;
+  border: 1px solid color-mix(in srgb, var(--heading-primary) 60%, transparent);
   font-weight: 600;
   text-decoration: none;
   color: theme(accent-contrast);
-  background: theme(accent);
+  background: var(--heading-primary);
   transition:
     transform 160ms ease,
     box-shadow 160ms ease;
@@ -42,6 +42,7 @@
 .contact-hero__cta:focus-visible {
   transform: translateY(-1px);
   box-shadow: 0 12px 30px color-mix(in srgb, theme(shadow) 20%, transparent);
+  background: color-mix(in srgb, var(--heading-primary) 80%, var(--heading-tertiary) 20%);
 }
 
 .contact-hero__note {
@@ -64,7 +65,7 @@
 
 .contact-list__intro {
   margin: 0;
-  color: color-mix(in srgb, theme(text) 85%, theme(bg) 15%);
+  color: var(--text-base);
 }
 
 .contact-list {
@@ -117,17 +118,17 @@
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: color-mix(in srgb, theme(text) 65%, theme(bg) 35%);
+  color: var(--text-subtle);
 }
 
 .contact-list__body a {
   font-weight: 600;
   text-decoration: none;
-  color: color-mix(in srgb, theme(text) 95%, theme(bg) 5%);
+  color: var(--heading-secondary);
 }
 
 .contact-list__body a:hover,
 .contact-list__body a:focus-visible {
-  color: theme(link-hover);
+  color: var(--heading-tertiary);
   text-decoration: none;
 }
