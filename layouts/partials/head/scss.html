@@ -11,11 +11,15 @@
     {{ if hugo.IsDevelopment }}
       <link rel="stylesheet" href="{{ .RelPermalink }}">
     {{ else }}
-      {{ with . | minify | fingerprint }}
-        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
-      {{ end }}
+      {{ $min := . | minify }}
+      {{ $asset := $min | fingerprint }}
+      <style>{{ $asset.Content | safeCSS }}</style>
+      <link rel="preload" href="{{ $asset.RelPermalink }}" as="style" integrity="{{ $asset.Data.Integrity }}" crossorigin="anonymous">
+      <link rel="stylesheet" href="{{ $asset.RelPermalink }}" integrity="{{ $asset.Data.Integrity }}" crossorigin="anonymous" media="print" onload="this.media='all'">
+      <noscript>
+        <link rel="stylesheet" href="{{ $asset.RelPermalink }}" integrity="{{ $asset.Data.Integrity }}" crossorigin="anonymous">
+      </noscript>
     {{ end }}
   {{ end }}
 {{ end }}
-
 
