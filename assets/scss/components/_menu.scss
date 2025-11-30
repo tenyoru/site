@@ -78,6 +78,7 @@
   justify-content: center;
   min-width: 2.75rem;
   -webkit-tap-highlight-color: transparent;
+  color: theme(accent);
 }
 .menu-toggle::-webkit-details-marker { display: none; }
 
@@ -97,7 +98,7 @@
   width: 100%;
   height: 1px;
   border-radius: 999px;
-  background-color: theme(accent);
+  background-color: currentColor;
   transform-origin: center;
   transition: transform 0.18s ease, opacity 0.15s ease;
 }
