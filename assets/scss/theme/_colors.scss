@@ -10,6 +10,10 @@ $themes: (
     link-hover: #1c7ed6,
     muted: #5c5c5c,
     code: #1f2430,
+    text-base: #2a2a2a,
+    text-subtle: #6f7280,
+    text-heading: #111827,
+    text-highlight: #0077ff,
     terminal: #16a34a,
     danger: #dc2626,
     accent-contrast: #0b0b0b,
@@ -28,6 +32,10 @@ $themes: (
     terminal: #22c55e,   // mid-grey (good for muted text on dark)
     muted:  #9ca3af, // instead of 'grey'
     code: #f6f6f6,
+    text-base: #f4f4f4,
+    text-subtle: #9ca3af,
+    text-heading: #f9fafb,
+    text-highlight: #f5f5f5,
     danger: #ef4444,
     accent-contrast: #0b0b0b,
     shadow: #000000,
