@@ -8,8 +8,7 @@
     <a href="{{ "/" | relURL }}">{{ site.Title }}</a>
   </h1>
   <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">
-    <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">☀</span>
-    <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">☾</span>
+    {{ partial "svg.html" "theme-mode" }}
   </button>
 </div>
 
