@@ -2,10 +2,3 @@
   --layout-header-width: min(100%, 72rem);
   --layout-header-padding: clamp(1rem, 4vw, 3rem);
 }
-
-:root {
-  --text-base: var(--text);
-  --text-subtle: color-mix(in srgb, var(--text) 65%, var(--bg) 35%);
-  --text-heading: color-mix(in srgb, var(--text) 85%, var(--accent) 15%);
-  --text-highlight: color-mix(in srgb, var(--accent) 90%, var(--text) 10%);
-}
