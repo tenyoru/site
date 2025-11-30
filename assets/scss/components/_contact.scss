@@ -27,11 +27,11 @@
   gap: 0.5rem;
   padding: 0.85rem 1.75rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--heading-primary) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text-highlight) 60%, transparent);
   font-weight: 600;
   text-decoration: none;
   color: theme(accent-contrast);
-  background: var(--heading-primary);
+  background: var(--text-highlight);
   transition:
     transform 160ms ease,
     box-shadow 160ms ease;
@@ -42,7 +42,7 @@
 .contact-hero__cta:focus-visible {
   transform: translateY(-1px);
   box-shadow: 0 12px 30px color-mix(in srgb, theme(shadow) 20%, transparent);
-  background: color-mix(in srgb, var(--heading-primary) 80%, var(--heading-tertiary) 20%);
+  background: color-mix(in srgb, var(--text-highlight) 80%, var(--text-heading) 20%);
 }
 
 .contact-hero__note {
