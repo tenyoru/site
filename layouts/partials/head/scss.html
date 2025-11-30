@@ -8,7 +8,8 @@
     "includePaths" (slice "node_modules/bootstrap/scss")
   }}
   {{ with . | toCSS $opts }}
-    {{ if hugo.IsDevelopment }}
+    {{ $shouldInline := and (hugo.IsProduction) (not hugo.IsServer) }}
+    {{ if not $shouldInline }}
       <link rel="stylesheet" href="{{ .RelPermalink }}">
     {{ else }}
       {{ $min := . | minify }}
@@ -22,4 +23,3 @@
     {{ end }}
   {{ end }}
 {{ end }}
-
