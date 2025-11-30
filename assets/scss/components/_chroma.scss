@@ -63,3 +63,20 @@
 /* GenericInserted */ .chroma .gi { color:#a6e22e }
 /* GenericStrong */ .chroma .gs { font-weight:bold }
 /* GenericSubheading */ .chroma .gu { color:#75715e }
+
+:root[data-theme="light"] {
+  .chroma .s,
+  .chroma .sa,
+  .chroma .sb,
+  .chroma .sc,
+  .chroma .sd,
+  .chroma .s2,
+  .chroma .sh,
+  .chroma .si,
+  .chroma .sx,
+  .chroma .sr,
+  .chroma .s1,
+  .chroma .ss {
+    color: #b45309;
+  }
+}
