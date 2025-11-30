@@ -1,43 +1,45 @@
 {{- $footer := site.Params.footer -}}
 <footer class="footer-inline">
-  <div class="footer-inline__row">
-    <div class="footer-inline__col">
-      <h3 class="footer-inline__heading">Navigation</h3>
-      <div class="footer-inline__list">
-        <a href="{{ "/" | relLangURL }}">Home</a>
-        {{ with site.Menus.main }}
-          {{ range . }}
-            <a href="{{ .URL }}">{{ .Name }}</a>
+  <div class="footer-inline__top">
+    <div class="footer-inline__row">
+      <div class="footer-inline__col">
+        <h3 class="footer-inline__heading">Navigation</h3>
+        <div class="footer-inline__list">
+          <a href="{{ "/" | relLangURL }}">Home</a>
+          {{ with site.Menus.main }}
+            {{ range . }}
+              <a href="{{ .URL }}">{{ .Name }}</a>
+            {{ end }}
           {{ end }}
-        {{ end }}
+        </div>
       </div>
+      {{ with site.Params.media }}
+        <div class="footer-inline__col">
+          <h3 class="footer-inline__heading">Media</h3>
+          <div class="footer-inline__list">
+            {{ range . }}
+              <a href="{{ .url }}" target="_blank" rel="noopener me" aria-label="{{ .label }}">
+                {{ partial "svg.html" .icon }}
+                <span>{{ .label }}</span>
+              </a>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+      {{ with site.Params.contact.contacts }}
+        <div class="footer-inline__col footer-inline__col--contact">
+          <h3 class="footer-inline__heading">Contact me</h3>
+          <div class="footer-inline__list">
+            {{ range .items }}
+              <a href="{{ .url }}">
+                {{ if .icon }}{{ partial "svg.html" .icon }}{{ end }}
+                <span>{{ or .value .label }}</span>
+              </a>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
     </div>
-    {{ with site.Params.media }}
-      <div class="footer-inline__col">
-        <h3 class="footer-inline__heading">Media</h3>
-        <div class="footer-inline__list">
-          {{ range . }}
-            <a href="{{ .url }}" target="_blank" rel="noopener me" aria-label="{{ .label }}">
-              {{ partial "svg.html" .icon }}
-              <span>{{ .label }}</span>
-            </a>
-          {{ end }}
-        </div>
-      </div>
-    {{ end }}
-    {{ with site.Params.contact.contacts }}
-      <div class="footer-inline__col">
-        <h3 class="footer-inline__heading">Contact me</h3>
-        <div class="footer-inline__list">
-          {{ range .items }}
-            <a href="{{ .url }}">
-              {{ if .icon }}{{ partial "svg.html" .icon }}{{ end }}
-              <span>{{ or .value .label }}</span>
-            </a>
-          {{ end }}
-        </div>
-      </div>
-    {{ end }}
     <div class="footer-inline__theme">
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">
         {{ partial "svg.html" "theme-mode" }}
