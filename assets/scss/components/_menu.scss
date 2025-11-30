@@ -12,7 +12,7 @@
 .site-header-outer {
   background: theme(bg);
   box-shadow: 0 0.4rem 1.4rem color-mix(in srgb, theme(shadow) 25%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, theme(border) 95%, theme(bg) 5%);
+  border-bottom: 1px solid var(--section-divider, color-mix(in srgb, theme(border) 92%, theme(bg) 8%));
 }
 
 .site-header {
