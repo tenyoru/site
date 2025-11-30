@@ -25,6 +25,9 @@
         </div>
       </div>
     {{ end }}
+    <button class="theme-toggle footer-inline__theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">
+      {{ partial "svg.html" "theme-mode" }}
+    </button>
   </div>
   <div class="footer-inline__branding">
     {{ or $footer.credits (printf "© %d %s" now.Year site.Title) }}
