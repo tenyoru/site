@@ -3,12 +3,13 @@
   <div class="footer-inline__row">
     <div class="footer-inline__col">
       <h3 class="footer-inline__heading">Navigation</h3>
-      <nav class="footer-inline__links">
-        <a href="{{ "/" | relLangURL }}">Home</a>
-        <a href="{{ "/blog/" | relLangURL }}">Blog</a>
-        <a href="{{ "/tags/" | relLangURL }}">Tags</a>
-        <a href="{{ "/contact/" | relLangURL }}">Contact</a>
-      </nav>
+      {{ with site.Menus.main }}
+        <nav class="footer-inline__links">
+          {{ range . }}
+            <a href="{{ .URL }}">{{ .Name }}</a>
+          {{ end }}
+        </nav>
+      {{ end }}
     </div>
     {{ with site.Params.media }}
       <div class="footer-inline__col">
