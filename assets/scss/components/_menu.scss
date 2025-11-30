@@ -36,7 +36,7 @@
   font-weight: 700;
 }
 .site-title a {
-  color: inherit;
+  color: var(--text-highlight);
   text-decoration: none;
 }
 
@@ -51,14 +51,14 @@
   align-items: center;
 }
 .menu-desktop a {
-  color: color-mix(in srgb, theme(text) 92%, theme(bg) 8%);
+  color: var(--text-heading);
   text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 .menu-desktop a:hover,
 .menu-desktop a:focus-visible {
-  color: theme(accent);
+  color: var(--text-highlight);
   outline: none;
 }
 

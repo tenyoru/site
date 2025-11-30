@@ -126,7 +126,7 @@ hr {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: color-mix(in srgb, theme(text) 65%, theme(bg) 35%);
+  color: var(--text-subtle);
 }
 
 .footer-inline__list {
@@ -134,14 +134,14 @@ hr {
   flex-direction: column;
   gap: 0.35rem;
   align-items: flex-start;
-  color: color-mix(in srgb, theme(text) 96%, theme(bg) 4%);
+  color: var(--text-base);
 }
 
 .footer-inline__list a {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: color-mix(in srgb, theme(text) 96%, theme(bg) 4%);
+  color: var(--text-base);
   text-decoration: none;
   font-weight: 500;
   font-size: 0.85rem;
@@ -149,7 +149,7 @@ hr {
 
 .footer-inline__list a:hover,
 .footer-inline__list a:focus-visible {
-  color: theme(link-hover);
+  color: var(--text-highlight);
   outline: none;
 }
 
@@ -165,24 +165,24 @@ hr {
   gap: 0.5rem;
   justify-content: center;
   flex-wrap: wrap;
-  color: color-mix(in srgb, theme(text) 75%, theme(bg) 25%);
+  color: var(--text-subtle);
 }
 
 .footer-inline__meta a {
-  color: color-mix(in srgb, theme(text) 92%, theme(bg) 8%);
+  color: var(--text-base);
   text-decoration: none;
   font-weight: 600;
 }
 
 .footer-inline__meta a:hover,
 .footer-inline__meta a:focus-visible {
-  color: theme(link-hover);
+  color: var(--text-highlight);
   outline: none;
 }
 
 .footer-inline__branding {
   text-align: left;
-  color: color-mix(in srgb, theme(text) 78%, theme(bg) 22%);
+  color: var(--text-subtle);
 }
 .footer-inline__theme {
   display: flex;

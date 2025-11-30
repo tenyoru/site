@@ -65,6 +65,7 @@
 .section-title {
   font-size: clamp(2rem, 4vw, 2.75rem);
   margin: 0;
+  color: var(--text-heading);
 }
 
 .section-title-row {
@@ -160,6 +161,7 @@
   margin: 0;
   font-size: clamp(1.15rem, 3vw, 1.45rem);
   line-height: 1.25;
+  color: var(--text-heading);
 }
 
 .post-card__title-link {
@@ -169,13 +171,13 @@
 
 .post-card__title-link:hover,
 .post-card__title-link:focus-visible {
-  color: theme(accent);
+  color: var(--text-highlight);
   text-decoration: none;
 }
 
 .post-card__date {
   font-size: 0.9rem;
-  color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
+  color: var(--text-subtle);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -186,7 +188,7 @@
 
 .post-card__excerpt {
   margin: 0;
-  color: color-mix(in srgb, theme(text) 78%, theme(bg) 22%);
+  color: color-mix(in srgb, var(--text-base) 85%, var(--bg) 15%);
   line-height: 1.55;
 }
 
