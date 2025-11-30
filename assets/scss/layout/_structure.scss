@@ -100,17 +100,15 @@ hr {
 }
 
 .footer-inline__row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
   text-align: left;
 }
 
 .footer-inline__col {
-  flex: 1 1 260px;
   display: flex;
   flex-direction: column;
-  min-height: 200px;
   gap: 0.75rem;
 }
 
@@ -135,7 +133,7 @@ hr {
   color: theme(accent);
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .footer-inline__list a:hover,
@@ -176,7 +174,6 @@ hr {
   color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
 }
 .footer-inline__theme {
-  margin-left: auto;
   display: flex;
-  align-items: flex-start;
+  justify-content: flex-end;
 }
