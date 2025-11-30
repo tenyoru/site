@@ -51,9 +51,15 @@
   align-items: center;
 }
 .menu-desktop a {
-  color: theme(accent);
+  color: color-mix(in srgb, theme(text) 92%, theme(bg) 8%);
   text-decoration: none;
   font-size: 1.1rem;
+  font-weight: 600;
+}
+.menu-desktop a:hover,
+.menu-desktop a:focus-visible {
+  color: theme(accent);
+  outline: none;
 }
 
 /* Mobile trigger (<details class="menu-mobile"> + <summary class="menu-toggle">) */
