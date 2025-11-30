@@ -135,11 +135,17 @@
   text-decoration: none;
   cursor: pointer;
   outline: none;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  user-select: none;
 }
 
 .post-card:focus-visible {
   box-shadow: 0 0 0 2px color-mix(in srgb, theme(accent) 40%, transparent), 0 0.6rem 1.5rem color-mix(in srgb, theme(shadow) 12%, transparent);
+}
+
+.post-card:hover {
+  box-shadow: 0 1rem 2.25rem color-mix(in srgb, theme(shadow) 15%, transparent);
+  transform: translateY(-3px);
 }
 
 .post-card__head {
@@ -164,7 +170,7 @@
 .post-card__title-link:hover,
 .post-card__title-link:focus-visible {
   color: theme(accent);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .post-card__date {
