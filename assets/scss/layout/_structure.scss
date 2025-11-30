@@ -126,7 +126,7 @@ hr {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
+  color: color-mix(in srgb, theme(text) 65%, theme(bg) 35%);
 }
 
 .footer-inline__list {
@@ -134,14 +134,14 @@ hr {
   flex-direction: column;
   gap: 0.35rem;
   align-items: flex-start;
-  color: color-mix(in srgb, theme(text) 98%, theme(bg) 2%);
+  color: color-mix(in srgb, theme(text) 96%, theme(bg) 4%);
 }
 
 .footer-inline__list a {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: color-mix(in srgb, theme(text) 98%, theme(bg) 2%);
+  color: color-mix(in srgb, theme(text) 96%, theme(bg) 4%);
   text-decoration: none;
   font-weight: 500;
   font-size: 0.85rem;
