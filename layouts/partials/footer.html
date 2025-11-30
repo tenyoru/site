@@ -19,7 +19,7 @@
           {{ range . }}
             <a href="{{ .url }}" target="_blank" rel="noopener me" aria-label="{{ .label }}">
               {{ partial "svg.html" .icon }}
-              <span class="sr-only">{{ .label }}</span>
+              <span>{{ .label }}</span>
             </a>
           {{ end }}
         </div>
