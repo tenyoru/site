@@ -12,12 +12,15 @@ const safeStorage = (() => {
   }
 })();
 
+const getCurrentTheme = () =>
+  document.documentElement.dataset.theme === "light" ? "light" : "dark";
+
 const setGiscusTheme = (theme) => {
   const iframe = document.querySelector("iframe.giscus-frame");
-  const script = document.querySelector("[data-giscus-script]");
-  if (!iframe || !script) return;
-  const lightTheme = script.dataset.themeLight || "light";
-  const darkTheme = script.dataset.themeDark || "dark";
+  const container = document.querySelector("[data-giscus]");
+  if (!iframe || !container) return;
+  const lightTheme = container.dataset.themeLight || "light";
+  const darkTheme = container.dataset.themeDark || "dark";
   const desired = theme === "light" ? lightTheme : darkTheme;
   iframe.contentWindow?.postMessage(
     {
@@ -29,6 +32,40 @@ const setGiscusTheme = (theme) => {
     },
     "https://giscus.app"
   );
+};
+
+const loadGiscus = () => {
+  const container = document.querySelector("[data-giscus]");
+  if (!container || container.dataset.giscusLoaded) return;
+  const script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.async = true;
+  script.crossOrigin = "anonymous";
+  script.setAttribute("data-repo", container.dataset.repo);
+  script.setAttribute("data-repo-id", container.dataset.repoId);
+  script.setAttribute("data-category", container.dataset.category);
+  script.setAttribute("data-category-id", container.dataset.categoryId);
+  script.setAttribute("data-mapping", container.dataset.mapping || "pathname");
+  script.setAttribute("data-strict", container.dataset.strict || "0");
+  script.setAttribute(
+    "data-reactions-enabled",
+    container.dataset.reactionsEnabled || "1"
+  );
+  script.setAttribute("data-emit-metadata", container.dataset.emitMetadata || "0");
+  script.setAttribute(
+    "data-input-position",
+    container.dataset.inputPosition || "bottom"
+  );
+  script.setAttribute(
+    "data-theme",
+    getCurrentTheme() === "light"
+      ? container.dataset.themeLight || "light"
+      : container.dataset.themeDark || "dark"
+  );
+  script.setAttribute("data-lang", container.dataset.lang || "en");
+  script.dataset.giscusScript = "true";
+  container.appendChild(script);
+  container.dataset.giscusLoaded = "true";
 };
 
 const applyTheme = (theme) => {
@@ -55,32 +92,25 @@ const initTheme = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
+  loadGiscus();
   const themeToggle = document.querySelector("[data-theme-toggle]");
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
-      const current = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+      const current = getCurrentTheme();
       const next = current === "light" ? "dark" : "light";
       applyTheme(next);
       safeStorage?.setItem(THEME_STORAGE_KEY, next);
     });
   }
 
-  const syncGiscusOnLoad = () => {
+  const observer = new MutationObserver(() => {
     const iframe = document.querySelector("iframe.giscus-frame");
-    if (!iframe) return false;
-    iframe.addEventListener("load", () => {
-      const current = document.documentElement.dataset.theme === "light" ? "light" : "dark";
-      setGiscusTheme(current);
-    });
-    return true;
-  };
-
-  if (!syncGiscusOnLoad()) {
-    const observer = new MutationObserver(() => {
-      if (syncGiscusOnLoad()) observer.disconnect();
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-  }
+    if (!iframe) return;
+    const currentTheme = getCurrentTheme();
+    setGiscusTheme(currentTheme);
+    observer.disconnect();
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
 
   const toc = document.querySelector("[data-post-toc]");
   if (!toc) return;
