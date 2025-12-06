@@ -35,7 +35,13 @@
 
 @media (min-width: v.mq(sm)) {
   .info-card-list {
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .info-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 0.425rem);
   }
 }
 
