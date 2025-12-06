@@ -52,29 +52,41 @@
       {{ end }}
 
       {{ with .items }}
-        <ul class="contact-list">
+        <ul class="info-card-list">
           {{ range . }}
-            <li>
-              {{ with .icon }}
-                <div class="contact-list__icon" aria-hidden="true">
-                  {{ partial "svg.html" . }}
+            {{ $value := .value | default .url }}
+            {{ if .url }}
+              {{ $url := .url }}
+              {{ $safeURL := $url | safeURL }}
+              {{ $isExternal := or (strings.HasPrefix $url "http") (strings.HasPrefix $url "//") }}
+              <li class="info-card" role="link" tabindex="0" aria-label="{{ .label }}: {{ $value }}" data-card-link="{{ $safeURL }}"{{ if $isExternal }} data-card-external="true"{{ end }}>
+                {{ with .icon }}
+                  <div class="info-card__icon" aria-hidden="true">
+                    {{ partial "svg.html" . }}
+                  </div>
+                {{ end }}
+                <div class="info-card__body">
+                  {{ with .label }}
+                    <span class="info-card__label">{{ . }}</span>
+                  {{ end }}
+                  <span class="info-card__value">{{ $value }}</span>
                 </div>
-              {{ end }}
-              <div class="contact-list__body">
-                {{ with .label }}
-                  <span class="contact-list__label">{{ . }}</span>
+              </li>
+            {{ else }}
+              <li class="info-card">
+                {{ with .icon }}
+                  <div class="info-card__icon" aria-hidden="true">
+                    {{ partial "svg.html" . }}
+                  </div>
                 {{ end }}
-                {{ $value := .value | default .url }}
-                {{ if .url }}
-                  {{ $url := .url }}
-                  {{ $safeURL := $url | safeURL }}
-                  {{ $isExternal := or (strings.HasPrefix $url "http") (strings.HasPrefix $url "//") }}
-                  <a href="{{ $safeURL }}" {{ if $isExternal }}target="_blank" rel="noopener noreferrer"{{ end }}>{{ $value }}</a>
-                {{ else }}
-                  <span>{{ $value }}</span>
-                {{ end }}
-              </div>
-            </li>
+                <div class="info-card__body">
+                  {{ with .label }}
+                    <span class="info-card__label">{{ . }}</span>
+                  {{ end }}
+                  <span class="info-card__value">{{ $value }}</span>
+                </div>
+              </li>
+            {{ end }}
           {{ end }}
         </ul>
       {{ end }}

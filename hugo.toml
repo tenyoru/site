@@ -43,21 +43,25 @@ intro = "Every message lands in my personal inbox, so feel free to be detailed."
 
 [[params.media]]
 label = "GitHub"
+value = "tenyoru"
 url = "https://github.com/tenyoru"
 icon = "github"
 
 [[params.media]]
 label = "Codeberg"
+value = "tenyoru"
 url = "https://codeberg.org/tenyoru"
 icon = "codeberg"
 
 [[params.media]]
 label = "Mastodon"
+value = "@tenyoru@metalhead.club"
 url = "https://metalhead.club/@tenyoru"
 icon = "mastodon"
 
 [[params.media]]
 label = "Telegram"
+value = "@tenyoru"
 url = "https://t.me/tenyoru"
 icon = "telegram"
 
@@ -95,6 +99,11 @@ themeDark = "dark"
     name = 'Tags'
     pageRef = '/tags'
     weight = 20
+
+  [[menus.main]]
+    name = 'Media'
+    pageRef = '/media'
+    weight = 25
 
   [[menus.main]]
     name = 'Contact'
