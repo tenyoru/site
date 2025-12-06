@@ -1,6 +1,29 @@
 @use "../theme" as *;
 @use "../vars" as v;
 
+// Shared wrapper styles for card sections
+.info-section {
+  margin-block: clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.info-section h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 1.85rem);
+  font-weight: 600;
+  color: var(--text-muted-strong);
+  letter-spacing: -0.01em;
+  padding-left: 0.35rem;
+}
+
+.info-section__intro {
+  margin: 0;
+  color: var(--text-subtle);
+  padding-left: 0.35rem;
+}
+
 // Shared card list styles for contact and media pages
 .info-card-list {
   list-style: none;
@@ -20,9 +43,13 @@
   display: flex;
   gap: 0.85rem;
   padding: 0.9rem 1rem;
-  border: 1px solid color-mix(in srgb, theme(border) 70%, transparent);
+  border: 1px solid color-mix(in srgb, theme(border) 35%, transparent);
   border-radius: 1rem;
-  background: color-mix(in srgb, theme(card) 88%, theme(bg) 12%);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, theme(card) 45%, theme(bg) 55%) 0%,
+    color-mix(in srgb, theme(bg) 92%, theme(card) 8%) 100%
+  );
   align-items: center;
   cursor: pointer;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -51,6 +78,11 @@
   display: grid;
   place-items: center;
   color: theme(text);
+  transition: background 0.2s ease;
+}
+
+.info-card:hover .info-card__icon {
+  background: color-mix(in srgb, theme(accent) 15%, theme(border) 35%);
 }
 
 .info-card__icon svg {
