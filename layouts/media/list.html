@@ -1,6 +1,6 @@
 {{ define "main" }}
-  <section class="media-hero">
-    <div class="media-hero__body">
+  <section class="hero-card media-hero">
+    <div class="hero-card__body media-hero__body">
       <h1>{{ .Title }}</h1>
       {{ with .Content }}
         {{ . }}
@@ -10,7 +10,7 @@
 
   {{ $media := .Site.Params.media }}
   {{ with $media }}
-    <section class="media-list-wrapper">
+    <section class="info-section media-list-wrapper">
       <h2>Find me online</h2>
       <ul class="info-card-list">
         {{ range . }}

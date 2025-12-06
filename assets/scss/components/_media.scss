@@ -1,58 +1,9 @@
 @use "../theme" as *;
 @use "../vars" as v;
 
-.media-hero {
-  margin-block: clamp(1rem, 4vw, 2rem) clamp(1.5rem, 4vw, 2.5rem);
-  padding: clamp(1.75rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 2rem);
-  border-radius: 1.5rem;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, theme(card) 45%, theme(bg) 55%) 0%,
-    color-mix(in srgb, theme(bg) 92%, theme(card) 8%) 100%
-  );
-  border: 1px solid color-mix(in srgb, theme(border) 35%, transparent);
-  position: relative;
-  overflow: hidden;
-}
-
-.media-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    color-mix(in srgb, theme(accent) 20%, transparent) 50%,
-    transparent 100%
-  );
-}
-
+// Media hero specific styles - extends hero-card
 .media-hero__body {
-  display: grid;
-  gap: 0.75rem;
-  color: var(--text-base);
-  line-height: 1.6;
   text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-.media-hero__body h1 {
-  font-size: clamp(1.85rem, 4vw, 2.25rem);
-  margin: 0;
-  font-weight: 600;
-  background: linear-gradient(
-    135deg,
-    var(--text-accent) 0%,
-    color-mix(in srgb, var(--text-accent) 70%, var(--text-highlight) 30%) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.01em;
 }
 
 .media-hero__body p {
@@ -64,19 +15,8 @@
   line-height: 1.7;
 }
 
-.media-list-wrapper {
-  margin-block: clamp(1.5rem, 4vw, 3rem);
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
+// List wrapper and card styles moved to _info-cards.scss
 
 .media-list-wrapper h2 {
-  margin: 0;
-  font-size: clamp(1.5rem, 3.5vw, 1.85rem);
-  font-weight: 600;
-  color: var(--text-accent);
-  letter-spacing: -0.01em;
+  color: var(--text-muted-strong);
 }
-
-// Card list styles moved to _info-cards.scss

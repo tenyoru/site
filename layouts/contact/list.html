@@ -11,12 +11,14 @@
     {{ with .title }}{{ $heroTitle = . }}{{ end }}
   {{ end }}
 
-  <section class="contact-hero">
-    <div class="contact-hero__body">
+  <section class="hero-card contact-hero">
+    <div class="hero-card__body contact-hero__body">
       <h1>{{ $heroTitle }}</h1>
       {{ with $hero }}
         {{ with .body }}
-          {{ . | markdownify }}
+          <div class="contact-hero__text">
+            {{ . | markdownify }}
+          </div>
         {{ end }}
       {{ end }}
     </div>
@@ -45,10 +47,10 @@
   {{ end }}
 
   {{ with $contacts }}
-    <section class="contact-list-wrapper">
+    <section class="info-section contact-list-wrapper">
       <h2>{{ .heading | default "Ways to reach me" }}</h2>
       {{ with .intro }}
-        <p class="contact-list__intro">{{ . }}</p>
+        <p class="info-section__intro contact-list__intro">{{ . }}</p>
       {{ end }}
 
       {{ with .items }}
