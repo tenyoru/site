@@ -48,6 +48,12 @@ url = "https://github.com/tenyoru"
 icon = "github"
 
 [[params.media]]
+label = "GitHub"
+value = "tenyoru"
+url = "https://github.com/tenyoru"
+icon = "github"
+
+[[params.media]]
 label = "Codeberg"
 value = "tenyoru"
 url = "https://codeberg.org/tenyoru"
