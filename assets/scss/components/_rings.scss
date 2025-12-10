@@ -12,10 +12,8 @@ $ring-size-max: 65rem;
 
 .rings {
   position: relative;
-  width: clamp($ring-size-min, var(--layout-header-width, min(100%, 72rem)), $ring-size-max);
+  width: var(--base-size, clamp($ring-size-min, var(--layout-header-width, min(100%, 72rem)), $ring-size-max));
   aspect-ratio: 1;
-  margin-inline: auto;
-  margin-block: clamp(1.5rem, 6vw, 4rem);
   display: grid;
   place-items: center;
   pointer-events: none;
