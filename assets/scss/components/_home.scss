@@ -19,7 +19,7 @@ $ring-size-max: 65rem;
   --rings-border-base: clamp(3px, 0.8vw, 14px);
 
   // Поднимаем кольца выше
-  margin-top: clamp(-550px, -55vh, -200px);
+  margin-top: clamp(-525px, -52vh, -200px);
 
   // Уменьшаем отступ снизу для компенсации перспективы
   margin-bottom: clamp(-200px, -20vh, -100px);
@@ -86,12 +86,22 @@ $ring-size-max: 65rem;
   height: 100%;
   width: auto;
 
-  // Цвет из темы
-  color: theme(accent);
+  // Цвет как у колец
+  color: theme(ring-border);
   fill: currentColor;
 
   // Убираем любой фон
   background: transparent;
+
+  // Светлая тема - темнее и контрастнее
+  :root[data-theme="light"] & {
+    filter: brightness(0.6) contrast(1.3);
+  }
+
+  // Тёмная тема - ярче
+  :root[data-theme="dark"] & {
+    filter: brightness(1.2);
+  }
 }
 
 // ============================================
