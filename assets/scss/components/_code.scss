@@ -1,4 +1,5 @@
 @use "../theme" as *;
+@use "../vars" as v;
 
 $code-bg: color-mix(in srgb, theme(card) 65%, theme(bg) 35%);
 $code-border: color-mix(in srgb, theme(border) 60%, transparent);
@@ -60,7 +61,7 @@ pre:not(.chroma) {
   box-shadow: 0 10px 30px color-mix(in srgb, theme(shadow) 10%, transparent);
   font-size: 0.95rem;
   line-height: 1.55;
-  font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-family: v.$font-mono;
   @include code-scrollbars;
 }
 
@@ -82,7 +83,7 @@ pre:not(.chroma) {
   padding: 0.15rem 0.4rem;
   border-radius: 0.35rem;
   border: 1px solid $code-border;
-  font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-family: v.$font-mono;
 }
 
 .highlight code,

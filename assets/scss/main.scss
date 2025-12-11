@@ -1,11 +1,11 @@
+@use "base/root";
+@use "base/typography";
+@use "layout/structure";
 @use "components/menu";
 @use "components/hero-card";
 @use "components/info-cards";
 @use "components/contact";
 @use "components/media";
-@use "base/root";
-@use "base/typography";
-@use "layout/structure";
 @use "components/posts";
 @use "components/fastfetch";
 @use "components/code";
@@ -13,3 +13,4 @@
 @use "components/home";
 @use "components/theme-toggle";
 @use "utilities/accessibility";
+@use "utilities/helpers";
