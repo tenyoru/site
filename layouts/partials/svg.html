@@ -1,8 +1,0 @@
-{{/* Inline SVG helper: injects icon-specific class for styling */}}
-{{- $svg := . -}}
-{{- $class := printf "%s-icon" $svg -}}
-{{- $match := `<svg\s([^>]*)>([\s\S]*?)</svg>` -}}
-{{- $file := printf "/assets/images/%s.svg" $svg | readFile -}}
-{{- $clean := replaceRE `(?s)^(?:\s*<\?xml[^>]*>\s*)?(?:\s*<!--.*?-->\s*)*` "" $file -}}
-{{- $replaceWith := printf `<svg class="%s" $1>$2</svg>` $class -}}
-{{- return (replaceRE $match $replaceWith $clean | safeHTML) -}}

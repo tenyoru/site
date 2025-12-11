@@ -1,3 +1,0 @@
-// Barrel file: lets you `@use "theme"`
-@forward "colors" show $themes;
-@forward "utils" show theme, emit-theme-vars;
