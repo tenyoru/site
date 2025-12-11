@@ -1,42 +1,20 @@
-@use "sass:math";
 @use "../theme" as *;
 @use "../vars" as v;
 
-$rings: 7;
-$ring-scale-max: 1;
-$ring-scale-min: 0.3;
-$ring-scale-step: math.div($ring-scale-max - $ring-scale-min, $rings - 1);
+.hero-rings {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 
-$ring-color: theme(ring-border);
-$ring-size-min: 260px;
-$ring-size-max: 65rem;
-
-.rings {
-  aspect-ratio: 1;
-  transform: rotateX(68deg);
+.rings-icon {
+  --ring-stroke: 7;
+  width: 100%;
+  height: 100%;
+  color: theme(ring-border);
+  transform: rotateX(68deg) translateY(120%);
   filter: brightness(0.85);
-
-  --rings-border-base: clamp(3px, 0.8vw, 14px);
-
-  // Поднимаем кольца выше
-  margin-top: clamp(-525px, -52vh, -200px);
-
-  // Уменьшаем отступ снизу для компенсации перспективы
-  margin-bottom: clamp(-200px, -20vh, -100px);
-
-  @for $i from 1 through $rings {
-    $scale: $ring-scale-max - (($i - 1) * $ring-scale-step);
-
-    .ring-#{$i} {
-      position: absolute;
-      inset: 0;
-      border: calc(var(--rings-border-base) / #{$scale}) solid $ring-color;
-      border-radius: 50%;
-      transform: scale($scale);
-      transform-origin: center;
-      // z-index: $rings - $i;
-    }
-  }
 }
 
 
@@ -47,17 +25,18 @@ $ring-size-max: 65rem;
 
 .hero-composition {
   position: relative;
+  width: 100%;
+  height: clamp(260px, min(100vw - 2rem, calc(100vh - 7rem)), 65rem);
+  margin: 0 auto;
+  margin-bottom: 5rem;
 
-  // Общий размер для синхронизации балерины и колец
-  --base-size: clamp(260px, min(100vw - 2rem, 100vh - v.$header-height - 4rem), 65rem);
+  @media (min-width: v.mq(sm)) {
+    margin-bottom: 7rem;
+  }
 
-  // Размер композиции = размер колец
-  width: var(--base-size);
-  height: var(--base-size);
-
-  // Центрируем композицию
-  display: grid;
-  place-items: center;
+  @media (min-width: v.mq(md)) {
+    margin-bottom: 10rem;
+  }
 }
 
 // ============================================
@@ -65,20 +44,12 @@ $ring-size-max: 65rem;
 // ============================================
 
 .hero-scene__figure {
-  // z-index: 10;
-
-  // Центрируем балерину
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  // Высота балерины привязана к базовому размеру
-  // SVG балерины имеет соотношение 408:612 (2:3)
-  // Делаем балерину чуть меньше, чтобы она помещалась в композицию
-  // height: calc(var(--base-size) * 0.95);
-  max-height: 100%;
-
-  // pointer-events: none;
 }
 
 .ballerina-icon {
