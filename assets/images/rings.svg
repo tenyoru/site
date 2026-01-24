@@ -1,9 +1,0 @@
-<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-  <ellipse cx="500" cy="500" rx="493" ry="493" fill="none" stroke="currentColor" stroke-width="var(--ring-stroke)"/>
-  <ellipse cx="500" cy="500" rx="421" ry="421" fill="none" stroke="currentColor" stroke-width="var(--ring-stroke)"/>
-  <ellipse cx="500" cy="500" rx="350" ry="350" fill="none" stroke="currentColor" stroke-width="var(--ring-stroke)"/>
-  <ellipse cx="500" cy="500" rx="278" ry="278" fill="none" stroke="currentColor" stroke-width="var(--ring-stroke)"/>
-  <ellipse cx="500" cy="500" rx="207" ry="207" fill="none" stroke="currentColor" stroke-width="var(--ring-stroke)"/>
-  <ellipse cx="500" cy="500" rx="135" ry="135" fill="none" stroke="currentColor" stroke-width="var(--ring-stroke)"/>
-  <ellipse cx="500" cy="500" rx="64" ry="64" fill="none" stroke="currentColor" stroke-width="var(--ring-stroke)"/>
-</svg>
