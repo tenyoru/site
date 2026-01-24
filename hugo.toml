@@ -4,6 +4,8 @@ title = 'Tenyoru'
 
 [params]
 description = "Tenyoru is a personal hub for engineering notes, blog posts, and ways to get in touch."
+status = "Available for projects"
+skills = ["Rust", "Zig", "Python", "Linux", "Docker", "PostgreSQL", "Redis"]
 
 [params.contact.hero]
 title = "Let's build something together"
