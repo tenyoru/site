@@ -1,3 +1,55 @@
 {{ define "main" }}
-  {{ .Content }}
+  {{/* Hero */}}
+  <section class="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__content">
+      <p class="hero__greeting">Hey, I'm</p>
+      <h1 class="hero__name">{{ .Site.Title }}</h1>
+      <p class="hero__bio">{{ .Site.Params.description }}</p>
+      {{ with .Site.Params.status }}
+      <div class="hero__status">
+        <span class="hero__status-dot"></span>
+        <span>{{ . }}</span>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <div class="home-divider"></div>
+
+  {{/* Skills */}}
+  {{ with .Site.Params.skills }}
+  <section class="home-section">
+    <h2 class="home-section__title">What I work with</h2>
+    <div class="skills">
+      {{ range . }}
+        <span class="skill">{{ . }}</span>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  <div class="home-divider"></div>
+
+  {{/* Links */}}
+  {{ with .Site.Params.media }}
+  <section class="home-section">
+    <h2 class="home-section__title">Find me online</h2>
+    <div class="links">
+      {{ range . }}
+        <a href="{{ .url }}" class="link-card" target="_blank" rel="noopener me">
+          <span class="link-card__icon">{{ partial "svg.html" .icon }}</span>
+          <span class="link-card__text">
+            <span class="link-card__name">{{ .label }}</span>
+            <span class="link-card__handle">{{ .value }}</span>
+          </span>
+        </a>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{ with .Content }}
+    <div class="home-content">{{ . }}</div>
+  {{ end }}
 {{ end }}
