@@ -32,12 +32,17 @@
 
 .site-title {
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 .site-title a {
-  color: var(--text-accent);
+  color: theme(accent);
   text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: theme(text-heading);
+  }
 }
 
 /* Right side (menus) */
@@ -46,20 +51,24 @@
 .menu-desktop {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(0.75rem, 2vw, 2rem);
+  gap: clamp(1rem, 2vw, 1.75rem);
   justify-content: flex-end;
   align-items: center;
 }
 .menu-desktop a {
-  color: var(--text-accent) !important;
+  color: theme(muted);
   text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 450;
+  transition: color 0.2s ease;
 }
 .menu-desktop a:hover,
 .menu-desktop a:focus-visible {
-  color: var(--text-highlight);
+  color: theme(text-heading);
   outline: none;
+}
+.menu-desktop a.active {
+  color: theme(accent);
 }
 
 /* Mobile trigger (<details class="menu-mobile"> + <summary class="menu-toggle">) */
@@ -78,7 +87,7 @@
   justify-content: center;
   min-width: 2.75rem;
   -webkit-tap-highlight-color: transparent;
-  color: var(--text-accent);
+  color: theme(text);
 }
 .menu-toggle::-webkit-details-marker { display: none; }
 
