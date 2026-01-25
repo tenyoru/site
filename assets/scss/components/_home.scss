@@ -12,30 +12,6 @@
   }
 }
 
-// Glow effect - soft radial behind text
-.hero__glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(600px, 100vw);
-  height: 400px;
-  background: radial-gradient(ellipse at center, theme(accent) 0%, transparent 70%);
-  opacity: 0.15;
-  pointer-events: none;
-  animation: glow-breathe 6s ease-in-out infinite;
-
-  @media (min-width: v.mq(md)) {
-    width: 800px;
-    height: 500px;
-  }
-}
-
-@keyframes glow-breathe {
-  0%, 100% { opacity: 0.15; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 0.22; transform: translate(-50%, -50%) scale(1.05); }
-}
-
 .hero__content {
   position: relative;
   z-index: 1;
