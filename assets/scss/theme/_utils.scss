@@ -17,14 +17,22 @@
 // Default theme + prepare UA color-scheme hint
 :root {
   @include emit-theme-vars(map.get(c.$themes, c.$default-theme));
-  color-scheme: #{if(c.$default-theme == light, light, dark)};
+  @if c.$default-theme == light {
+    color-scheme: light;
+  } @else {
+    color-scheme: dark;
+  }
 }
 
 // Generate [data-theme="name"] blocks for each theme
 @each $name, $map in c.$themes {
   :root[data-theme="#{$name}"] {
     @include emit-theme-vars($map);
-    color-scheme: #{if($name == light, light, dark)};
+    @if $name == light {
+      color-scheme: light;
+    } @else {
+      color-scheme: dark;
+    }
   }
 }
 
