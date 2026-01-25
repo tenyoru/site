@@ -1,10 +1,5 @@
 @use "../theme" as *;
 
-html,
-body {
-  overflow-x: clip;
-}
-
 body {
   background-color: theme(bg);
   color: var(--text-base);
