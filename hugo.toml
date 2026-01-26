@@ -70,7 +70,7 @@ icon = "telegram"
 [params.footer]
 contactLink = "/contact"
 contactLabel = "Contact"
-credits = "© 2025 Tenyoru"
+credits = "© 2026 Tenyoru"
 
 [params.giscus]
 repo = "tenyoru/Tenyoru.github.io"
