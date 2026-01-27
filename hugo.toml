@@ -57,8 +57,8 @@ icon = "codeberg"
 
 [[params.media]]
 label = "Mastodon"
-value = "@tenyoru@metalhead.club"
-url = "https://metalhead.club/@tenyoru"
+value = "@tenyoru@mastodon.social"
+url = "https://mastodon.social/@tenyoru"
 icon = "mastodon"
 
 [[params.media]]
