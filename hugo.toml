@@ -67,6 +67,12 @@ value = "@tenyoru"
 url = "https://t.me/tenyoru"
 icon = "telegram"
 
+[[params.media]]
+label = "Twitter"
+value = "@XTenyoru"
+url = "https://x.com/XTenyoru"
+icon = "x"
+
 [params.footer]
 contactLink = "/contact"
 contactLabel = "Contact"
