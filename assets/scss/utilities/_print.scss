@@ -1,0 +1,93 @@
+@media print {
+  // Hide non-content elements
+  .site-header-outer,
+  .footer-shell,
+  .post-nav,
+  .post-comments,
+  .post-toc,
+  .theme-toggle {
+    display: none !important;
+  }
+
+  // Reset page styles
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .content,
+  .shell,
+  .shell--narrow,
+  .post-column {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  // Post styles for print
+  .post-header {
+    border-bottom: 1px solid #ccc !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .page-title {
+    color: black !important;
+    font-size: 1.75rem !important;
+  }
+
+  .post-meta,
+  .post-date,
+  .post-readtime {
+    color: #555 !important;
+  }
+
+  .post-tags__list a {
+    color: #333 !important;
+    border-color: #ccc !important;
+    background: transparent !important;
+  }
+
+  .post-content {
+    color: black !important;
+    line-height: 1.6 !important;
+  }
+
+  .post-content a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+
+  .post-content h2,
+  .post-content h3,
+  .post-content h4 {
+    color: black !important;
+  }
+
+  // Code blocks
+  .post-content pre,
+  .post-content code {
+    background: #f5f5f5 !important;
+    border: 1px solid #ddd !important;
+    color: black !important;
+  }
+
+  // Links - show URL after link text
+  .post-content a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  // Prevent page breaks inside elements
+  .post-content pre,
+  .post-content blockquote,
+  .post-content img {
+    page-break-inside: avoid;
+  }
+
+  .post-content h2,
+  .post-content h3 {
+    page-break-after: avoid;
+  }
+}
