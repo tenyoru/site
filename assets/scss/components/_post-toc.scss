@@ -1,0 +1,77 @@
+@use "../theme" as *;
+
+.post-toc {
+  margin: 0.75rem 0 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-left: 2px solid color-mix(in srgb, theme(accent) 30%, theme(border) 70%);
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, theme(bg) 97%, theme(card) 3%);
+  font-size: 0.9rem;
+}
+
+.post-toc__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: color-mix(in srgb, theme(text) 60%, theme(bg) 40%);
+  cursor: pointer;
+  list-style: none;
+  padding: 0.2rem 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.post-toc__summary::-webkit-details-marker {
+  display: none;
+}
+
+.post-toc__chevron {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.post-toc[open] .post-toc__chevron {
+  transform: rotate(-135deg);
+}
+
+.post-toc__body {
+  margin-top: 0.75rem;
+}
+
+.post-toc__body ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.post-toc__body li {
+  line-height: 1.4;
+}
+
+.post-toc__body a {
+  color: color-mix(in srgb, theme(text) 90%, theme(bg) 10%);
+  text-decoration: none;
+}
+
+.post-toc__body a:hover,
+.post-toc__body a:focus-visible {
+  color: theme(accent);
+  outline: none;
+}
+
+.post-toc__body ul ul {
+  padding-left: 1rem;
+  margin-top: 0.3rem;
+  border-left: 1px solid color-mix(in srgb, theme(border) 70%, transparent);
+}

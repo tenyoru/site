@@ -1,0 +1,75 @@
+@use "../theme" as *;
+@use "tag-pill" as *;
+
+.term-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.term-list li {
+  list-style: none;
+}
+
+.term-list__link {
+  @include tag-pill;
+  @include tag-pill-hover;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding-inline: 0.95rem;
+  text-decoration: none;
+}
+
+.term-list__name {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.term-list__count {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, theme(text) 55%, theme(bg) 45%);
+}
+
+.term-back {
+  margin-top: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+.term-back__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, theme(border) 75%, transparent);
+  background-color: color-mix(in srgb, theme(bg) 85%, theme(card) 15%);
+  box-shadow: 0 0.6rem 1.5rem color-mix(in srgb, theme(shadow) 8%, transparent);
+  color: color-mix(in srgb, theme(text) 92%, theme(bg) 8%);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.term-back__link:hover,
+.term-back__link:focus-visible {
+  color: theme(accent);
+  border-color: color-mix(in srgb, theme(accent) 35%, theme(border) 65%);
+}
+
+.term-back__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: inherit;
+}
+.term-back__icon .arrow-left-icon {
+  width: 1rem;
+  height: 1rem;
+}
