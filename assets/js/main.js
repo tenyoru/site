@@ -117,17 +117,25 @@ document.addEventListener("DOMContentLoaded", () => {
   cards.forEach((card) => {
     const href = card.dataset.cardLink;
     if (!href) return;
+    const isExternal = card.dataset.cardExternal === "true";
     const isInteractive = (target) =>
       target.closest("a, button, input, textarea, select");
+    const navigate = () => {
+      if (isExternal) {
+        window.open(href, "_blank", "noopener,noreferrer");
+      } else {
+        window.location.href = href;
+      }
+    };
     card.addEventListener("click", (event) => {
       if (isInteractive(event.target)) return;
-      window.location.href = href;
+      navigate();
     });
     card.addEventListener("keydown", (event) => {
       if (isInteractive(event.target)) return;
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        window.location.href = href;
+        navigate();
       }
     });
   });
