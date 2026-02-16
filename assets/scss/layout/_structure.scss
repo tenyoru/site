@@ -99,7 +99,7 @@ hr {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-muted-strong);
+  color: theme(text-muted-strong);
 }
 
 .footer-inline__list {
@@ -107,14 +107,14 @@ hr {
   flex-direction: column;
   gap: 0.35rem;
   align-items: flex-start;
-  color: var(--text-base);
+  color: theme(text-base);
 }
 
 .footer-inline__list a {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: var(--text-base);
+  color: theme(text-base);
   text-decoration: none;
   font-weight: 500;
   font-size: 0.85rem;
@@ -122,7 +122,7 @@ hr {
 
 .footer-inline__list a:hover,
 .footer-inline__list a:focus-visible {
-  color: var(--text-highlight);
+  color: theme(text-highlight);
   outline: none;
 }
 
@@ -138,24 +138,24 @@ hr {
   gap: 0.5rem;
   justify-content: center;
   flex-wrap: wrap;
-  color: var(--text-subtle);
+  color: theme(text-subtle);
 }
 
 .footer-inline__meta a {
-  color: var(--text-base);
+  color: theme(text-base);
   text-decoration: none;
   font-weight: 600;
 }
 
 .footer-inline__meta a:hover,
 .footer-inline__meta a:focus-visible {
-  color: var(--text-highlight);
+  color: theme(text-highlight);
   outline: none;
 }
 
 .footer-inline__branding {
   text-align: left;
-  color: var(--text-muted-strong);
+  color: theme(text-muted-strong);
 }
 .footer-inline__theme {
   display: flex;

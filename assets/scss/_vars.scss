@@ -15,6 +15,7 @@ $header-height: 3rem;
 $font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
 
 $breakpoints: (
+  xs: 34rem,   // 544px
   sm: 36rem,   // 576px
   md: 48rem,   // 768px
   lg: 64rem,   // 1024px
