@@ -31,7 +31,7 @@
           <h2 class="footer-inline__heading">Contact me</h2>
           <div class="footer-inline__list">
             {{ range .items }}
-              <a href="{{ .url }}">
+              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">
                 {{ if .icon }}{{ partial "svg.html" .icon }}{{ end }}
                 <span>{{ or .value .label }}</span>
               </a>
