@@ -2,14 +2,25 @@
 <div class="home shell--narrow">
   {{/* Intro */}}
   <section class="home-intro">
-    <h1 class="home-intro__name">Hey, I'm {{ .Site.Title }}</h1>
-    <p class="home-intro__bio">{{ .Site.Params.bio | default "Linux enthusiast, FOSS advocate, and Zig programmer. Currently building a startup." }}</p>
-    {{ with .Site.Params.status }}
-    <p class="home-intro__status">
-      <span class="home-intro__status-dot"></span>
-      {{ . }}
-    </p>
-    {{ end }}
+    <p class="home-intro__greeting">Hey, I'm</p>
+    <h1 class="home-intro__name">{{ .Site.Title }}</h1>
+    <p class="home-intro__bio">{{ .Site.Params.bio }}</p>
+  </section>
+
+  {{/* About */}}
+  <section class="home-about">
+    <div class="home-about__item">
+      <span class="home-about__label">Status</span>
+      <span class="home-about__value">{{ .Site.Params.status }}</span>
+    </div>
+    <div class="home-about__item">
+      <span class="home-about__label">Focus</span>
+      <span class="home-about__value">{{ .Site.Params.focus | default "Systems programming, infrastructure" }}</span>
+    </div>
+    <div class="home-about__item">
+      <span class="home-about__label">Location</span>
+      <span class="home-about__value">{{ .Site.Params.location | default "Remote" }}</span>
+    </div>
   </section>
 
   {{/* Recent Posts */}}
@@ -22,17 +33,24 @@
       <li class="home-posts__item">
         <a href="{{ .RelPermalink }}" class="home-posts__link">
           <span class="home-posts__link-title">{{ .Title }}</span>
-          <time class="home-posts__link-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          <time class="home-posts__link-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2006" }}</time>
         </a>
       </li>
       {{ end }}
     </ul>
-    <a href="/blog/" class="home-posts__more">View all posts →</a>
+    <a href="/blog/" class="home-posts__more">All posts →</a>
   </section>
   {{ end }}
 
-  {{ with .Content }}
-  <div class="home-content">{{ . }}</div>
-  {{ end }}
+  {{/* Connect */}}
+  <section class="home-connect">
+    <h2 class="home-connect__title">Connect</h2>
+    <div class="home-connect__links">
+      {{ range first 4 .Site.Params.media }}
+      <a href="{{ .url }}" class="home-connect__link" target="_blank" rel="noopener">{{ .label }}</a>
+      {{ end }}
+      <a href="/contact/" class="home-connect__link">Contact →</a>
+    </div>
+  </section>
 </div>
 {{ end }}

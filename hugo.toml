@@ -6,6 +6,8 @@ title = 'Tenyoru'
 description = "Tenyoru is a personal hub for engineering notes, blog posts, and ways to get in touch."
 bio = "I love open source, Linux, and programming in Zig. Currently building a startup."
 status = "Building a startup"
+focus = "Zig, systems programming"
+location = "Remote"
 
 [params.contact.hero]
 title = "Let's build something together"
