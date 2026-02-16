@@ -1,4 +1,5 @@
 @use "../theme" as *;
+@use "../vars" as v;
 
 .post-nav {
   margin-block: clamp(1.5rem, 4vw, 2.5rem);
@@ -67,7 +68,7 @@
   text-decoration: inherit;
 }
 
-@media (max-width: 540px) {
+@media (max-width: v.mq(xs)) {
   .post-nav__list {
     gap: 0.25rem 1rem;
   }

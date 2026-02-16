@@ -1,0 +1,110 @@
+@use "../theme" as *;
+@use "../vars" as v;
+@use "tag-pill" as *;
+
+.post-grid {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: color-mix(in srgb, theme(bg) 85%, theme(card) 15%);
+  border: 1px solid color-mix(in srgb, theme(border) 75%, transparent);
+  border-radius: 1rem;
+  box-shadow: 0 0.6rem 1.5rem color-mix(in srgb, theme(shadow) 8%, transparent);
+  overflow: hidden;
+  padding: clamp(1rem, 3vw, 1.35rem);
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.post-card:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in srgb, theme(accent) 40%, transparent), 0 0.6rem 1.5rem color-mix(in srgb, theme(shadow) 12%, transparent);
+}
+
+.post-card:hover {
+  box-shadow: 0 1rem 2.25rem color-mix(in srgb, theme(shadow) 15%, transparent);
+  transform: translateY(-3px);
+}
+
+.post-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 0.75rem;
+}
+
+.post-card__title {
+  margin: 0;
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  line-height: 1.25;
+  color: theme(text-accent);
+}
+
+.post-card__title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-card__title-link:hover,
+.post-card__title-link:focus-visible {
+  color: theme(text-highlight);
+  text-decoration: none;
+}
+
+.post-card__date {
+  font-size: 0.9rem;
+  color: theme(text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.post-card__date time {
+  font-variant-numeric: tabular-nums;
+}
+
+.post-card__excerpt {
+  margin: 0;
+  color: color-mix(in srgb, theme(text-base) 85%, theme(bg) 15%);
+  line-height: 1.55;
+}
+
+.post-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.3rem;
+  padding: 0;
+  list-style: none;
+}
+
+.post-card__tags li {
+  margin: 0;
+}
+
+.post-card__tag {
+  @include tag-pill;
+  @include tag-pill-hover;
+}
+
+@media (max-width: v.mq(sm)) {
+  .post-card__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .post-card__date {
+    order: 0;
+    width: 100%;
+  }
+}

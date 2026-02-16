@@ -1,0 +1,54 @@
+@use "../theme" as *;
+
+.post-content {
+  width: 100%;
+  margin: 0 auto;
+  line-height: 1.75;
+  color: theme(text-base);
+}
+
+.post-content > :first-child {
+  margin-top: 0;
+}
+
+.post-content > * {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+.post-content p,
+.post-content ul,
+.post-content ol {
+  margin-top: 1rem;
+}
+
+.post-content h2,
+.post-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.post-content h2:first-of-type,
+.post-content h3:first-of-type {
+  margin-top: 1.5rem;
+}
+
+.post-content ul,
+.post-content ol {
+  padding-inline-start: 1.25rem;
+  list-style-position: outside;
+}
+
+.post-comments {
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.post-content img,
+.post-content video,
+.post-content iframe {
+  border-radius: 0.75rem;
+  margin: 1.5rem auto;
+  width: 100%;
+  height: auto;
+  display: block;
+}

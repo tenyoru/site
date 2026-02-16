@@ -1,4 +1,15 @@
 @media print {
+  // Print-specific color tokens
+  :root {
+    --print-bg: white;
+    --print-text: black;
+    --print-muted: #555;
+    --print-subtle: #666;
+    --print-border: #ccc;
+    --print-code-bg: #f5f5f5;
+    --print-code-border: #ddd;
+  }
+
   // Hide non-content elements
   .site-header-outer,
   .footer-shell,
@@ -11,8 +22,8 @@
 
   // Reset page styles
   body {
-    background: white !important;
-    color: black !important;
+    background: var(--print-bg) !important;
+    color: var(--print-text) !important;
   }
 
   .content,
@@ -26,57 +37,57 @@
 
   // Post styles for print
   .post-header {
-    border-bottom: 1px solid #ccc !important;
+    border-bottom: 1px solid var(--print-border) !important;
     padding-bottom: 1rem !important;
     margin-bottom: 1rem !important;
   }
 
   .page-title {
-    color: black !important;
+    color: var(--print-text) !important;
     font-size: 1.75rem !important;
   }
 
   .post-meta,
   .post-date,
   .post-readtime {
-    color: #555 !important;
+    color: var(--print-muted) !important;
   }
 
   .post-tags__list a {
-    color: #333 !important;
-    border-color: #ccc !important;
+    color: var(--print-text) !important;
+    border-color: var(--print-border) !important;
     background: transparent !important;
   }
 
   .post-content {
-    color: black !important;
+    color: var(--print-text) !important;
     line-height: 1.6 !important;
   }
 
   .post-content a {
-    color: black !important;
+    color: var(--print-text) !important;
     text-decoration: underline !important;
   }
 
   .post-content h2,
   .post-content h3,
   .post-content h4 {
-    color: black !important;
+    color: var(--print-text) !important;
   }
 
   // Code blocks
   .post-content pre,
   .post-content code {
-    background: #f5f5f5 !important;
-    border: 1px solid #ddd !important;
-    color: black !important;
+    background: var(--print-code-bg) !important;
+    border: 1px solid var(--print-code-border) !important;
+    color: var(--print-text) !important;
   }
 
   // Links - show URL after link text
   .post-content a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 0.8em;
-    color: #666;
+    color: var(--print-subtle);
   }
 
   // Prevent page breaks inside elements
