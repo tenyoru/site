@@ -1,55 +1,38 @@
 {{ define "main" }}
-  {{/* Hero */}}
-  <section class="hero">
-    <div class="hero__glow"></div>
-    <div class="hero__content">
-      <p class="hero__greeting">Hey, I'm</p>
-      <h1 class="hero__name">{{ .Site.Title }}</h1>
-      <p class="hero__bio">{{ .Site.Params.description }}</p>
-      {{ with .Site.Params.status }}
-      <div class="hero__status">
-        <span class="hero__status-dot"></span>
-        <span>{{ . }}</span>
-      </div>
-      {{ end }}
-    </div>
+<div class="home shell--narrow">
+  {{/* Intro */}}
+  <section class="home-intro">
+    <h1 class="home-intro__name">Hey, I'm {{ .Site.Title }}</h1>
+    <p class="home-intro__bio">{{ .Site.Params.bio | default "Linux enthusiast, FOSS advocate, and Zig programmer. Currently building a startup." }}</p>
+    {{ with .Site.Params.status }}
+    <p class="home-intro__status">
+      <span class="home-intro__status-dot"></span>
+      {{ . }}
+    </p>
+    {{ end }}
   </section>
 
-  <div class="home-divider"></div>
-
-  {{/* Skills */}}
-  {{ with .Site.Params.skills }}
-  <section class="home-section">
-    <h2 class="home-section__title">What I work with</h2>
-    <div class="skills">
+  {{/* Recent Posts */}}
+  {{ $posts := where .Site.RegularPages "Section" "blog" }}
+  {{ with $posts | first 5 }}
+  <section class="home-posts">
+    <h2 class="home-posts__title">Recent posts</h2>
+    <ul class="home-posts__list">
       {{ range . }}
-        <span class="skill">{{ . }}</span>
-      {{ end }}
-    </div>
-  </section>
-  {{ end }}
-
-  <div class="home-divider"></div>
-
-  {{/* Links */}}
-  {{ with .Site.Params.media }}
-  <section class="home-section">
-    <h2 class="home-section__title">Find me online</h2>
-    <div class="links">
-      {{ range . }}
-        <a href="{{ .url }}" class="link-card" target="_blank" rel="noopener me">
-          <span class="link-card__icon">{{ partial "svg.html" .icon }}</span>
-          <span class="link-card__text">
-            <span class="link-card__name">{{ .label }}</span>
-            <span class="link-card__handle">{{ .value }}</span>
-          </span>
+      <li class="home-posts__item">
+        <a href="{{ .RelPermalink }}" class="home-posts__link">
+          <span class="home-posts__link-title">{{ .Title }}</span>
+          <time class="home-posts__link-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
         </a>
+      </li>
       {{ end }}
-    </div>
+    </ul>
+    <a href="/blog/" class="home-posts__more">View all posts →</a>
   </section>
   {{ end }}
 
   {{ with .Content }}
-    <div class="home-content">{{ . }}</div>
+  <div class="home-content">{{ . }}</div>
   {{ end }}
+</div>
 {{ end }}
