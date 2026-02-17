@@ -7,10 +7,10 @@
   <a href="{{ $page.RelPermalink }}" class="post-item__link">
     <span class="post-item__title">{{ $page.LinkTitle }}</span>
     <span class="post-item__meta">
-      <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "Jan 2" }}</time>
+      <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "Jan 2, 2006" }}</time>
     </span>
   </a>
-  {{ if $excerpt }}
+  {{- if $excerpt -}}
   <p class="post-item__excerpt">{{ $excerpt }}</p>
-  {{ end }}
+  {{- end -}}
 </li>
