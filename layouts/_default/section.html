@@ -10,24 +10,17 @@
     {{ end }}
   </header>
 
-  {{- $pages := .RegularPages.GroupByDate "2006" -}}
   {{- $showDrafts := or hugo.IsDevelopment .Site.BuildDrafts -}}
+  {{- $pages := .RegularPages -}}
 
   {{- if gt (len $pages) 0 -}}
-    <div class="post-archive">
+    <ul class="post-list">
       {{- range $pages -}}
-        <section class="post-year">
-          <h2 class="post-year__title">{{ .Key }}</h2>
-          <ul class="post-list">
-            {{- range .Pages -}}
-              {{- if or $showDrafts (not .Draft) -}}
-                {{ partial "post/card.html" (dict "page" .) }}
-              {{- end -}}
-            {{- end -}}
-          </ul>
-        </section>
+        {{- if or $showDrafts (not .Draft) -}}
+          {{ partial "post/card.html" (dict "page" .) }}
+        {{- end -}}
       {{- end -}}
-    </div>
+    </ul>
   {{- else -}}
     <p class="post-empty">No posts yet.</p>
   {{- end -}}
