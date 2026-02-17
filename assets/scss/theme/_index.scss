@@ -1,4 +1,3 @@
 // Barrel file: lets you `@use "theme"`
 @forward "colors" show $themes;
 @forward "utils" show theme, emit-theme-vars;
-@forward "color-mix" show fade, blend, text-subtle, card-bg, border-fade, shadow-fade, accent-bg, accent-border;
