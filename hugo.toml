@@ -6,16 +6,12 @@ title = 'Tenyoru'
 description = "Tenyoru is a personal hub for engineering notes, blog posts, and ways to get in touch."
 bio = "I love open source, Linux, and programming in Zig. Currently building a startup."
 status = "Building a startup"
-focus = "Zig, systems programming"
-location = "Remote"
+focus = "Systems programming"
+location = "Belgium"
 
 [params.contact.hero]
 title = "Let's build something together"
 body = "Have an idea you want to validate, need a hand improving a system, or just want to talk shop? Drop me a line and we'll take it from there."
-
-  [params.contact.hero.cta]
-  label = "Email me"
-  url = "mailto:hi@tenyoru.dev"
 
 [params.contact.contacts]
 heading = "Pick the channel that suits you"
