@@ -2,93 +2,57 @@
 {{- $next := .NextInSection -}}
 
 <nav class="post-nav" aria-label="Post navigation">
-  <div class="post-nav__divider"></div>
-  <ul class="post-nav__list">
-    <li class="post-nav__item">
-      {{- if $prev -}}
-        <a href="{{ $prev.Permalink }}" class="post-nav__link" title="{{ $prev.Title }}">
-          <span class="post-nav__symbol">←</span>
-          <span class="post-nav__label">Previous</span>
-        </a>
-      {{- else -}}
-        <span class="post-nav__link post-nav__link--disabled">
-          <span class="post-nav__symbol">←</span>
-          <span class="post-nav__label">Previous</span>
-        </span>
-      {{- end -}}
-    </li>
-    <li class="post-nav__item">
-      {{- if $next -}}
-        <a href="{{ $next.Permalink }}" class="post-nav__link" title="{{ $next.Title }}">
-          <span class="post-nav__label">Next</span>
-          <span class="post-nav__symbol">→</span>
-        </a>
-      {{- else -}}
-        <span class="post-nav__link post-nav__link--disabled">
-          <span class="post-nav__label">Next</span>
-          <span class="post-nav__symbol">→</span>
-        </span>
-      {{- end -}}
-    </li>
-    <li class="post-nav__item">
-      <a href="{{ .CurrentSection.Permalink }}" class="post-nav__link">
-        <span class="post-nav__symbol">↩</span>
-        <span class="post-nav__label">Blog</span>
-      </a>
-    </li>
-    <li class="post-nav__item">
-      <a href="{{ "/" | relURL }}" class="post-nav__link">
-        <span class="post-nav__symbol">△</span>
-        <span class="post-nav__label">Home</span>
-      </a>
-    </li>
-    <li class="post-nav__item">
-      <a href="#" class="post-nav__link" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
-        <span class="post-nav__symbol">↑</span>
-        <span class="post-nav__label">Top</span>
-      </a>
-    </li>
-    <li class="post-nav__item">
-      <button type="button" class="post-nav__link post-nav__btn" onclick="window.print()">
-        <span class="post-nav__symbol">⎙</span>
-        <span class="post-nav__label">Print</span>
-      </button>
-    </li>
-  </ul>
-  <div class="post-nav__divider"></div>
+  <div class="post-nav__row">
+    {{- if $prev -}}
+    <a href="{{ $prev.Permalink }}" class="post-nav__link" title="{{ $prev.Title }}">← Previous</a>
+    {{- else -}}
+    <span class="post-nav__link post-nav__link--disabled">← Previous</span>
+    {{- end -}}
+
+    {{- if $next -}}
+    <a href="{{ $next.Permalink }}" class="post-nav__link" title="{{ $next.Title }}">Next →</a>
+    {{- else -}}
+    <span class="post-nav__link post-nav__link--disabled">Next →</span>
+    {{- end -}}
+
+    <span class="post-nav__sep"></span>
+
+    <a href="{{ .CurrentSection.Permalink }}" class="post-nav__link">Blog</a>
+    <a href="{{ "/" | relURL }}" class="post-nav__link">Home</a>
+    <a href="#" class="post-nav__link" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Top</a>
+    <button type="button" class="post-nav__link" onclick="window.print()">Print</button>
+  </div>
 
   {{- with .GetTerms "tags" -}}
+  {{- $currentPage := $ -}}
+  {{- $related := slice -}}
+  {{- range . -}}
+    {{- range .Pages -}}
+      {{- if ne .Permalink $currentPage.Permalink -}}
+        {{- $related = $related | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $related = $related | uniq | first 5 -}}
+
+  <div class="post-nav__extra">
     <div class="post-nav__tags">
-      <span class="post-nav__tags-label">Tags:</span>
+      <span class="post-nav__label">tags:</span>
       {{- range . -}}
-        <a href="{{ .Permalink }}" class="post-nav__tag">#{{ .LinkTitle }}</a>
+      <a href="{{ .Permalink }}" class="post-nav__tag">#{{ .LinkTitle }}</a>
       {{- end -}}
     </div>
 
-    {{- $currentPage := $ -}}
-    {{- $related := slice -}}
-    {{- range . -}}
-      {{- range .Pages -}}
-        {{- if ne .Permalink $currentPage.Permalink -}}
-          {{- $related = $related | append . -}}
-        {{- end -}}
-      {{- end -}}
-    {{- end -}}
-    {{- $related = $related | uniq | first 12 -}}
-
     {{- if $related -}}
-      <details class="post-nav__related">
-        <summary class="post-nav__related-summary">
-          <span>More pages with the same tags</span>
-        </summary>
-        <ul class="post-nav__related-list">
-          {{- range $related -}}
-            <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-          {{- end -}}
-        </ul>
-      </details>
+    <details class="post-nav__related">
+      <summary class="post-nav__related-summary">related</summary>
+      <ul class="post-nav__related-list">
+        {{- range $related -}}
+        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+        {{- end -}}
+      </ul>
+    </details>
     {{- end -}}
-
-    <div class="post-nav__divider"></div>
+  </div>
   {{- end -}}
 </nav>

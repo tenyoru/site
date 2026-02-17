@@ -1,35 +1,16 @@
 {{- $page := .page -}}
 {{- $summary := default $page.Params.summary $page.Summary -}}
 {{- $cleanSummary := replaceRE "\\s+" " " ($summary | plainify) -}}
-{{- $excerpt := cond (gt (len $cleanSummary) 0) ($cleanSummary | truncate 200) "" -}}
-{{- $tags := $page.Params.tags -}}
+{{- $excerpt := cond (gt (len $cleanSummary) 0) ($cleanSummary | truncate 120) "" -}}
 
-<article class="post-card" role="link" tabindex="0" aria-label="Read {{ $page.Title }}" data-card-link="{{ $page.RelPermalink }}">
-  <header class="post-card__head">
-    <h2 class="post-card__title">
-      <a class="post-card__title-link" href="{{ $page.RelPermalink }}" aria-label="{{ $page.Title }}">
-        {{ $page.LinkTitle }}
-      </a>
-    </h2>
-    <div class="post-card__date">
-      <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "Jan 2, 2006" }}</time>
-    </div>
-  </header>
+<li class="post-item">
+  <a href="{{ $page.RelPermalink }}" class="post-item__link">
+    <span class="post-item__title">{{ $page.LinkTitle }}</span>
+    <span class="post-item__meta">
+      <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "Jan 2" }}</time>
+    </span>
+  </a>
   {{ if $excerpt }}
-    <p class="post-card__excerpt">{{ $excerpt }}</p>
+  <p class="post-item__excerpt">{{ $excerpt }}</p>
   {{ end }}
-  {{ with $tags }}
-    <ul class="post-card__tags" aria-label="Tags">
-      {{ range $index, $tag := . }}
-        {{ if lt $index 4 }}
-          {{ $tagURL := printf "/tags/%s" (urlize $tag) | relLangURL }}
-          <li>
-            <a class="post-card__tag" href="{{ $tagURL }}">
-              {{ $tag }}
-            </a>
-          </li>
-        {{ end }}
-      {{ end }}
-    </ul>
-  {{ end }}
-</article>
+</li>

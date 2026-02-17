@@ -12,6 +12,9 @@ const safeStorage = (() => {
   }
 })();
 
+const getSystemTheme = () =>
+  window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+
 const getCurrentTheme = () =>
   document.documentElement.dataset.theme === "light" ? "light" : "dark";
 
@@ -69,39 +72,46 @@ const loadGiscus = () => {
 };
 
 const applyTheme = (theme) => {
-  const resolved = theme === "light" ? "light" : "dark";
-  document.documentElement.dataset.theme = resolved;
-  const toggles = document.querySelectorAll("[data-theme-toggle]");
-  toggles.forEach((toggle) => {
-    toggle.setAttribute(
-      "aria-label",
-      resolved === "light" ? "Switch to dark theme" : "Switch to light theme"
-    );
+  document.documentElement.dataset.theme = theme;
+  setGiscusTheme(theme);
+};
+
+const updateThemeSwitcher = (preference) => {
+  const buttons = document.querySelectorAll(".theme-switcher__btn");
+  buttons.forEach((btn) => {
+    const isActive = btn.dataset.themeValue === preference;
+    btn.setAttribute("aria-pressed", isActive ? "true" : "false");
   });
-  setGiscusTheme(resolved);
 };
 
 const initTheme = () => {
-  const stored = safeStorage?.getItem(THEME_STORAGE_KEY);
-  if (stored) {
-    applyTheme(stored);
-    return;
-  }
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  applyTheme(prefersDark ? "dark" : "light");
+  const stored = safeStorage?.getItem(THEME_STORAGE_KEY) || "system";
+  const resolved = stored === "system" ? getSystemTheme() : stored;
+  applyTheme(resolved);
+  updateThemeSwitcher(stored);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   loadGiscus();
-  const themeToggles = document.querySelectorAll("[data-theme-toggle]");
-  themeToggles.forEach((toggle) => {
-    toggle.addEventListener("click", () => {
-      const current = getCurrentTheme();
-      const next = current === "light" ? "dark" : "light";
-      applyTheme(next);
-      safeStorage?.setItem(THEME_STORAGE_KEY, next);
+
+  const themeButtons = document.querySelectorAll(".theme-switcher__btn");
+  themeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const preference = btn.dataset.themeValue;
+      const resolved = preference === "system" ? getSystemTheme() : preference;
+      applyTheme(resolved);
+      updateThemeSwitcher(preference);
+      safeStorage?.setItem(THEME_STORAGE_KEY, preference);
     });
+  });
+
+  // Listen for system theme changes
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    const stored = safeStorage?.getItem(THEME_STORAGE_KEY) || "system";
+    if (stored === "system") {
+      applyTheme(getSystemTheme());
+    }
   });
 
   const observer = new MutationObserver(() => {

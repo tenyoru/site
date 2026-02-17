@@ -1,54 +1,35 @@
 {{ define "main" }}
-  {{- $centerHead := and .IsSection (eq .Section "blog") -}}
-  <header class="section-head{{ if $centerHead }} section-head--center{{ end }}">
-    <div class="section-title-row">
-      <h1 class="section-title">{{ .Title }}</h1>
-      {{- if and .IsSection (eq .Section "blog") -}}
-        {{- with .OutputFormats.Get "RSS" -}}
-          <a class="section-rss" href="{{ .RelPermalink }}" rel="alternate" aria-label="Subscribe to the blog RSS feed" title="RSS feed for {{ $.Title }}">
-            {{ partial "svg.html" "rss" }}
-          </a>
-        {{- end -}}
-      {{- end -}}
+<div class="section shell--narrow">
+  <header class="section-header">
+    <div class="section-header__top">
+      <h1 class="section-header__title">{{ .Title }}</h1>
+      <a href="{{ .Permalink }}index.xml" class="section-header__rss" title="RSS Feed">{{- partial "svg" "rss" -}}</a>
     </div>
     {{ with .Content }}
-      <div class="section-intro">
-        {{ . }}
-      </div>
+    <p class="section-header__desc">{{ . | plainify }}</p>
     {{ end }}
   </header>
 
-  {{- $pages := sort .RegularPages "Date" "desc" -}}
+  {{- $pages := .RegularPages.GroupByDate "2006" -}}
   {{- $showDrafts := or hugo.IsDevelopment .Site.BuildDrafts -}}
 
-  {{- if $showDrafts -}}
-    {{ if gt (len $pages) 0 }}
-    <div class="post-grid">
-      {{ range $pages }}
-        {{ partial "post/card.html" (dict "page" .) }}
-      {{ end }}
+  {{- if gt (len $pages) 0 -}}
+    <div class="post-archive">
+      {{- range $pages -}}
+        <section class="post-year">
+          <h2 class="post-year__title">{{ .Key }}</h2>
+          <ul class="post-list">
+            {{- range .Pages -}}
+              {{- if or $showDrafts (not .Draft) -}}
+                {{ partial "post/card.html" (dict "page" .) }}
+              {{- end -}}
+            {{- end -}}
+          </ul>
+        </section>
+      {{- end -}}
     </div>
-
-    {{ else }}
-      <p class="post-empty">No posts available yet. Check back soon!</p>
-    {{ end }}
   {{- else -}}
-    {{- $published := where $pages "Draft" false -}}
-    {{- if gt (len $published) 0 -}}
-      {{- $paginator := .Paginate $published -}}
-      <div class="post-grid">
-        {{ range $paginator.Pages }}
-          {{ partial "post/card.html" (dict "page" .) }}
-        {{ end }}
-      </div>
-
-      {{ if gt $paginator.TotalPages 1 }}
-        <nav class="post-pagination" aria-label="Pagination">
-          {{ template "_internal/pagination.html" $paginator }}
-        </nav>
-      {{ end }}
-    {{- else -}}
-      <p class="post-empty">No posts available yet. Check back soon!</p>
-    {{- end -}}
+    <p class="post-empty">No posts yet.</p>
   {{- end -}}
+</div>
 {{ end }}

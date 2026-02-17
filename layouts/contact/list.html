@@ -1,4 +1,5 @@
 {{ define "main" }}
+<div class="contact shell--narrow">
   {{ $siteContact := .Site.Params.contact }}
   {{ $hero := .Params.hero }}
   {{ if not $hero }}
@@ -6,38 +7,15 @@
       {{ with .hero }}{{ $hero = . }}{{ end }}
     {{ end }}
   {{ end }}
-  {{ $heroTitle := .Title }}
-  {{ with $hero }}
-    {{ with .title }}{{ $heroTitle = . }}{{ end }}
-  {{ end }}
 
-  <section class="hero-card contact-hero">
-    <div class="hero-card__body contact-hero__body">
-      <h1>{{ $heroTitle }}</h1>
-      {{ with $hero }}
-        {{ with .body }}
-          <div class="contact-hero__text">
-            {{ . | markdownify }}
-          </div>
-        {{ end }}
-      {{ end }}
-    </div>
-
+  <header class="contact-header">
+    <h1 class="contact-header__title">{{ .Title }}</h1>
     {{ with $hero }}
-      {{ with .cta }}
-        {{ $url := .url | default (print "mailto:" $.Site.Params.email) }}
-        {{ $safeURL := $url | safeURL }}
-        {{ $isExternal := or (strings.HasPrefix $url "http") (strings.HasPrefix $url "//") }}
-        <a class="contact-hero__cta" href="{{ $safeURL }}" {{ if $isExternal }}target="_blank" rel="noopener noreferrer"{{ end }}>
-          {{ .label | default "Send a note" }}
-        </a>
-      {{ end }}
-
-      {{ with .note }}
-        <p class="contact-hero__note">{{ . }}</p>
+      {{ with .body }}
+      <p class="contact-header__desc">{{ . | markdownify | plainify }}</p>
       {{ end }}
     {{ end }}
-  </section>
+  </header>
 
   {{ $contacts := .Params.contacts }}
   {{ if not $contacts }}
@@ -47,55 +25,42 @@
   {{ end }}
 
   {{ with $contacts }}
-    <section class="info-section contact-list-wrapper">
-      <h2>{{ .heading | default "Ways to reach me" }}</h2>
-      {{ with .intro }}
-        <p class="info-section__intro contact-list__intro">{{ . }}</p>
-      {{ end }}
-
-      {{ with .items }}
-        <ul class="info-card-list">
-          {{ range . }}
-            {{ $value := .value | default .url }}
-            {{ if .url }}
-              {{ $url := .url }}
-              {{ $safeURL := $url | safeURL }}
-              {{ $isExternal := or (strings.HasPrefix $url "http") (strings.HasPrefix $url "//") }}
-              <li class="info-card" role="link" tabindex="0" aria-label="{{ .label }}: {{ $value }}" data-card-link="{{ $safeURL }}"{{ if $isExternal }} data-card-external="true"{{ end }}>
-                {{ with .icon }}
-                  <div class="info-card__icon" aria-hidden="true">
-                    {{ partial "svg.html" . }}
-                  </div>
-                {{ end }}
-                <div class="info-card__body">
-                  {{ with .label }}
-                    <span class="info-card__label">{{ . }}</span>
-                  {{ end }}
-                  <span class="info-card__value">{{ $value }}</span>
-                </div>
-              </li>
-            {{ else }}
-              <li class="info-card">
-                {{ with .icon }}
-                  <div class="info-card__icon" aria-hidden="true">
-                    {{ partial "svg.html" . }}
-                  </div>
-                {{ end }}
-                <div class="info-card__body">
-                  {{ with .label }}
-                    <span class="info-card__label">{{ . }}</span>
-                  {{ end }}
-                  <span class="info-card__value">{{ $value }}</span>
-                </div>
-              </li>
-            {{ end }}
+    {{ with .items }}
+    <ul class="contact-list">
+      {{ range . }}
+      {{ $value := .value | default .url }}
+      {{ $url := .url }}
+      {{ $isExternal := or (strings.HasPrefix $url "http") (strings.HasPrefix $url "//") }}
+      <li class="contact-item">
+        {{ if $url }}
+        <a href="{{ $url | safeURL }}" class="contact-item__link"{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>
+          {{ with .icon }}
+          <span class="contact-item__icon">{{ partial "svg.html" . }}</span>
           {{ end }}
-        </ul>
+          <span class="contact-item__info">
+            {{ with .label }}<span class="label">{{ . }}</span>{{ end }}
+            <span class="contact-item__value">{{ $value }}</span>
+          </span>
+        </a>
+        {{ else }}
+        <div class="contact-item__static">
+          {{ with .icon }}
+          <span class="contact-item__icon">{{ partial "svg.html" . }}</span>
+          {{ end }}
+          <span class="contact-item__info">
+            {{ with .label }}<span class="label">{{ . }}</span>{{ end }}
+            <span class="contact-item__value">{{ $value }}</span>
+          </span>
+        </div>
+        {{ end }}
+      </li>
       {{ end }}
-    </section>
+    </ul>
+    {{ end }}
   {{ end }}
 
   {{ with .Content }}
-    <div class="contact-extra">{{ . }}</div>
+  <div class="contact-extra">{{ . }}</div>
   {{ end }}
+</div>
 {{ end }}

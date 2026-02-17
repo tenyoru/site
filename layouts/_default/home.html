@@ -10,16 +10,29 @@
   {{/* About */}}
   <section class="home-about">
     <div class="home-about__item">
-      <span class="home-about__label">Status</span>
+      <span class="label">Status</span>
       <span class="home-about__value">{{ .Site.Params.status }}</span>
     </div>
     <div class="home-about__item">
-      <span class="home-about__label">Focus</span>
+      <span class="label">Focus</span>
       <span class="home-about__value">{{ .Site.Params.focus | default "Systems programming, infrastructure" }}</span>
     </div>
     <div class="home-about__item">
-      <span class="home-about__label">Location</span>
+      <span class="label">Location</span>
       <span class="home-about__value">{{ .Site.Params.location | default "Remote" }}</span>
+    </div>
+  </section>
+  {{/* Connect */}}
+  <section class="home-connect">
+    <h2 class="label">Connect</h2>
+    <div class="home-connect__links">
+      {{ range .Site.Params.media }}
+      <a href="{{ .url }}" class="home-connect__link" target="_blank" rel="noopener">
+        {{- partial "svg" .icon -}}
+        <span>{{ .label }}</span>
+      </a>
+      {{ end }}
+      <a href="/contact/" class="home-connect__link home-connect__link--contact">Contact →</a>
     </div>
   </section>
 
@@ -27,7 +40,7 @@
   {{ $posts := where .Site.RegularPages "Section" "blog" }}
   {{ with $posts | first 5 }}
   <section class="home-posts">
-    <h2 class="home-posts__title">Recent posts</h2>
+    <h2 class="label">Recent posts</h2>
     <ul class="home-posts__list">
       {{ range . }}
       <li class="home-posts__item">
@@ -41,16 +54,5 @@
     <a href="/blog/" class="home-posts__more">All posts →</a>
   </section>
   {{ end }}
-
-  {{/* Connect */}}
-  <section class="home-connect">
-    <h2 class="home-connect__title">Connect</h2>
-    <div class="home-connect__links">
-      {{ range first 4 .Site.Params.media }}
-      <a href="{{ .url }}" class="home-connect__link" target="_blank" rel="noopener">{{ .label }}</a>
-      {{ end }}
-      <a href="/contact/" class="home-connect__link">Contact →</a>
-    </div>
-  </section>
 </div>
 {{ end }}

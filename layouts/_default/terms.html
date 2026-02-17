@@ -1,26 +1,23 @@
 {{ define "main" }}
-  <header class="section-head section-head--center">
-    <div class="section-title-row">
-      <h1 class="section-title">{{ .Title }}</h1>
-    </div>
+<div class="section shell--narrow">
+  <header class="section-header">
+    <h1 class="section-header__title">{{ .Title }}</h1>
     {{ with .Content }}
-      <div class="section-intro">
-        {{ . }}
-      </div>
+    <p class="section-header__desc">{{ . | plainify }}</p>
     {{ end }}
   </header>
 
   {{- $showDrafts := or hugo.IsDevelopment .Site.BuildDrafts -}}
   {{ if not $showDrafts }}
-    {{ with .Data.Terms.Alphabetical }}
-      <ul class="term-list">
+    {{ with .Data.Terms.ByCount }}
+      <ul class="tag-list">
         {{ range . }}
-          <li>
-            <a class="term-list__link" href="{{ .Page.RelPermalink }}">
-              <span class="term-list__name">{{ .Term }}</span>
-              <span class="term-list__count">{{ .Count }} Posts</span>
-            </a>
-          </li>
+        <li class="tag-list__item">
+          <a href="{{ .Page.RelPermalink }}" class="tag-list__link">
+            <span class="tag-list__name">{{ .Term }}</span>
+            <span class="tag-list__count">{{ .Count }}</span>
+          </a>
+        </li>
         {{ end }}
       </ul>
     {{ else }}
@@ -28,11 +25,10 @@
     {{ end }}
   {{ else }}
     {{- $scratch := newScratch -}}
-    {{- $scratch.Set "tagNames" (dict) -}}
+    {{- $scratch.Set "tagData" (slice) -}}
     {{- range .Site.RegularPages -}}
       {{- if or (not .Draft) $showDrafts -}}
-        {{- $page := . -}}
-        {{- with $page.Params.tags -}}
+        {{- with .Params.tags -}}
           {{- range . -}}
             {{- $tag := . -}}
             {{- $slug := urlize $tag -}}
@@ -45,30 +41,27 @@
       {{- end -}}
     {{- end -}}
     {{- $tagNames := $scratch.Get "tagNames" -}}
-    {{- $keySlice := slice -}}
+    {{- $tagData := slice -}}
     {{- range $slug, $name := $tagNames -}}
-      {{- $keySlice = $keySlice | append $slug -}}
+      {{- $countKey := printf "count-%s" $slug -}}
+      {{- $count := $scratch.Get $countKey | default 0 -}}
+      {{- $tagData = $tagData | append (dict "slug" $slug "name" $name "count" $count) -}}
     {{- end -}}
-    {{- $keys := sort $keySlice -}}
-    {{ if gt (len $keys) 0 }}
-      <ul class="term-list">
-        {{ range $keys }}
-          {{- $slug := . -}}
-          {{- $tagName := index $tagNames $slug -}}
-          {{- $countKey := printf "count-%s" $slug -}}
-          {{- $count := $scratch.Get $countKey | default 0 -}}
-          {{- if gt $count 0 }}
-            <li>
-              <a class="term-list__link" href="{{ (printf "/tags/%s" $slug) | relLangURL }}">
-                <span class="term-list__name">{{ $tagName }}</span>
-                <span class="term-list__count">{{ $count }} Posts</span>
-              </a>
-            </li>
-          {{- end -}}
+    {{- $sorted := sort $tagData "count" "desc" -}}
+    {{ if gt (len $sorted) 0 }}
+      <ul class="tag-list">
+        {{ range $sorted }}
+        <li class="tag-list__item">
+          <a href="{{ (printf "/tags/%s" .slug) | relLangURL }}" class="tag-list__link">
+            <span class="tag-list__name">{{ .name }}</span>
+            <span class="tag-list__count">{{ .count }}</span>
+          </a>
+        </li>
         {{ end }}
       </ul>
     {{ else }}
       <p class="post-empty">No tags found yet.</p>
     {{ end }}
   {{ end }}
+</div>
 {{ end }}

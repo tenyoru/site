@@ -1,13 +1,8 @@
 {{ define "main" }}
-  <header class="section-head section-head--center">
-    <div class="section-title-row">
-      <h1 class="section-title">{{ .Title }}</h1>
-    </div>
-    {{ with .Content }}
-      <div class="section-intro">
-        {{ . }}
-      </div>
-    {{ end }}
+<div class="section shell--narrow">
+  <header class="section-header">
+    <p class="section-header__label">Tag</p>
+    <h1 class="section-header__title">{{ .Title }}</h1>
   </header>
 
   {{- $pages := sort .Pages "Date" "desc" -}}
@@ -15,11 +10,11 @@
 
   {{- if $showDrafts -}}
     {{ if gt (len $pages) 0 }}
-      <div class="post-grid">
+      <ul class="post-list">
         {{ range $pages }}
-          {{ partial "post/card.html" (dict "page" .) }}
+        {{ partial "post/card.html" (dict "page" .) }}
         {{ end }}
-      </div>
+      </ul>
     {{ else }}
       <p class="post-empty">No posts for this tag yet.</p>
     {{ end }}
@@ -27,28 +22,30 @@
     {{- $published := where $pages "Draft" false -}}
     {{- if gt (len $published) 0 -}}
       {{- $paginator := .Paginate $published -}}
-      <div class="post-grid">
+      <ul class="post-list">
         {{ range $paginator.Pages }}
-          {{ partial "post/card.html" (dict "page" .) }}
+        {{ partial "post/card.html" (dict "page" .) }}
         {{ end }}
-      </div>
+      </ul>
 
       {{ if gt $paginator.TotalPages 1 }}
-        <nav class="post-pagination" aria-label="Pagination">
-          {{ template "_internal/pagination.html" $paginator }}
-        </nav>
+      <nav class="pagination" aria-label="Pagination">
+        {{ if $paginator.HasPrev }}
+        <a href="{{ $paginator.Prev.URL }}" class="pagination__link">Previous</a>
+        {{ end }}
+        <span class="pagination__info">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
+        {{ if $paginator.HasNext }}
+        <a href="{{ $paginator.Next.URL }}" class="pagination__link">Next</a>
+        {{ end }}
+      </nav>
       {{ end }}
     {{- else -}}
       <p class="post-empty">No posts for this tag yet.</p>
     {{- end -}}
   {{- end -}}
 
-  {{- if .Data.Term }}
-    <div class="term-back">
-      <a class="term-back__link" href="{{ "/tags/" | relLangURL }}">
-        <span class="term-back__icon">{{ partial "svg.html" "arrow-left" }}</span>
-        <span>All tags</span>
-      </a>
-    </div>
-  {{- end }}
+  <div class="tag-back">
+    <a href="{{ "/tags/" | relLangURL }}" class="tag-back__link">All tags</a>
+  </div>
+</div>
 {{ end }}

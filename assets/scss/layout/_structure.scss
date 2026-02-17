@@ -1,167 +1,18 @@
 @use "../vars" as v;
 @use "../theme" as *;
 
-.shell {
-  margin-inline: auto;
-  box-sizing: border-box;
-  padding: v.$padding-inline;
-}
+.shell { margin-inline: auto; box-sizing: border-box; padding: v.$padding-inline; }
+.shell--wide { max-width: v.header-width(); }
+.shell--narrow { max-width: v.content-width(); }
+.inner { justify-content: center; align-items: center; width: 100%; min-height: 80vh; }
+.content { padding-block: 2rem; min-block-size: calc(100dvh - v.$header-height); }
+.page-title { text-align: left; margin-block-end: 0.2rem; }
+img, video, iframe { max-width: 100%; height: auto; display: block; }
 
-.shell--wide {
-  max-width: v.header-width();
-}
-
-.shell--narrow {
-  max-width: v.content-width();
-}
-
-.inner {
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 80vh;
-}
-
-.content {
-  padding-block: 2rem;
-  min-block-size: calc(100dvh - v.$header-height);
-}
-
-.page-title {
-  text-align: left;
-  margin-block-end: 0.2rem;
-}
-
-img,
-video,
-iframe {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-.section-rule {
-  border: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    theme(divider-glow) 40%,
-    transparent
-  );
-  max-inline-size: v.content-width();
-  margin: 1.25rem auto 0.75rem;
-}
-
-hr {
-  width: 100%;
-}
-
-.footer-shell {
-  background: color-mix(in srgb, theme(card) 85%, theme(bg) 15%);
-  border-top: 1px solid color-mix(in srgb, theme(border) 70%, transparent);
-}
-
-.footer-inline {
-  padding-block: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  font-size: 0.95rem;
-  color: color-mix(in srgb, theme(text) 75%, theme(bg) 25%);
-  text-align: center;
-}
-
-.footer-inline__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.footer-inline__row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-  text-align: left;
-  flex: 1 1 300px;
-}
-
-.footer-inline__col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.footer-inline__heading {
-  margin: 0;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: theme(text-muted-strong);
-}
-
-.footer-inline__list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  align-items: flex-start;
-  color: theme(text-base);
-}
-
-.footer-inline__list a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: theme(text-base);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.85rem;
-}
-
-.footer-inline__list a:hover,
-.footer-inline__list a:focus-visible {
-  color: theme(text-highlight);
-  outline: none;
-}
-
-.footer-inline__list svg {
-  width: 1rem;
-  height: 1rem;
-  color: currentColor;
-}
-
-.footer-inline__meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  color: theme(text-subtle);
-}
-
-.footer-inline__meta a {
-  color: theme(text-base);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.footer-inline__meta a:hover,
-.footer-inline__meta a:focus-visible {
-  color: theme(text-highlight);
-  outline: none;
-}
-
-.footer-inline__branding {
-  text-align: left;
-  color: theme(text-muted-strong);
-}
-.footer-inline__theme {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  flex: 0 0 auto;
-  align-self: flex-start;
-  margin-top: -0.25rem;
-}
+.footer { margin-top: auto; padding: 1.25rem v.$padding-inline; border-top: 1px solid color-mix(in srgb, theme(border) 40%, transparent); }
+.footer__row { display: flex; justify-content: space-between; align-items: center; max-width: v.content-width(); margin-inline: auto; }
+.footer__row + .footer__row { margin-top: 0.75rem; }
+.footer__social { display: flex; align-items: center; flex-wrap: wrap; gap: 1.25rem; }
+.footer__social a { font-size: 0.8rem; color: theme(muted); text-decoration: none; transition: color 0.15s ease; }
+.footer__social a:hover { color: theme(accent); }
+.footer__credits { font-size: 0.75rem; color: theme(muted); }
