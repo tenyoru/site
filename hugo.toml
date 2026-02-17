@@ -111,11 +111,6 @@ themeDark = "dark"
     weight = 20
 
   [[menus.main]]
-    name = 'Media'
-    pageRef = '/media'
-    weight = 25
-
-  [[menus.main]]
     name = 'Contact'
     pageRef = '/Contact'
     weight = 30

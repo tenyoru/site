@@ -1,53 +1,26 @@
 {{- $footer := site.Params.footer -}}
-<footer class="footer-inline">
-  <div class="footer-inline__top">
-    <div class="footer-inline__row">
-      <div class="footer-inline__col">
-        <h2 class="footer-inline__heading">Navigation</h2>
-        <div class="footer-inline__list">
-          <a href="{{ "/" | relLangURL }}">Home</a>
-          {{ with site.Menus.main }}
-            {{ range . }}
-              <a href="{{ .URL }}">{{ .Name }}</a>
-            {{ end }}
-          {{ end }}
-        </div>
-      </div>
-      {{ with site.Params.media }}
-        <div class="footer-inline__col">
-          <h2 class="footer-inline__heading">Media</h2>
-          <div class="footer-inline__list">
-            {{ range . }}
-              <a href="{{ .url }}" target="_blank" rel="noopener me" aria-label="{{ .label }}">
-                {{ partial "svg.html" .icon }}
-                <span>{{ .label }}</span>
-              </a>
-            {{ end }}
-          </div>
-        </div>
+<footer class="footer">
+  {{ with site.Params.media }}
+  <div class="footer__row">
+    <div class="footer__social">
+      {{ range . }}
+      <a href="{{ .url }}" target="_blank" rel="noopener me">{{ .label }}</a>
       {{ end }}
-      {{ with site.Params.contact.contacts }}
-        <div class="footer-inline__col footer-inline__col--contact">
-          <h2 class="footer-inline__heading">Contact me</h2>
-          <div class="footer-inline__list">
-            {{ range .items }}
-              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">
-                {{ if .icon }}{{ partial "svg.html" .icon }}{{ end }}
-                <span>{{ or .value .label }}</span>
-              </a>
-            {{ end }}
-          </div>
-        </div>
-      {{ end }}
-    </div>
-    <div class="footer-inline__theme">
-      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">
-        <span class="theme-toggle__sun">{{ partial "svg.html" "sun" }}</span>
-        <span class="theme-toggle__moon">{{ partial "svg.html" "moon" }}</span>
-      </button>
     </div>
   </div>
-  <div class="footer-inline__branding">
-    {{ or $footer.credits (printf "© %d %s" now.Year site.Title) }}
+  {{ end }}
+  <div class="footer__row">
+    <span class="footer__credits">{{ or $footer.credits (printf "© %d %s" now.Year site.Title) }}</span>
+    <div class="theme-switcher" role="radiogroup" aria-label="Color theme">
+      <button class="theme-switcher__btn" type="button" data-theme-value="system" aria-label="System theme">
+        {{ partial "svg.html" "system" }}
+      </button>
+      <button class="theme-switcher__btn" type="button" data-theme-value="light" aria-label="Light theme">
+        {{ partial "svg.html" "sun" }}
+      </button>
+      <button class="theme-switcher__btn" type="button" data-theme-value="dark" aria-label="Dark theme">
+        {{ partial "svg.html" "moon" }}
+      </button>
+    </div>
   </div>
 </footer>

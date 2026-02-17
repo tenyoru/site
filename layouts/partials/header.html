@@ -23,11 +23,16 @@
 
     <div class="menu-panel">
       <nav class="menu-list">
+        <a href="{{ "/" | relURL }}" class="{{ if .IsHome }}active{{ end }}">
+          <span class="menu-list__num">01</span>
+          Home
+        </a>
         {{ $page := . }}
         {{ with site.Menus.main }}
-          {{ range . }}
-            <a href="{{ .URL }}" class="{{ if $page.IsMenuCurrent .Menu . }}active{{ end }}">
-              {{ .Name }}
+          {{ range $i, $item := . }}
+            <a href="{{ $item.URL }}" class="{{ if $page.IsMenuCurrent $item.Menu $item }}active{{ end }}">
+              <span class="menu-list__num">{{ printf "%02d" (add $i 2) }}</span>
+              {{ $item.Name }}
             </a>
           {{ end }}
         {{ end }}

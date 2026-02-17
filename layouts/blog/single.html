@@ -1,38 +1,25 @@
 {{ define "main" }}
-  <article class="post">
-    <div class="post-column">
-      <header class="post-header">
-        <h1 class="page-title">{{ .Title }}</h1>
-
-        {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-        {{ $dateHuman := .Date | time.Format ":date_long" }}
-        <div class="post-meta">
-          <div class="post-date">
-            {{ partial "svg.html" "date" }}
-            <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
-          </div>
-          <div class="post-readtime">
-            {{ partial "svg.html" "clock" }}
-            <span>{{ .ReadingTime }} min read</span>
-          </div>
-        </div>
-
-        {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
-
-        {{ with .Summary }}
-          <p class="post-description">{{ . }}</p>
-        {{ end }}
-      </header>
-
-      {{ partial "post/toc.html" . }}
-
-      <div class="post-content">
-        {{ .Content }}
-      </div>
-
-      {{ partial "post/nav.html" . }}
-
-      {{ partial "post/comments.html" . }}
+<article class="article shell--narrow">
+  <header class="article-header">
+    <div class="article-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+      <span class="article-meta__sep">·</span>
+      <span>{{ .ReadingTime }} min read</span>
     </div>
-  </article>
+    <h1 class="article-title">{{ .Title }}</h1>
+    {{ with .Summary }}
+    <p class="article-desc">{{ . | plainify }}</p>
+    {{ end }}
+  </header>
+
+  {{ partial "post/toc.html" . }}
+
+  <div class="article-content">
+    {{ .Content }}
+  </div>
+
+  {{ partial "post/nav.html" . }}
+
+  {{ partial "post/comments.html" . }}
+</article>
 {{ end }}
