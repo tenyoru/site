@@ -21,18 +21,9 @@
       <span class="label">Location</span>
       <span class="home-about__value">{{ .Site.Params.location | default "Remote" }}</span>
     </div>
-  </section>
-  {{/* Connect */}}
-  <section class="home-connect">
-    <h2 class="label">Connect</h2>
-    <div class="home-connect__links">
-      {{ range .Site.Params.media }}
-      <a href="{{ .url }}" class="home-connect__link" target="_blank" rel="noopener">
-        {{- partial "svg" .icon -}}
-        <span>{{ .label }}</span>
-      </a>
-      {{ end }}
-      <a href="/contact/" class="home-connect__link home-connect__link--contact">Contact →</a>
+    <div class="home-about__item">
+      <span class="label">Contact</span>
+      <span class="home-about__value"><a href="/contact/" class="home-about__link">Get in touch →</a></span>
     </div>
   </section>
 
