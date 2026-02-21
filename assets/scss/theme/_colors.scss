@@ -11,7 +11,8 @@ $themes: (
     text-base: #2b2621,
     text-subtle: #5f5850,
     text-heading: #0d0b0a,
-    text-accent: #1d4ed8
+    text-accent: #1d4ed8,
+    header-opacity: 60%
   ),
   dark: (
     bg: #0b0a09,
@@ -25,7 +26,8 @@ $themes: (
     text-base: #ddd9d4,
     text-subtle: #b0a89f,
     text-heading: #faf9f7,
-    text-accent: #e5b77e
+    text-accent: #e5b77e,
+    header-opacity: 80%
   )
 );
 $default-theme: dark !default;
