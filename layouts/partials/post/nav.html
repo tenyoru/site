@@ -23,36 +23,4 @@
     <button type="button" class="post-nav__link" onclick="window.print()">Print</button>
   </div>
 
-  {{- with .GetTerms "tags" -}}
-  {{- $currentPage := $ -}}
-  {{- $related := slice -}}
-  {{- range . -}}
-    {{- range .Pages -}}
-      {{- if ne .Permalink $currentPage.Permalink -}}
-        {{- $related = $related | append . -}}
-      {{- end -}}
-    {{- end -}}
-  {{- end -}}
-  {{- $related = $related | uniq | first 5 -}}
-
-  <div class="post-nav__extra">
-    <div class="post-nav__tags">
-      <span class="post-nav__label">tags:</span>
-      {{- range . -}}
-      <a href="{{ .Permalink }}" class="post-nav__tag">#{{ .LinkTitle }}</a>
-      {{- end -}}
-    </div>
-
-    {{- if $related -}}
-    <details class="post-nav__related">
-      <summary class="post-nav__related-summary">related</summary>
-      <ul class="post-nav__related-list">
-        {{- range $related -}}
-        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-        {{- end -}}
-      </ul>
-    </details>
-    {{- end -}}
-  </div>
-  {{- end -}}
 </nav>

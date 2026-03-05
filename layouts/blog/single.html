@@ -10,6 +10,13 @@
     {{ with .Summary }}
     <p class="article-desc">{{ . | plainify }}</p>
     {{ end }}
+    {{- with .GetTerms "tags" }}
+    <ul class="article-tags tag-list">
+      {{- range . -}}
+      <li class="tag-list__item"><a href="{{ .Permalink }}" class="tag-list__link"><span class="tag-list__name">{{ .LinkTitle }}</span></a></li>
+      {{- end -}}
+    </ul>
+    {{- end }}
   </header>
 
   {{ partial "post/toc.html" . }}
@@ -19,7 +26,5 @@
   </div>
 
   {{ partial "post/nav.html" . }}
-
-  {{ partial "post/comments.html" . }}
 </article>
 {{ end }}

@@ -22,7 +22,5 @@
 .article-content img, .article-content video { border-radius: 0.5rem; margin: 1.5rem 0; max-width: 100%; height: auto; }
 
 .article-footer { margin-top: clamp(2rem, 5vw, 3rem); padding-top: 1.5rem; border-top: 1px solid color-mix(in srgb, theme(border) 40%, transparent); }
-.article-tags { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
-.article-tags__list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.article-tag { font-size: 0.8rem; font-weight: 500; color: theme(muted); text-decoration: none; padding: 0.25rem 0.75rem; border: 1px solid color-mix(in srgb, theme(border) 50%, transparent); border-radius: 999px; transition: color 0.15s ease, border-color 0.15s ease; }
-.article-tag:hover { color: theme(accent); border-color: theme(accent); }
+.article-tags { margin-top: 1rem; }
+.article-header:has(.article-tags) { margin-bottom: 1rem; }
