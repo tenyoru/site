@@ -1,6 +1,7 @@
 {{ define "main" }}
 <article class="article shell--narrow">
   <header class="article-header">
+    <div class="article-header__sentinel" data-header-sentinel></div>
     <div class="article-meta">
       <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
       <span class="article-meta__sep">·</span>
@@ -19,10 +20,12 @@
     {{- end }}
   </header>
 
-  {{ partial "post/toc.html" . }}
+  <div class="article-body">
+    {{ partial "post/toc.html" . }}
 
-  <div class="article-content">
-    {{ .Content }}
+    <div class="article-content">
+      {{ .Content }}
+    </div>
   </div>
 
   {{ partial "post/nav.html" . }}
