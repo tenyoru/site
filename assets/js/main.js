@@ -151,16 +151,91 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const toc = document.querySelector("[data-post-toc]");
-  if (!toc) return;
-  if (safeStorage) {
-    const stored = safeStorage.getItem(TOC_STORAGE_KEY);
-    if (stored !== null) {
-      toc.open = stored === "true";
+  if (toc) {
+    if (safeStorage) {
+      const stored = safeStorage.getItem(TOC_STORAGE_KEY);
+      if (stored !== null) {
+        toc.open = stored === "true";
+      }
     }
+
+    toc.addEventListener("toggle", () => {
+      if (!safeStorage) return;
+      safeStorage.setItem(TOC_STORAGE_KEY, toc.open ? "true" : "false");
+    });
   }
 
-  toc.addEventListener("toggle", () => {
-    if (!safeStorage) return;
-    safeStorage.setItem(TOC_STORAGE_KEY, toc.open ? "true" : "false");
-  });
+  // Align ToC with content top on load.
+  const articleMeta = document.querySelector(".article-meta");
+  const setTocTop = () => {
+    if (!toc || !articleMeta) return;
+    const tocPosition = window.getComputedStyle(toc).position;
+    if (tocPosition === "absolute") return;
+    const metaRect = articleMeta.getBoundingClientRect();
+    const minTopStr = window.getComputedStyle(toc).getPropertyValue("--toc-top-min");
+    const minTop = parseFloat(minTopStr) || 80;
+    
+    if (metaRect.top <= minTop) {
+      toc.style.setProperty("--toc-top", `${minTop}px`);
+    } else {
+      toc.style.setProperty("--toc-top", `${metaRect.top}px`);
+    }
+  };
+
+  // Clamp fixed ToC above the footer on desktop.
+  const footer = document.querySelector(".footer");
+  const tocMedia = window.matchMedia("(min-width: 64rem)");
+  if (toc && footer) {
+    const readFixedTop = () => {
+      const prevPosition = toc.style.position;
+      const prevTop = toc.style.top;
+      const prevLeft = toc.style.left;
+      toc.style.position = "";
+      toc.style.top = "";
+      toc.style.left = "";
+      const fixedTop = parseFloat(window.getComputedStyle(toc).top) || 0;
+      toc.style.position = prevPosition;
+      toc.style.top = prevTop;
+      toc.style.left = prevLeft;
+      return fixedTop;
+    };
+
+    const updateTocClamp = () => {
+      if (!tocMedia.matches) {
+        toc.style.position = "";
+        toc.style.top = "";
+        toc.style.left = "";
+        return;
+      }
+
+      const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+      const tocHeight = toc.offsetHeight;
+      const fixedTop = readFixedTop();
+      const fixedBottom = window.scrollY + fixedTop + tocHeight;
+      const gap = 24;
+      const maxTop = footerTop - tocHeight - gap;
+
+      if (fixedBottom >= footerTop - gap) {
+        const left = toc.getBoundingClientRect().left + window.scrollX;
+        toc.style.position = "absolute";
+        toc.style.top = `${Math.max(maxTop, 0)}px`;
+        toc.style.left = `${left}px`;
+      } else {
+        toc.style.position = "";
+        toc.style.top = "";
+        toc.style.left = "";
+      }
+    };
+
+    updateTocClamp();
+    window.addEventListener("scroll", updateTocClamp, { passive: true });
+    window.addEventListener("resize", updateTocClamp);
+    tocMedia.addEventListener("change", updateTocClamp);
+  }
+
+  if (toc && articleMeta) {
+    setTocTop();
+    window.addEventListener("scroll", setTocTop, { passive: true });
+    window.addEventListener("resize", setTocTop);
+  }
 });
