@@ -1,10 +1,13 @@
 @use "../theme" as *;
 @use "../vars" as v;
 
+.article-header__sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
 .article-meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: theme(muted); margin-bottom: 0.75rem; }
 .article-meta__sep { opacity: 0.5; }
 .article-title { font-size: clamp(1.75rem, 5vw, 2.5rem); font-weight: 700; color: theme(text-heading); margin: 0; letter-spacing: -0.02em; line-height: 1.2; }
 .article-desc { margin: 1rem 0 0; font-size: 1.1rem; color: theme(text-subtle); line-height: 1.6; }
+
+.article-body { display: flex; flex-direction: column; gap: 2rem; }
 
 .article-content { line-height: 1.75; color: theme(text); }
 .article-content > :first-child { margin-top: 0; }
