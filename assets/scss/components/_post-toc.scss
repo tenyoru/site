@@ -1,9 +1,9 @@
 @use "../theme" as *;
-
+@use "../vars" as v;
 .post-toc { margin-bottom: 2rem; padding: 1rem 1.25rem; border: 1px solid color-mix(in srgb, theme(border) 40%, transparent); border-radius: 0.5rem; background: color-mix(in srgb, theme(card) 30%, theme(bg) 70%); }
-.post-toc__summary { display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: theme(muted); cursor: pointer; list-style: none; user-select: none; }
+.post-toc__summary { display: inline-flex; align-items: center; justify-content: flex-start; gap: 0.4rem; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: theme(muted); cursor: pointer; list-style: none; user-select: none; }
 .post-toc__summary::-webkit-details-marker { display: none; }
-.post-toc__chevron { width: 0.4rem; height: 0.4rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); transition: transform 0.15s ease; }
+.post-toc__chevron { width: 0.4rem; height: 0.4rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); transition: transform 0.15s ease; order: -1; margin-right: 0.2rem; }
 .post-toc[open] .post-toc__chevron { transform: rotate(-135deg); }
 .post-toc__body { margin-top: 1rem; }
 .post-toc__body ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
@@ -11,3 +11,18 @@
 .post-toc__body a { font-size: 0.9rem; color: theme(text-subtle); text-decoration: none; transition: color 0.15s ease; }
 .post-toc__body a:hover { color: theme(accent); }
 .post-toc__body ul ul { padding-left: 1rem; margin-top: 0.5rem; }
+
+@media (min-width: 1400px) {
+  .post-toc { position: fixed; top: var(--toc-top, var(--toc-top-min, calc(v.$header-height + 2rem))); left: max(1rem, calc((100vw - v.content-width()) / 2 - 220px)); width: 200px; margin-bottom: 0; padding: 0; border: none; border-radius: 0; background: transparent; --toc-top-min: calc(v.$header-height + 2rem); z-index: 2; }
+  .post-toc__summary { display: inline-flex; justify-content: flex-start; font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.7; margin-bottom: 0.75rem; gap: 0.4rem; color: theme(muted); cursor: pointer; list-style: none; user-select: none; }
+  .post-toc__chevron { margin-left: 0; }
+  .post-toc__body { max-height: calc(100dvh - v.$header-height - 6rem); overflow-y: auto; margin-top: 0; }
+  .post-toc__body::-webkit-scrollbar { width: 3px; }
+  .post-toc__body::-webkit-scrollbar-track { background: transparent; }
+  .post-toc__body::-webkit-scrollbar-thumb { background: theme(border); border-radius: 2px; }
+  .post-toc__body::-webkit-scrollbar-thumb:hover { background: theme(muted); }
+  .post-toc__body ul { gap: 0.35rem; }
+  .post-toc__body a { font-size: 0.8rem; line-height: 1.5; display: block; word-wrap: break-word; overflow-wrap: break-word; color: theme(muted); }
+  .post-toc__body a:hover { color: theme(text); }
+  .post-toc__body ul ul { padding-left: 0.75rem; }
+}
