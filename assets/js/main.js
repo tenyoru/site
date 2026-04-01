@@ -238,4 +238,32 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", setTocTop, { passive: true });
     window.addEventListener("resize", setTocTop);
   }
+
+  // Scroll spy: highlight active TOC link
+  if (toc) {
+    const headings = document.querySelectorAll(".article-content h2[id], .article-content h3[id], .article-content h4[id]");
+    const tocLinks = toc.querySelectorAll("a[href^='#']");
+    if (headings.length && tocLinks.length) {
+      let activeId = null;
+      const setActive = (id) => {
+        if (id === activeId) return;
+        activeId = id;
+        tocLinks.forEach((a) => {
+          a.classList.toggle("is-active", a.getAttribute("href") === `#${id}`);
+        });
+      };
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+              return;
+            }
+          }
+        },
+        { rootMargin: "0px 0px -80% 0px", threshold: 0 }
+      );
+      headings.forEach((h) => observer.observe(h));
+    }
+  }
 });
