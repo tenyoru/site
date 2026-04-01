@@ -10,6 +10,7 @@
 .post-toc__body li { line-height: 1.4; }
 .post-toc__body a { font-size: 0.9rem; color: theme(text-subtle); text-decoration: none; transition: color 0.15s ease; }
 .post-toc__body a:hover { color: theme(accent); }
+.post-toc__body a.is-active { color: theme(accent); }
 .post-toc__body ul ul { padding-left: 1rem; margin-top: 0.5rem; }
 
 @media (min-width: 1400px) {
@@ -24,5 +25,6 @@
   .post-toc__body ul { gap: 0.35rem; }
   .post-toc__body a { font-size: 0.8rem; line-height: 1.5; display: block; word-wrap: break-word; overflow-wrap: break-word; color: theme(muted); }
   .post-toc__body a:hover { color: theme(text); }
+  .post-toc__body a.is-active { color: theme(accent); }
   .post-toc__body ul ul { padding-left: 0.75rem; }
 }
