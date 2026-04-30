@@ -239,6 +239,25 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("resize", setTocTop);
   }
 
+  // Back to top button
+  const backToTop = document.querySelector("[data-back-to-top]");
+  if (backToTop && footer) {
+    const baseBottom = 32; // 2rem
+    const gap = 16;
+    const updateBackToTop = () => {
+      backToTop.classList.toggle("is-visible", window.scrollY > 400);
+      const footerTop = footer.getBoundingClientRect().top;
+      const btnBottom = window.innerHeight - footerTop + gap;
+      backToTop.style.bottom = `${Math.max(btnBottom, baseBottom)}px`;
+    };
+    window.addEventListener("scroll", updateBackToTop, { passive: true });
+    window.addEventListener("resize", updateBackToTop);
+    updateBackToTop();
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
   // Scroll spy: highlight active TOC link
   if (toc) {
     const headings = document.querySelectorAll(".article-content h2[id], .article-content h3[id], .article-content h4[id]");
