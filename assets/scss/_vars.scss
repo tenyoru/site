@@ -1,9 +1,5 @@
 @use "sass:map";
 
-@function header-width() {
-  @return 1024px;
-}
-
 @function content-width() {
   @return 820px;
 }
