@@ -2,8 +2,7 @@
 
 .post-nav { margin-top: clamp(2rem, 5vw, 3rem); padding-top: 1.5rem; border-top: 1px solid theme(border); }
 .post-nav__row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-.post-nav__link { font-size: 0.8rem; font-weight: 500; color: theme(muted); text-decoration: none; background: none; border: none; padding: 0; cursor: pointer; transition: color 0.15s ease; }
-.post-nav__link:hover { color: theme(accent); }
+.post-nav__link { font-size: 0.8rem; font-weight: 500; background: none; border: none; padding: 0; cursor: pointer; }
 .post-nav__link--disabled { opacity: 0.35; pointer-events: none; }
 .post-nav__sep { width: 1px; height: 1rem; background: theme(border); }
 

@@ -6,20 +6,20 @@
 .home-intro { display: flex; flex-direction: column; gap: 0.5rem; }
 .home-intro__greeting { font-size: 0.9rem; font-weight: 500; color: theme(muted); margin: 0; letter-spacing: 0.02em; }
 .home-intro__name { font-size: clamp(2.5rem, 7vw, 3.5rem); font-weight: 700; color: theme(text-heading); margin: 0; letter-spacing: -0.03em; line-height: 1.1; }
-.home-intro__bio { font-size: 1.1rem; line-height: 1.6; color: theme(text-subtle); margin: 0.5rem 0 0; max-width: 50ch; }
+.home-intro__bio { font-size: 1.1rem; line-height: 1.6; color: theme(text-subtle); margin: 0.5rem 0 0; }
 
-.home-about { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: theme(border); border: 1px solid theme(border); border-radius: 0.5rem; overflow: hidden; }
-.home-about__item { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.75rem 1rem; background: theme(bg); }
-.home-about__value { font-size: 0.9rem; font-weight: 500; color: theme(text); }
-.home-about__link { color: theme(text); text-decoration: none; transition: color 0.15s ease; }
-.home-about__link:hover { color: theme(accent); }
+
+.home-projects { display: flex; flex-direction: column; gap: 1rem; }
+.home-projects__list { display: flex; flex-direction: column; }
+.home-projects__link { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border-subtle); }
+.home-projects__name { font-weight: 500; }
+.home-projects__desc { font-size: 0.8rem; color: theme(muted); flex-shrink: 0; }
 
 .home-posts { display: flex; flex-direction: column; gap: 1rem; }
-.home-posts__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-.home-posts__link { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.75rem 0; text-decoration: none; color: theme(text); border-bottom: 1px solid color-mix(in srgb, theme(border) 40%, transparent); transition: color 0.15s ease; }
+.home-posts__list { display: flex; flex-direction: column; }
+.home-posts__link { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.75rem 0; text-decoration: none; color: theme(text); border-bottom: 1px solid var(--border-subtle); transition: color 0.15s ease; }
 .home-posts__link:hover, .home-posts__link:hover .home-posts__link-date { color: theme(accent); }
 .home-posts__link-title { font-weight: 500; }
 .home-posts__link-date { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: theme(muted); flex-shrink: 0; transition: color 0.15s ease; }
-.home-posts__more { font-size: 0.85rem; font-weight: 500; color: theme(muted); text-decoration: none; transition: color 0.15s ease; }
-.home-posts__more:hover { color: theme(accent); }
+.home-posts__more { font-size: 0.85rem; font-weight: 500; }
 

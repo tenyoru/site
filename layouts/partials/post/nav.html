@@ -4,23 +4,23 @@
 <nav class="post-nav" aria-label="Post navigation">
   <div class="post-nav__row">
     {{- if $prev -}}
-    <a href="{{ $prev.Permalink }}" class="post-nav__link" title="{{ $prev.Title }}">← Previous</a>
+    <a href="{{ $prev.Permalink }}" class="post-nav__link link" title="{{ $prev.Title }}">← Previous</a>
     {{- else -}}
     <span class="post-nav__link post-nav__link--disabled">← Previous</span>
     {{- end -}}
 
     {{- if $next -}}
-    <a href="{{ $next.Permalink }}" class="post-nav__link" title="{{ $next.Title }}">Next →</a>
+    <a href="{{ $next.Permalink }}" class="post-nav__link link" title="{{ $next.Title }}">Next →</a>
     {{- else -}}
     <span class="post-nav__link post-nav__link--disabled">Next →</span>
     {{- end -}}
 
     <span class="post-nav__sep"></span>
 
-    <a href="{{ .CurrentSection.Permalink }}" class="post-nav__link">Blog</a>
-    <a href="{{ "/" | relURL }}" class="post-nav__link">Home</a>
-    <a href="#" class="post-nav__link" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Top</a>
-    <button type="button" class="post-nav__link" onclick="window.print()">Print</button>
+    <a href="{{ .CurrentSection.Permalink }}" class="post-nav__link link">Blog</a>
+    <a href="{{ "/" | relURL }}" class="post-nav__link link">Home</a>
+    <a href="#" class="post-nav__link link" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Top</a>
+    <button type="button" class="post-nav__link link" onclick="window.print()">Print</button>
   </div>
 
 </nav>

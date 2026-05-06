@@ -9,7 +9,7 @@
   {{ end }}
 
   <header class="contact-header">
-    <h1 class="contact-header__title">{{ .Title }}</h1>
+    <h1 class="contact-header__title title-lg">{{ .Title }}</h1>
     {{ with $hero }}
       {{ with .body }}
       <p class="contact-header__desc">{{ . | markdownify | plainify }}</p>
@@ -26,7 +26,7 @@
 
   {{ with $contacts }}
     {{ with .items }}
-    <ul class="contact-list">
+    <ul class="contact-list list-none">
       {{ range . }}
       {{ $value := .value | default .url }}
       {{ $url := .url }}
