@@ -7,12 +7,12 @@
       <span class="article-meta__sep">·</span>
       <span>{{ .ReadingTime }} min read</span>
     </div>
-    <h1 class="article-title">{{ .Title }}</h1>
+    <h1 class="article-title title-lg">{{ .Title }}</h1>
     {{ with .Summary }}
     <p class="article-desc">{{ . | plainify }}</p>
     {{ end }}
     {{- with .GetTerms "tags" }}
-    <ul class="article-tags tag-list">
+    <ul class="article-tags tag-list list-none">
       {{- range . -}}
       <li class="tag-list__item"><a href="{{ .Permalink }}" class="tag-list__link"><span class="tag-list__name">{{ .LinkTitle }}</span></a></li>
       {{- end -}}

@@ -2,7 +2,7 @@
 <div class="section shell--narrow">
   <header class="section-header">
     <div class="section-header__top">
-      <h1 class="section-header__title">{{ .Title }}</h1>
+      <h1 class="section-header__title title-lg">{{ .Title }}</h1>
       <a href="{{ .Permalink }}index.xml" class="section-header__rss" title="RSS Feed">{{- partial "svg" "rss" -}}</a>
     </div>
     {{ with .Content }}
@@ -14,7 +14,7 @@
   {{- $pages := .RegularPages -}}
 
   {{- if gt (len $pages) 0 -}}
-    <ul class="post-list">
+    <ul class="post-list list-none">
       {{- range $pages -}}
         {{- if or $showDrafts (not .Draft) -}}
           {{ partial "post/card.html" (dict "page" .) }}
