@@ -1,26 +1,28 @@
 {{- $footer := site.Params.footer -}}
 <footer class="footer">
-  {{ with site.Params.media }}
-  <div class="footer__row">
-    <div class="footer__social">
-      {{ range . }}
-      <a href="{{ .url }}" target="_blank" rel="noopener me">{{ .label }}</a>
-      {{ end }}
+  <div class="shell shell--narrow">
+    {{ with site.Params.media }}
+    <div class="footer__row">
+      <div class="footer__social">
+        {{ range . }}
+        <a href="{{ .url }}" class="link" target="_blank" rel="noopener me">{{ .label }}</a>
+        {{ end }}
+      </div>
     </div>
-  </div>
-  {{ end }}
-  <div class="footer__row">
-    <span class="footer__credits">{{ or $footer.credits (printf "© %d %s" now.Year site.Title) }}</span>
-    <div class="theme-switcher" role="radiogroup" aria-label="Color theme">
-      <button class="theme-switcher__btn" type="button" data-theme-value="system" aria-label="System theme">
-        {{ partial "svg.html" "system" }}
-      </button>
-      <button class="theme-switcher__btn" type="button" data-theme-value="light" aria-label="Light theme">
-        {{ partial "svg.html" "sun" }}
-      </button>
-      <button class="theme-switcher__btn" type="button" data-theme-value="dark" aria-label="Dark theme">
-        {{ partial "svg.html" "moon" }}
-      </button>
+    {{ end }}
+    <div class="footer__row">
+      <span class="footer__credits">{{ or $footer.credits (printf "© %d %s" now.Year site.Title) }}</span>
+      <div class="theme-switcher" role="radiogroup" aria-label="Color theme">
+        <button class="theme-switcher__btn" type="button" data-theme-value="system" aria-label="System theme">
+          {{ partial "svg.html" "system" }}
+        </button>
+        <button class="theme-switcher__btn" type="button" data-theme-value="light" aria-label="Light theme">
+          {{ partial "svg.html" "sun" }}
+        </button>
+        <button class="theme-switcher__btn" type="button" data-theme-value="dark" aria-label="Dark theme">
+          {{ partial "svg.html" "moon" }}
+        </button>
+      </div>
     </div>
   </div>
 </footer>
