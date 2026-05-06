@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div class="section shell--narrow">
   <header class="section-header">
-    <h1 class="section-header__title">{{ .Title }}</h1>
+    <h1 class="section-header__title title-lg">{{ .Title }}</h1>
     {{ with .Content }}
     <p class="section-header__desc">{{ . | plainify }}</p>
     {{ end }}
@@ -10,7 +10,7 @@
   {{- $showDrafts := or hugo.IsDevelopment .Site.BuildDrafts -}}
   {{ if not $showDrafts }}
     {{ with .Data.Terms.ByCount }}
-      <ul class="tag-list">
+      <ul class="tag-list list-none">
         {{ range . }}
         <li class="tag-list__item">
           <a href="{{ .Page.RelPermalink }}" class="tag-list__link">
@@ -49,7 +49,7 @@
     {{- end -}}
     {{- $sorted := sort $tagData "count" "desc" -}}
     {{ if gt (len $sorted) 0 }}
-      <ul class="tag-list">
+      <ul class="tag-list list-none">
         {{ range $sorted }}
         <li class="tag-list__item">
           <a href="{{ (printf "/tags/%s" .slug) | relLangURL }}" class="tag-list__link">

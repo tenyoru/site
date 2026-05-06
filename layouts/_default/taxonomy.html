@@ -2,7 +2,7 @@
 <div class="section shell--narrow">
   <header class="section-header">
     <p class="section-header__label">Tag</p>
-    <h1 class="section-header__title">{{ .Title }}</h1>
+    <h1 class="section-header__title title-lg">{{ .Title }}</h1>
   </header>
 
   {{- $pages := sort .Pages "Date" "desc" -}}
@@ -31,11 +31,11 @@
       {{ if gt $paginator.TotalPages 1 }}
       <nav class="pagination" aria-label="Pagination">
         {{ if $paginator.HasPrev }}
-        <a href="{{ $paginator.Prev.URL }}" class="pagination__link">Previous</a>
+        <a href="{{ $paginator.Prev.URL }}" class="pagination__link link">Previous</a>
         {{ end }}
         <span class="pagination__info">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
         {{ if $paginator.HasNext }}
-        <a href="{{ $paginator.Next.URL }}" class="pagination__link">Next</a>
+        <a href="{{ $paginator.Next.URL }}" class="pagination__link link">Next</a>
         {{ end }}
       </nav>
       {{ end }}

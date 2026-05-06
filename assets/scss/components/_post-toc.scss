@@ -1,6 +1,6 @@
 @use "../theme" as *;
 @use "../vars" as v;
-.post-toc { margin-bottom: 2rem; padding: 1rem 1.25rem; border: 1px solid color-mix(in srgb, theme(border) 40%, transparent); border-radius: 0.5rem; background: color-mix(in srgb, theme(card) 30%, theme(bg) 70%); }
+.post-toc { margin-bottom: 2rem; padding: 1rem 1.25rem; border: 1px solid var(--border-subtle); border-radius: 0.5rem; background: color-mix(in srgb, theme(card) 30%, theme(bg) 70%); }
 .post-toc__summary { display: inline-flex; align-items: center; justify-content: flex-start; gap: 0.4rem; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: theme(muted); cursor: pointer; list-style: none; user-select: none; }
 .post-toc__summary::-webkit-details-marker { display: none; }
 .post-toc__chevron { width: 0.4rem; height: 0.4rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); transition: transform 0.15s ease; order: -1; margin-right: 0.2rem; }
