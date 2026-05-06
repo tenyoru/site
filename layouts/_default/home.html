@@ -4,35 +4,32 @@
   <section class="home-intro">
     <p class="home-intro__greeting">Hey, I'm</p>
     <h1 class="home-intro__name">{{ .Site.Title }}</h1>
-    <p class="home-intro__bio">{{ .Site.Params.bio }}</p>
+    {{ with .Content }}<div class="home-intro__bio">{{ . }}</div>{{ end }}
   </section>
 
-  {{/* About */}}
-  <section class="home-about">
-    <div class="home-about__item">
-      <span class="label">Status</span>
-      <span class="home-about__value"><a href="http://topo.love" class="home-about__link" target="_blank" rel="noopener">{{ .Site.Params.status }} →</a></span>
-    </div>
-    <div class="home-about__item">
-      <span class="label">Focus</span>
-      <span class="home-about__value">{{ .Site.Params.focus | default "Systems programming, infrastructure" }}</span>
-    </div>
-    <div class="home-about__item">
-      <span class="label">Location</span>
-      <span class="home-about__value">{{ .Site.Params.location | default "Remote" }}</span>
-    </div>
-    <div class="home-about__item">
-      <span class="label">Contact</span>
-      <span class="home-about__value"><a href="/contact/" class="home-about__link">Get in touch →</a></span>
-    </div>
+  {{/* Projects */}}
+  {{ with .Site.Params.projects }}
+  <section class="home-projects">
+    <h2 class="label">Work</h2>
+    <ul class="home-projects__list list-none">
+      {{ range . }}
+      <li class="home-projects__item">
+        <a href="{{ .url }}" class="home-projects__link link" target="_blank" rel="noopener">
+          <span class="home-projects__name">{{ .name }}</span>
+          {{ with .desc }}<span class="home-projects__desc">{{ . }}</span>{{ end }}
+        </a>
+      </li>
+      {{ end }}
+    </ul>
   </section>
+  {{ end }}
 
   {{/* Recent Posts */}}
   {{ $posts := where .Site.RegularPages "Section" "blog" }}
   {{ with $posts | first 5 }}
   <section class="home-posts">
     <h2 class="label">Recent posts</h2>
-    <ul class="home-posts__list">
+    <ul class="home-posts__list list-none">
       {{ range . }}
       <li class="home-posts__item">
         <a href="{{ .RelPermalink }}" class="home-posts__link">
@@ -42,7 +39,7 @@
       </li>
       {{ end }}
     </ul>
-    <a href="/blog/" class="home-posts__more">All posts →</a>
+    <a href="/blog/" class="home-posts__more link">All posts →</a>
   </section>
   {{ end }}
 </div>
