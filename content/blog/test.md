@@ -2,7 +2,7 @@
 date = '2025-10-04T13:35:33+02:00'
 draft = true
 title = 'Test'
-image = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80'
+cover = 'test-post-image.png'
 summary = 'Walk through the workflow of building a simple Hugo theme, from scaffolding the site to customizing layouts.'
 tags = ['tutorial', 'hugo', 'themes']
 +++
