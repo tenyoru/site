@@ -13,4 +13,4 @@
 
 // Links
 .link { text-decoration: none; color: theme(muted); transition: color 0.15s ease; }
-.link:hover { color: theme(accent); }
+.link:hover { color: theme(accent); text-decoration: none; }

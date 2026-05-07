@@ -1,4 +1,12 @@
 {{ define "main" }}
+{{- with .Params.cover }}
+<div class="article-cover">
+  {{- $path := printf "images/posts/%s" . -}}
+  {{- $src := . -}}
+  {{- with resources.Get $path }}{{- $src = .RelPermalink -}}{{- end }}
+  <img src="{{ $src }}" alt="" class="article-cover__img" loading="lazy" decoding="async">
+</div>
+{{- end }}
 <article class="article shell--narrow">
   <header class="article-header">
     <div class="article-header__sentinel" data-header-sentinel></div>
