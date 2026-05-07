@@ -18,7 +18,7 @@
 .home-posts { display: flex; flex-direction: column; gap: 1rem; }
 .home-posts__list { display: flex; flex-direction: column; }
 .home-posts__link { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.75rem 0; text-decoration: none; color: theme(text); border-bottom: 1px solid var(--border-subtle); transition: color 0.15s ease; }
-.home-posts__link:hover, .home-posts__link:hover .home-posts__link-date { color: theme(accent); }
+.home-posts__link:hover, .home-posts__link:hover .home-posts__link-date { color: theme(accent); text-decoration: none; }
 .home-posts__link-title { font-weight: 500; }
 .home-posts__link-date { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: theme(muted); flex-shrink: 0; transition: color 0.15s ease; }
 .home-posts__more { font-size: 0.85rem; font-weight: 500; }

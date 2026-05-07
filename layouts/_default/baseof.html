@@ -9,7 +9,7 @@
       {{ partial "header.html" . }}
     </header>
   </div>
-    <main class="shell content flex flex-col shell--narrow">
+    <main class="shell content flex flex-col shell--narrow{{ if .Params.cover }} content--has-cover{{ end }}">
       <div class = "inner">
         {{ block "main" . }}{{ end }}
       </div>

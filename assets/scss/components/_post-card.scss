@@ -13,7 +13,7 @@
 .section-header__label { font-size: 0.8rem; font-weight: 500; color: theme(muted); margin: 0; }
 .section-header__label + .section-header__title { margin-top: 0; margin-left: -0.05em; }
 
-.post-list { display: flex; flex-direction: column; }
+.post-list { display: flex; flex-direction: column; list-style: none; margin: 0; padding: 0; }
 .post-item { padding: 1rem 0; border-bottom: 1px solid theme(border); }
 .post-item:first-child { padding-top: 0; }
 .post-item__link { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; text-decoration: none; color: theme(text); transition: color 0.15s ease; }
@@ -34,4 +34,5 @@
 .tag-list__count { font-size: 0.75rem; opacity: 0.6; }
 
 .tag-back { margin-top: 2rem; }
+.tag-back__link::before { content: "\2190\00a0"; }
 
