@@ -16,6 +16,7 @@
     <description>{{ $description | plainify }}</description>
     <language>{{ site.Language.LanguageCode }}</language>
     <generator>Hugo {{ hugo.Version }}</generator>
+    <ttl>60</ttl>
     {{- range $pages }}
     <item>
       <title>{{ .Title }}</title>
