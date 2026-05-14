@@ -237,6 +237,8 @@ document.addEventListener("DOMContentLoaded", () => {
     setTocTop();
     window.addEventListener("scroll", setTocTop, { passive: true });
     window.addEventListener("resize", setTocTop);
+    const coverImg = document.querySelector(".article-cover__img");
+    if (coverImg) coverImg.addEventListener("load", setTocTop);
   }
 
   // Scroll spy: highlight active TOC link
@@ -264,6 +266,11 @@ document.addEventListener("DOMContentLoaded", () => {
         { rootMargin: "0px 0px -80% 0px", threshold: 0 }
       );
       headings.forEach((h) => observer.observe(h));
+      window.addEventListener("scroll", () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+          setActive(headings[headings.length - 1].id);
+        }
+      }, { passive: true });
     }
   }
 });
