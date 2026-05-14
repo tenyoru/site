@@ -22,7 +22,11 @@
       <link>{{ .Permalink }}</link>
       <guid isPermaLink="true">{{ .Permalink }}</guid>
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
-      <description><![CDATA[{{ with .Params.summary }}{{ . }}{{ else }}{{ .Summary | plainify }}{{ end }}]]></description>
+      {{- $desc := .Summary | plainify -}}
+      {{- with .Params.summary }}{{- $desc = . -}}{{- end -}}
+      {{- with $desc }}
+      <description><![CDATA[{{ . }}]]></description>
+      {{- end }}
       {{- with .Params.tags }}
         {{- range . }}
       <category>{{ . }}</category>
