@@ -1,6 +1,6 @@
 $themes: (
   light: (
-    bg: #f7f4f0,
+    bg: $bg-light,
     text: #2b2621,
     accent: #1d4ed8,
     card: #fffefb,
@@ -15,7 +15,7 @@ $themes: (
     header-opacity: 60%
   ),
   dark: (
-    bg: #0b0a09,
+    bg: $bg-dark,
     text: #ddd9d4,
     accent: #e5b77e,
     card: #141311,
