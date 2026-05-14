@@ -24,15 +24,11 @@
 {{- end }}
 <script>
   (function () {
-    var dark = '{{ index site.Params.styles "bg-dark" }}', light = '{{ index site.Params.styles "bg-light" }}';
     try {
       var storedTheme = localStorage.getItem('preferred-theme');
       var theme = storedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.documentElement.dataset.theme = theme;
-      document.documentElement.style.backgroundColor = theme === 'light' ? light : dark;
-    } catch (_) {
-      document.documentElement.style.backgroundColor = dark;
-    }
+    } catch (_) {}
   })();
 </script>
 {{ partialCached "head/css.html" . }}
