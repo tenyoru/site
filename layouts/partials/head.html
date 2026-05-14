@@ -10,6 +10,18 @@
 {{- if not $desc }}{{ $desc = site.Title }}{{ end -}}
 {{- $desc = $desc | plainify | htmlEscape | truncate 160 -}}
 <meta name="description" content="{{ $desc }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{- $ogImage := resources.Get "images/posts/test-post-image.png" -}}
+{{- with .Params.cover -}}
+  {{- $path := printf "images/posts/%s" . -}}
+  {{- with resources.Get $path }}{{- $ogImage = . -}}{{- end -}}
+{{- end }}
+{{- with $ogImage }}
+<meta property="og:image" content="{{ .Permalink | absURL }}">
+{{- end }}
 <script>
   (function () {
     try {
