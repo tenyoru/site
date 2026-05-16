@@ -7,7 +7,7 @@
     {{ end }}
   </header>
 
-  {{- $showDrafts := or hugo.IsDevelopment .Site.BuildDrafts -}}
+  {{- $showDrafts := hugo.IsDevelopment -}}
   {{ if not $showDrafts }}
     {{ with .Data.Terms.ByCount }}
       <ul class="tag-list list-none">
