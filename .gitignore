@@ -3,3 +3,4 @@ resources/
 todo.md
 .devenv/
 .wrangler/
+.jj/
