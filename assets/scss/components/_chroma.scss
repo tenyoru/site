@@ -11,4 +11,19 @@
 .chroma .c, .chroma .ch, .chroma .cm, .chroma .c1, .chroma .cs, .chroma .cp, .chroma .cpf, .chroma .gu { color: #75715e; }
 .chroma .ge { font-style: italic; }
 .chroma .gs { font-weight: bold; }
-:root[data-theme="light"] .chroma .s, :root[data-theme="light"] .chroma .sa, :root[data-theme="light"] .chroma .sb, :root[data-theme="light"] .chroma .sc, :root[data-theme="light"] .chroma .sd, :root[data-theme="light"] .chroma .s2, :root[data-theme="light"] .chroma .sh, :root[data-theme="light"] .chroma .si, :root[data-theme="light"] .chroma .sx, :root[data-theme="light"] .chroma .sr, :root[data-theme="light"] .chroma .s1, :root[data-theme="light"] .chroma .ss { color: #b45309; }
+:root[data-theme="light"] {
+  /* keywords: cyan → dark teal */
+  .chroma .k, .chroma .kc, .chroma .kd, .chroma .kp, .chroma .kr, .chroma .kt, .chroma .no { color: #0369a1; }
+  /* operators/tags: pink → dark rose */
+  .chroma .kn, .chroma .nt, .chroma .o, .chroma .ow, .chroma .gd { color: #be123c; }
+  /* functions/identifiers: bright green → dark green */
+  .chroma .na, .chroma .nc, .chroma .nd, .chroma .ne, .chroma .nf, .chroma .nx, .chroma .fm, .chroma .gi { color: #15803d; }
+  /* numbers/literals: purple → dark purple */
+  .chroma .l, .chroma .m, .chroma .mb, .chroma .mf, .chroma .mh, .chroma .mi, .chroma .il, .chroma .mo, .chroma .se { color: #6d28d9; }
+  /* strings: yellow → amber */
+  .chroma .s, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl, .chroma .sd, .chroma .s2, .chroma .sh, .chroma .si, .chroma .sx, .chroma .sr, .chroma .s1, .chroma .ss, .chroma .ld { color: #b45309; }
+  /* error: red text on light red bg */
+  .chroma .err { color: #dc2626; background: #fee2e2; }
+  /* highlight line */
+  .chroma .hl { background: #e5e7eb; }
+}
