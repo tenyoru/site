@@ -9,7 +9,7 @@
 
 // Typography
 .label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: theme(muted); margin: 0; }
-.title-lg { font-weight: 700; color: theme(text-heading); margin: 0; letter-spacing: -0.02em; }
+.title-lg { font-weight: 700; color: theme(heading); margin: 0; letter-spacing: -0.02em; }
 
 // Links
 .link { text-decoration: none; color: theme(muted); transition: color 0.15s ease; }

@@ -9,7 +9,7 @@
 .article-meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: theme(muted); margin-bottom: 0.75rem; }
 .article-meta__sep { opacity: 0.5; }
 .article-title { font-size: clamp(1.75rem, 5vw, 2.5rem); line-height: 1.2; }
-.article-desc { margin: 1rem 0 0; font-size: 1.1rem; color: theme(text-subtle); line-height: 1.6; }
+.article-desc { margin: 1rem 0 0; font-size: 1.1rem; color: theme(subtle); line-height: 1.6; }
 
 .article-body { display: flex; flex-direction: column; gap: 2rem; }
 
@@ -17,7 +17,7 @@
 .article-content > :first-child { margin-top: 0; }
 .article-content > * { margin-top: 1.5rem; margin-bottom: 0; }
 .article-content p, .article-content ul, .article-content ol { margin-top: 1.25rem; }
-.article-content h2, .article-content h3, .article-content h4 { scroll-margin-top: calc(v.$header-height + 1.5rem); color: theme(text-heading); font-weight: 600; }
+.article-content h2, .article-content h3, .article-content h4 { scroll-margin-top: calc(v.$header-height + 1.5rem); color: theme(heading); font-weight: 600; }
 .article-content h2 { font-size: 1.5rem; margin-top: 2.5rem; margin-bottom: 1rem; letter-spacing: -0.01em; }
 .article-content h3 { font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
 .article-content ul, .article-content ol { padding-inline-start: 1.5rem; }
@@ -25,7 +25,7 @@
 .article-content p a:hover, .article-content li a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
 .article-content h1 a, .article-content h2 a, .article-content h3 a, .article-content h4 a { color: inherit; text-decoration: none; }
 .article-content h1 a:hover, .article-content h2 a:hover, .article-content h3 a:hover, .article-content h4 a:hover { color: theme(accent); }
-.article-content blockquote { margin: 1.5rem 0; padding: 0 0 0 1rem; border-left: 2px solid color-mix(in srgb, theme(border) 60%, transparent); color: theme(text-subtle); font-style: italic; }
+.article-content blockquote { margin: 1.5rem 0; padding: 0 0 0 1rem; border-left: 2px solid color-mix(in srgb, theme(border) 60%, transparent); color: theme(subtle); font-style: italic; }
 .article-content img, .article-content video { border-radius: 0.5rem; margin: 1.5rem 0; max-width: 100%; height: auto; }
 
 .article-footer { margin-top: clamp(2rem, 5vw, 3rem); padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); }
