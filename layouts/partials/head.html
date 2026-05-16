@@ -28,6 +28,9 @@
       var storedTheme = localStorage.getItem('preferred-theme');
       var theme = storedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.documentElement.dataset.theme = theme;
+      document.documentElement.style.background = theme === 'dark' ? '#0b0a09' : '#f7f4f0';
+      document.documentElement.style.color = theme === 'dark' ? '#ddd9d4' : '#2b2621';
+      document.documentElement.style.colorScheme = theme;
     } catch (_) {}
   })();
 </script>
