@@ -155,7 +155,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (safeStorage) {
       const stored = safeStorage.getItem(TOC_STORAGE_KEY);
       if (stored !== null) {
+        toc.classList.add("no-transition");
         toc.open = stored === "true";
+        requestAnimationFrame(() => toc.classList.remove("no-transition"));
       }
     }
 
@@ -233,12 +235,15 @@ document.addEventListener("DOMContentLoaded", () => {
     tocMedia.addEventListener("change", updateTocClamp);
   }
 
-  if (toc && articleMeta) {
-    setTocTop();
-    window.addEventListener("scroll", setTocTop, { passive: true });
-    window.addEventListener("resize", setTocTop);
-    const coverImg = document.querySelector(".article-cover__img");
-    if (coverImg) coverImg.addEventListener("load", setTocTop);
+  if (toc) {
+    if (articleMeta) {
+      setTocTop();
+      window.addEventListener("scroll", setTocTop, { passive: true });
+      window.addEventListener("resize", setTocTop);
+      const coverImg = document.querySelector(".article-cover__img");
+      if (coverImg) coverImg.addEventListener("load", setTocTop);
+    }
+    toc.style.visibility = "visible";
   }
 
   // Scroll spy: highlight active TOC link
