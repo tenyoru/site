@@ -10,7 +10,7 @@
     {{ end }}
   </header>
 
-  {{- $showDrafts := or hugo.IsDevelopment .Site.BuildDrafts -}}
+  {{- $showDrafts := or hugo.IsDevelopment hugo.IsDevelopment -}}
   {{- $pages := .RegularPages -}}
 
   {{- if gt (len $pages) 0 -}}

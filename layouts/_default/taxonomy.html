@@ -6,7 +6,7 @@
   </header>
 
   {{- $pages := sort .Pages "Date" "desc" -}}
-  {{- $showDrafts := or hugo.IsDevelopment .Site.BuildDrafts -}}
+  {{- $showDrafts := hugo.IsDevelopment -}}
 
   {{- if $showDrafts -}}
     {{ if gt (len $pages) 0 }}
