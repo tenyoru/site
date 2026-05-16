@@ -5,8 +5,8 @@
 
 .home-intro { display: flex; flex-direction: column; gap: 0.5rem; }
 .home-intro__greeting { font-size: 0.9rem; font-weight: 500; color: theme(muted); margin: 0; letter-spacing: 0.02em; }
-.home-intro__name { font-size: clamp(2.5rem, 7vw, 3.5rem); font-weight: 700; color: theme(text-heading); margin: 0; letter-spacing: -0.03em; line-height: 1.1; }
-.home-intro__bio { font-size: 1.1rem; line-height: 1.6; color: theme(text-subtle); margin: 0.5rem 0 0; }
+.home-intro__name { font-size: clamp(2.5rem, 7vw, 3.5rem); font-weight: 700; color: theme(heading); margin: 0; letter-spacing: -0.03em; line-height: 1.1; }
+.home-intro__bio { font-size: 1.1rem; line-height: 1.6; color: theme(subtle); margin: 0.5rem 0 0; }
 
 
 .home-projects { display: flex; flex-direction: column; gap: 1rem; }

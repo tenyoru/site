@@ -1,7 +1,7 @@
 @use "../theme" as *;
 
 .contact-header__title { font-size: clamp(2rem, 5vw, 2.5rem); margin: 0 0 0.5rem; }
-.contact-header__desc { font-size: 1rem; color: theme(text-subtle); margin: 0; max-width: 50ch; }
+.contact-header__desc { font-size: 1rem; color: theme(subtle); margin: 0; max-width: 50ch; }
 
 .contact-list { display: flex; flex-direction: column; border-top: 1px solid theme(border); border-bottom: 1px solid theme(border); }
 .contact-item { }
@@ -12,4 +12,4 @@
 .contact-item__info { display: flex; flex-direction: column; gap: 0.15rem; }
 .contact-item__value { font-weight: 500; font-size: 1rem; }
 
-.contact-extra { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); color: theme(text-subtle); line-height: 1.6; }
+.contact-extra { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); color: theme(subtle); line-height: 1.6; }

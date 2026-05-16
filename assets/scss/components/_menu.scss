@@ -13,7 +13,7 @@
 .header-left { display: flex; align-items: center; }
 
 .site-title { margin: 0; font-size: 1rem; font-weight: 600; }
-.site-title a { color: theme(text-heading); text-decoration: none; transition: color 0.15s ease; }
+.site-title a { color: theme(heading); text-decoration: none; transition: color 0.15s ease; }
 .site-title a:hover { color: theme(accent); }
 
 .menu-desktop { display: flex; gap: 1.5rem; align-items: center; }
