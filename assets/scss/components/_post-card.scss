@@ -21,18 +21,19 @@
 .post-item__link:hover .post-item__meta { color: theme(accent); }
 .post-item__title { font-weight: 500; font-size: 1rem; }
 .post-item__meta { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: theme(muted); flex-shrink: 0; transition: color 0.15s ease; }
-.post-item__excerpt { font-size: 0.9rem; color: theme(text-subtle); margin: 0.5rem 0 0; line-height: 1.5; }
+.post-item__excerpt { font-size: 0.9rem; color: theme(subtle); margin: 0.5rem 0 0; line-height: 1.5; }
 
 .pagination { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid theme(border); }
 .pagination__link { font-size: 0.875rem; font-weight: 500; }
 .pagination__info { font-size: 0.8rem; color: theme(muted); font-variant-numeric: tabular-nums; }
 
 .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.tag-list__link { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; text-decoration: none; font-size: 0.9rem; color: theme(muted); background: color-mix(in srgb, theme(card) 50%, transparent); border-radius: 0.25rem; transition: color 0.15s ease, background 0.15s ease; }
+.tag-list__link { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; text-decoration: none; font-size: 0.9rem; color: theme(muted); background: theme(card); border-radius: 0.25rem; transition: color 0.15s ease, background 0.15s ease; }
 .tag-list__link:hover { color: theme(accent); background: color-mix(in srgb, theme(border) 30%, transparent); text-decoration: none; }
 .tag-list__name::before { content: "#"; opacity: 0.5; }
 .tag-list__count { font-size: 0.75rem; opacity: 0.6; }
 
-.tag-back { margin-top: 2rem; }
-.tag-back__link::before { content: "\2190\00a0"; }
+.tag-back { margin-top: 1rem; }
+.tag-back__link { font-size: 0.85rem; font-weight: 500; color: theme(muted); text-decoration: none; }
+.tag-back__link:hover { color: theme(accent); text-decoration: none; }
 
