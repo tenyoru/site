@@ -35,5 +35,6 @@
 
 .tag-back { margin-top: 1rem; }
 .tag-back__link { font-size: 0.85rem; font-weight: 500; color: theme(muted); text-decoration: none; }
+.tag-back__link::before { content: "\2190\00a0"; }
 .tag-back__link:hover { color: theme(accent); text-decoration: none; }
 
