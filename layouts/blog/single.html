@@ -13,9 +13,20 @@
   <header class="article-header">
     <div class="article-header__sentinel" data-header-sentinel></div>
     <div class="article-meta">
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
-      <span class="article-meta__sep">·</span>
-      <span>{{ .ReadingTime }} min read</span>
+      <div class="article-meta__info">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        <span class="article-meta__sep">·</span>
+        <span>{{ .ReadingTime }} min read</span>
+      </div>
+      {{- with .Translations }}
+      <div class="article-meta__translations">
+        <span class="article-meta__translations-label">also in</span>
+        {{- range $i, $t := . }}
+        {{- if gt $i 0 }}<span class="article-meta__sep">·</span>{{- end }}
+        <a href="{{ $t.RelPermalink }}" class="article-meta__lang" hreflang="{{ $t.Language.Lang }}" lang="{{ $t.Language.Lang }}">{{ $t.Language.Lang }}</a>
+        {{- end }}
+      </div>
+      {{- end }}
     </div>
     <h1 class="article-title title-lg">{{ .Title }}</h1>
     {{ with .Summary }}
