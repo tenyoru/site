@@ -1,6 +1,16 @@
 baseURL = 'https://tenyoru.io/'
 locale = 'en-us'
 title = 'Tenyoru'
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+[languages]
+  [languages.en]
+    weight = 1
+  [languages.fr]
+    weight = 2
+  [languages.ru]
+    weight = 3
 
 [params]
 description = "Tenyoru is a personal hub for engineering notes, blog posts, and ways to get in touch."
@@ -95,17 +105,17 @@ themeDark = "dark"
 [menus]
   [[menus.main]]
     name = 'Blog'
-    pageRef = '/blog'
+    url = '/blog/'
     weight = 10
 
   [[menus.main]]
     name = 'Tags'
-    pageRef = '/tags'
+    url = '/tags/'
     weight = 20
 
   [[menus.main]]
     name = 'Contact'
-    pageRef = '/Contact'
+    url = '/contact/'
     weight = 30
 
 [security]
