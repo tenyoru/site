@@ -150,6 +150,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  const applauseBtn = document.querySelector('.applause-btn');
+  if (applauseBtn) {
+    const url = applauseBtn.dataset.url;
+    const countEl = applauseBtn.querySelector('.applause-btn__count');
+    const VOTE_KEY = 'voted:' + url;
+    const API = 'https://api.applause-button.com';
+
+    if (safeStorage?.getItem(VOTE_KEY)) {
+      applauseBtn.classList.add('applause-btn--voted');
+      applauseBtn.disabled = true;
+    }
+
+    fetch(`${API}/get-claps?url=${encodeURIComponent(url)}`)
+      .then(r => r.text())
+      .then(n => { countEl.textContent = n || '0'; })
+      .catch(() => {});
+
+    applauseBtn.addEventListener('click', () => {
+      applauseBtn.classList.add('applause-btn--voted');
+      applauseBtn.disabled = true;
+      safeStorage?.setItem(VOTE_KEY, '1');
+      countEl.textContent = String((parseInt(countEl.textContent) || 0) + 1);
+      fetch(`${API}/clap`, {
+        method: 'POST',
+        body: url,
+        headers: { 'Content-Type': 'text/plain' }
+      })
+        .then(r => r.text())
+        .then(n => { if (n) countEl.textContent = n; })
+        .catch(() => {});
+    });
+  }
+
   const toc = document.querySelector("[data-post-toc]");
   if (toc) {
     if (safeStorage) {

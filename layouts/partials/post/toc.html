@@ -1,5 +1,5 @@
 {{- $toc := .TableOfContents -}}
-{{- if $toc }}
+{{- if and $toc (strings.Contains $toc "<li>") }}
   <details class="post-toc" data-post-toc>
     <summary class="post-toc__summary">
       <span>Table of contents</span>
