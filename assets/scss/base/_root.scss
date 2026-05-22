@@ -1,6 +1,10 @@
 @use "../theme" as *;
 
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 html {
   scrollbar-width: thin;
   scrollbar-color: theme(accent) transparent;
