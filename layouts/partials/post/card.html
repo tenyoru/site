@@ -4,9 +4,9 @@
 {{- $excerpt := cond (gt (len $cleanSummary) 0) ($cleanSummary | truncate 120) "" -}}
 
 <li class="post-item">
-  <a href="{{ $page.RelPermalink }}" class="post-item__link">
-    <span class="post-item__title">{{ $page.LinkTitle }}</span>
-    <span class="post-item__meta">
+  <a href="{{ $page.RelPermalink }}" class="list__link">
+    <span class="list__link-title">{{ $page.LinkTitle }}</span>
+    <span class="list__link-date">
       <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "Jan 2, 2006" }}</time>
     </span>
   </a>
