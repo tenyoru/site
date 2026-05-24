@@ -49,7 +49,15 @@ intro = "Every message lands in my personal inbox, so feel free to be detailed."
 
 [[params.media]]
 label = "GitHub"
+value = "tenyoru"
 url = "https://github.com/tenyoru"
+icon = "github"
+
+[[params.media]]
+label = "Tangled"
+value = "tenyoru.io"
+url = "https://tangled.org/tenyoru.io"
+icon = "tangled"
 
 # [[params.media]]
 # label = "Codeberg"
@@ -57,23 +65,23 @@ url = "https://github.com/tenyoru"
 # url = "https://codeberg.org/tenyoru"
 # icon = "codeberg"
 
-# [[params.media]]
-# label = "Mastodon"
-# value = "@tenyoru@mastodon.social"
-# url = "https://mastodon.social/@tenyoru"
-# icon = "mastodon"
+[[params.media]]
+label = "Bluesky"
+value = "@tenyoru.io"
+url = "https://bsky.app/profile/tenyoru.io"
+icon = "bluesky"
 
-# [[params.media]]
-# label = "Telegram"
-# value = "@tenyoru"
-# url = "https://t.me/tenyoru"
-# icon = "telegram"
+[[params.media]]
+label = "Mastodon"
+value = "@tenyoru@mastodon.social"
+url = "https://mastodon.social/@tenyoru"
+icon = "mastodon"
 
-# [[params.media]]
-# label = "Twitter"
-# value = "@XTenyoru"
-# url = "https://x.com/XTenyoru"
-# icon = "x"
+[[params.media]]
+label = "Telegram"
+value = "@tenyoru"
+url = "https://t.me/tenyoru_hub"
+icon = "telegram"
 
 [[params.projects]]
 name = "topo.love"
