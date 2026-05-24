@@ -16,11 +16,7 @@
 .post-list { display: flex; flex-direction: column; list-style: none; margin: 0; padding: 0; }
 .post-item { padding: 1rem 0; border-bottom: 1px solid theme(border); }
 .post-item:first-child { padding-top: 0; }
-.post-item__link { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; text-decoration: none; color: theme(text); transition: color 0.15s ease; }
-.post-item__link:hover { color: theme(accent); text-decoration: none; }
-.post-item__link:hover .post-item__meta { color: theme(accent); }
-.post-item__title { font-weight: 500; font-size: 1rem; }
-.post-item__meta { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: theme(muted); flex-shrink: 0; transition: color 0.15s ease; }
+.post-item .list__link { padding: 0; }
 .post-item__excerpt { font-size: 0.9rem; color: theme(subtle); margin: 0.5rem 0 0; line-height: 1.5; }
 
 .pagination { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid theme(border); }
