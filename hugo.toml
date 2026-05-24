@@ -17,7 +17,7 @@ description = "Tenyoru is a personal hub for engineering notes, blog posts, and 
 
 [params.contact.hero]
 title = "Let's build something together"
-body = "Have an idea you want to validate, need a hand improving a system, or just want to talk shop? Drop me a line and we'll take it from there."
+body = "Got something on your mind? Whether it's a project, a question, or just to talk shop — drop me a line."
 
 [params.contact.contacts]
 heading = "Pick the channel that suits you"
