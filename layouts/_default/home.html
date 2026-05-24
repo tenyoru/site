@@ -5,18 +5,27 @@
     <p class="home-intro__greeting">Hey, I'm</p>
     <h1 class="home-intro__name">{{ .Site.Title }}</h1>
     {{ with .Content }}<div class="home-intro__bio">{{ . }}</div>{{ end }}
+    {{ with .Site.Params.media }}
+    <div class="home-media">
+      {{ range . }}
+      <a href="{{ .url }}" class="home-media__link" title="{{ .label }}" target="_blank" rel="noopener noreferrer">
+        {{ partial "svg.html" .icon }}
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
   </section>
 
   {{/* Projects */}}
   {{ with .Site.Params.projects }}
-  <section class="home-projects">
+  <section class="list">
     <h2 class="label">Work</h2>
-    <ul class="home-projects__list list-none">
+    <ul class="list__list list-none">
       {{ range . }}
       <li class="home-projects__item">
-        <a href="{{ .url }}" class="home-projects__link link" target="_blank" rel="noopener">
-          <span class="home-projects__name">{{ .name }}</span>
-          {{ with .desc }}<span class="home-projects__desc">{{ . }}</span>{{ end }}
+        <a href="{{ .url }}" class="list__link" target="_blank" rel="noopener">
+          <span class="list__link-title">{{ .name }}</span>
+          {{ with .desc }}<span class="list__link-date">{{ . }}</span>{{ end }}
         </a>
       </li>
       {{ end }}
@@ -27,19 +36,19 @@
   {{/* Recent Posts */}}
   {{ $posts := where .Site.RegularPages "Section" "blog" }}
   {{ with $posts | first 5 }}
-  <section class="home-posts">
+  <section class="list">
     <h2 class="label">Recent posts</h2>
-    <ul class="home-posts__list list-none">
+    <ul class="list__list list-none">
       {{ range . }}
-      <li class="home-posts__item">
-        <a href="{{ .RelPermalink }}" class="home-posts__link">
-          <span class="home-posts__link-title">{{ .Title }}</span>
-          <time class="home-posts__link-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2006" }}</time>
+      <li class="list__item">
+        <a href="{{ .RelPermalink }}" class="list__link">
+          <span class="list__link-title">{{ .Title }}</span>
+          <time class="list__link-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2006" }}</time>
         </a>
       </li>
       {{ end }}
     </ul>
-    <a href="/blog/" class="home-posts__more link">All posts →</a>
+    <a href="/blog/" class="list__more link">All posts →</a>
   </section>
   {{ end }}
 </div>
