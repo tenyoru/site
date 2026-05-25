@@ -29,7 +29,7 @@
       {{- end }}
     </div>
     <h1 class="article-title title-lg">{{ .Title }}</h1>
-    {{ with .Summary }}
+    {{ with .Params.summary }}
     <p class="article-desc">{{ . | plainify }}</p>
     {{ end }}
     {{- with .GetTerms "tags" }}
