@@ -24,7 +24,7 @@
       {{ range . }}
       <li class="home-projects__item">
         <a href="{{ .url }}" class="list__link" target="_blank" rel="noopener">
-          <span class="list__link-title">{{ .name }}</span>
+          <span class="list__link-title">{{ with .icon }}{{ if resources.Get (printf "images/%s.svg" .) }}{{ partial "svg.html" . }}{{ end }}{{ end }}{{ .name }}</span>
           {{ with .desc }}<span class="list__link-date">{{ . }}</span>{{ end }}
         </a>
       </li>
