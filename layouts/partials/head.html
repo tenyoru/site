@@ -9,19 +9,22 @@
 {{- if not $desc }}{{ with site.Params.description }}{{ $desc = . }}{{ end }}{{ end -}}
 {{- if not $desc }}{{ $desc = site.Title }}{{ end -}}
 {{- $desc = $desc | plainify | htmlEscape | truncate 160 -}}
-<meta name="description" content="{{ $desc }}">
-<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
-<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}">
-<meta property="og:description" content="{{ $desc }}">
-<meta property="og:url" content="{{ .Permalink }}">
-{{- $ogImage := resources.Get "images/posts/test-post-image.png" -}}
+{{- $ogTitle := cond .IsHome (printf "%s — Engineering notes, writing, and collaborations" site.Title) (printf "%s | %s" .Title site.Title) -}}
+{{- $ogImageURL := printf "%s/cdn-cgi/image/width=1200,height=630,fit=cover,format=webp/cat.jpg" site.Params.r2BaseURL -}}
 {{- with .Params.cover -}}
   {{- $path := printf "images/posts/%s" . -}}
-  {{- with resources.Get $path }}{{- $ogImage = . -}}{{- end -}}
+  {{- with resources.Get $path }}{{- $ogImageURL = .Permalink | absURL -}}{{- end -}}
 {{- end }}
-{{- with $ogImage }}
-<meta property="og:image" content="{{ .Permalink | absURL }}">
-{{- end }}
+<meta name="description" content="{{ $desc }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:title" content="{{ $ogTitle }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ $ogImageURL }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $ogTitle }}">
+<meta name="twitter:description" content="{{ $desc }}">
+<meta name="twitter:image" content="{{ $ogImageURL }}">
 <script>
   (function () {
     try {
