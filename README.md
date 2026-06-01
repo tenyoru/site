@@ -7,6 +7,8 @@
 
 https://pagespeed.web.dev/report?url=https://tenyoru.io
 
+https://socialsharepreview.com/
+
 
 ## TODO
 - [ ] Change `http` to `https` for the startup link once the site is live
