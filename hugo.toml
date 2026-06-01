@@ -14,6 +14,8 @@ defaultContentLanguageInSubdir = false
 
 [params]
 description = "Tenyoru is a personal hub for engineering notes, blog posts, and ways to get in touch."
+r2BaseURL = "https://assets.tenyoru.io"
+r2Transforms = true
 
 [params.contact.hero]
 title = "Let's build something together"
@@ -87,6 +89,7 @@ icon = "telegram"
 name = "topo.love"
 desc = "Startup I'm currently building"
 url = "https://topo.love"
+icon = "topo"
 
 [params.footer]
 credits = "© 2026 Tenyoru"
@@ -120,6 +123,11 @@ themeDark = "dark"
     name = 'Tags'
     url = '/tags/'
     weight = 20
+
+  [[menus.main]]
+    name = 'Photos'
+    url = '/photos/'
+    weight = 25
 
   [[menus.main]]
     name = 'Contact'

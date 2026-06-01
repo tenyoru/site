@@ -1,0 +1,47 @@
+@use "../theme" as *;
+@use "../vars" as v;
+
+.photo-album__location {
+  font-size: 0.95rem;
+  color: theme(subtle);
+  margin: 0.5rem 0 0;
+}
+
+.photo-grid {
+  columns: 2;
+  column-gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.photo-grid__item {
+  margin: 0 0 0.5rem;
+  break-inside: avoid;
+}
+
+.photo-grid__item a {
+  display: block;
+  text-decoration: none;
+  cursor: zoom-in;
+}
+
+.photo-grid__item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0.25rem;
+  transition: opacity 0.15s ease;
+}
+
+.photo-grid__item a:hover img { opacity: 0.9; }
+
+
+// PhotoSwipe theme overrides
+.pswp {
+  --pswp-bg: #{theme(bg)};
+  --pswp-icon-color: #{theme(text)};
+  --pswp-icon-color-secondary: #{theme(muted)};
+}
+
+@media (max-width: v.mq(xs)) {
+  .photo-grid { columns: 1; }
+}

@@ -1,0 +1,35 @@
+{{- $pages := .RegularPages -}}
+{{- $pages = where $pages "Draft" false -}}
+{{- $pages = where $pages "Date" "<=" now -}}
+{{- $pages = sort $pages "Date" "desc" -}}
+{{- $pages = first 20 $pages -}}
+{{- $feed := .OutputFormats.Get "RSS" -}}
+{{- $description := .Description | default (printf "Latest photo albums from %s" site.Title) -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" | safeHTML -}}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ .Title }} | {{ site.Title }}</title>
+    <link>{{ .Permalink }}</link>
+    {{- with $feed }}
+    <atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />
+    {{- end }}
+    <description>{{ $description | plainify }}</description>
+    <language>{{ site.Language.Locale }}</language>
+    <generator>Hugo {{ hugo.Version }}</generator>
+    <ttl>60</ttl>
+    {{- range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+      {{- $desc := "" -}}
+      {{- with .Params.gear }}{{- $desc = . -}}{{- end -}}
+      {{- with .Params.location }}{{- $desc = printf "%s · %s" $desc . -}}{{- end -}}
+      {{- with $desc }}
+      <description><![CDATA[{{ . }}]]></description>
+      {{- end }}
+    </item>
+    {{- end }}
+  </channel>
+</rss>

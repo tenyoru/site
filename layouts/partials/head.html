@@ -37,3 +37,4 @@
 {{ partialCached "head/css.html" . }}
 {{ partialCached "head/scss.html" . }}
 {{ partialCached "head/js.html" . }}
+{{ if and .IsPage (eq .Section "photos") }}{{ partial "head/gallery.html" . }}{{ end }}
