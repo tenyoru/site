@@ -5,9 +5,9 @@
 
 ![Lighthouse scores: 100 Performance, 100 Accessibility, 100 Best Practices, 100 SEO](docs/lighthouse.png)
 
-https://pagespeed.web.dev/report?url=https://tenyoru.io
+**[PageSpeed](https://pagespeed.web.dev/report?url=https://tenyoru.io)** — performance audit
 
-https://socialsharepreview.com/
+**[Social preview](https://socialsharepreview.com/?url=https://tenyoru.io)** — OG/Twitter card checker
 
 
 ## TODO
