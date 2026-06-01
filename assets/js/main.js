@@ -1,6 +1,5 @@
 const TOC_STORAGE_KEY = "toc-state";
 const THEME_STORAGE_KEY = "preferred-theme";
-const LANG_STORAGE_KEY = "preferred-lang";
 
 const safeStorage = (() => {
   try {
@@ -96,27 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initTheme();
 
   // loadGiscus();
-
-  // If user previously chose a language, auto-open that translation when it exists
-  const preferredLang = safeStorage?.getItem(LANG_STORAGE_KEY);
-  if (preferredLang && preferredLang !== document.documentElement.lang) {
-    const translationsEl = document.getElementById("page-translations");
-    if (translationsEl) {
-      try {
-        const translations = JSON.parse(translationsEl.textContent);
-        const match = translations.find((t) => t.lang === preferredLang);
-        if (match) { window.location.replace(match.url); return; }
-      } catch (_) {}
-    }
-  }
-
-  // Save language when user manually picks a translation
-  document.querySelectorAll(".article-meta__lang").forEach((link) => {
-    link.addEventListener("click", () => {
-      const lang = link.getAttribute("hreflang");
-      if (lang) safeStorage?.setItem(LANG_STORAGE_KEY, lang);
-    });
-  });
 
   const themeButtons = document.querySelectorAll(".theme-switcher__btn");
   themeButtons.forEach((btn) => {
