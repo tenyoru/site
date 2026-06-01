@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="section shell--narrow">
+  <header class="section-header">
+    <div class="section-header__top">
+      <h1 class="section-header__title title-lg">{{ .Title }}</h1>
+      <a href="{{ .Permalink }}index.xml" class="section-header__rss" title="RSS Feed">{{- partial "svg" "rss" -}}</a>
+    </div>
+    {{ with .Content }}
+    <p class="section-header__desc">{{ . | plainify }}</p>
+    {{ end }}
+  </header>
+
+  {{- $showDrafts := hugo.IsDevelopment -}}
+  {{- $pages := .RegularPages -}}
+  {{- if gt (len $pages) 0 -}}
+    <ul class="post-list list-none">
+      {{- range $pages -}}
+        {{- if or $showDrafts (not .Draft) -}}
+          {{ partial "photos/card.html" (dict "page" .) }}
+        {{- end -}}
+      {{- end -}}
+    </ul>
+  {{- else -}}
+    <p class="post-empty">No albums yet.</p>
+  {{- end -}}
+</div>
+{{ end }}

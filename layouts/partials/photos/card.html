@@ -1,0 +1,12 @@
+{{- $page := .page -}}
+<li class="post-item">
+  <a href="{{ $page.RelPermalink }}" class="list__link">
+    <span class="list__link-title">{{ $page.LinkTitle }}</span>
+    <span class="list__link-date">
+      <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "02 Jan, 2006" }}</time>
+    </span>
+  </a>
+  {{ with $page.Params.gear }}
+  <p class="post-item__excerpt">{{ . }}</p>
+  {{ end }}
+</li>
