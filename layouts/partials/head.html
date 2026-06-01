@@ -38,3 +38,6 @@
 {{ partialCached "head/scss.html" . }}
 {{ partialCached "head/js.html" . }}
 {{ if and .IsPage (eq .Section "photos") }}{{ partial "head/gallery.html" . }}{{ end }}
+{{- if .IsPage -}}{{- with .Translations -}}
+<script type="application/json" id="page-translations">[{{ range $i, $t := . }}{{ if $i }},{{ end }}{"lang":"{{ $t.Language.Lang }}","url":"{{ $t.RelPermalink }}"}{{ end }}]</script>
+{{- end -}}{{- end -}}
