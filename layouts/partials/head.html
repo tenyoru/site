@@ -9,7 +9,7 @@
 {{- if not $desc }}{{ with site.Params.description }}{{ $desc = . }}{{ end }}{{ end -}}
 {{- if not $desc }}{{ $desc = site.Title }}{{ end -}}
 {{- $desc = $desc | plainify | htmlEscape | truncate 160 -}}
-{{- $ogTitle := cond .IsHome (printf "%s — Engineering notes, writing, and collaborations" site.Title) (printf "%s | %s" .Title site.Title) -}}
+{{- $ogTitle := cond .IsHome (printf "%s — Engineering, writing, and collaborations" site.Title) (printf "%s | %s" .Title site.Title) -}}
 {{- $ogImageURL := printf "%s/cdn-cgi/image/width=1200,height=630,fit=cover,format=webp/cat.jpg" site.Params.r2BaseURL -}}
 {{- with .Params.cover -}}
   {{- $path := printf "images/posts/%s" . -}}
