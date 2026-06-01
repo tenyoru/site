@@ -13,7 +13,7 @@ defaultContentLanguageInSubdir = false
     weight = 3
 
 [params]
-description = "Tenyoru is a personal hub for engineering notes, blog posts, and ways to get in touch."
+description = "A personal corner for engineering notes, writing, and new collaborations"
 r2BaseURL = "https://assets.tenyoru.io"
 r2Transforms = true
 
