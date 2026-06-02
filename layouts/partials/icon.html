@@ -1,0 +1,11 @@
+{{/* Icon helper: references the shared external sprite (see icon-sprite.html)
+     instead of inlining the SVG, keeping page HTML small. Preserves the
+     original <svg> attributes (viewBox, width, height, …) for sizing and
+     adds an icon-specific class for styling. */}}
+{{- $svg := . -}}
+{{- $class := printf "%s-icon" $svg -}}
+{{- $sprite := partialCached "icon-sprite.html" "sprite" -}}
+{{- $file := printf "/assets/images/%s.svg" $svg | readFile -}}
+{{- $clean := replaceRE `(?s)^(?:\s*<\?xml[^>]*>\s*)?(?:\s*<!--.*?-->\s*)*` "" $file -}}
+{{- $attrs := replaceRE `(?s)^.*?<svg\s*([^>]*?)>.*$` "$1" $clean -}}
+{{- return (printf `<svg class="%s" %s><use href="%s#%s"></use></svg>` $class $attrs $sprite $svg | safeHTML) -}}

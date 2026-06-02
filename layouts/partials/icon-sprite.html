@@ -1,0 +1,21 @@
+{{- /*
+  Builds a single external SVG sprite from every assets/images/*.svg file and
+  returns its (fingerprinted) URL. Each icon becomes a <symbol id="name">.
+  Referenced via <use href="sprite#name"> in partials/svg.html, so the icon
+  markup leaves the page HTML and the sprite is fetched once and cached.
+  Call through partialCached so it is built only once per site build.
+*/ -}}
+{{- $symbols := slice -}}
+{{- range (resources.Match "images/*.svg") -}}
+  {{- $name := strings.TrimSuffix ".svg" (path.Base .Name) -}}
+  {{- $c := .Content -}}
+  {{- /* drop XML declaration and leading comments */ -}}
+  {{- $c = replaceRE `(?s)^\s*(?:<\?xml[^>]*>)?\s*(?:<!--.*?-->\s*)*` "" $c -}}
+  {{- $vb := "" -}}
+  {{- with (findRE `viewBox="[^"]*"` $c 1) -}}{{- $vb = index . 0 -}}{{- end -}}
+  {{- $inner := replaceRE `(?s)^.*?<svg[^>]*>(.*)</svg>\s*$` "$1" $c -}}
+  {{- $symbols = $symbols | append (printf `<symbol id="%s" %s>%s</symbol>` $name $vb $inner) -}}
+{{- end -}}
+{{- $svg := printf `<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">%s</svg>` (delimit $symbols "") -}}
+{{- $res := resources.FromString "icons.svg" $svg | minify | fingerprint -}}
+{{- return $res.RelPermalink -}}

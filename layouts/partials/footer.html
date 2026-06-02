@@ -17,13 +17,13 @@
       <span class="footer__credits">{{ or $footer.credits (printf "© %d %s" now.Year site.Title) }} · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="link" target="_blank" rel="noopener license">CC BY-NC-SA 4.0</a></span>
       <div class="theme-switcher" role="radiogroup" aria-label="Color theme">
         <button class="theme-switcher__btn" type="button" data-theme-value="system" aria-label="System theme">
-          {{ partial "svg.html" "system" }}
+          {{ partial "icon" "system" }}
         </button>
         <button class="theme-switcher__btn" type="button" data-theme-value="light" aria-label="Light theme">
-          {{ partial "svg.html" "sun" }}
+          {{ partial "icon" "sun" }}
         </button>
         <button class="theme-switcher__btn" type="button" data-theme-value="dark" aria-label="Dark theme">
-          {{ partial "svg.html" "moon" }}
+          {{ partial "icon" "moon" }}
         </button>
       </div>
     </div>
