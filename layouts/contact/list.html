@@ -35,7 +35,7 @@
         {{ if $url }}
         <a href="{{ $url | safeURL }}" class="contact-item__link"{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>
           {{ with .icon }}
-          <span class="contact-item__icon">{{ partial "svg.html" . }}</span>
+          <span class="contact-item__icon">{{ partial "icon" . }}</span>
           {{ end }}
           <span class="contact-item__info">
             {{ with .label }}<span class="label">{{ . }}</span>{{ end }}
@@ -45,7 +45,7 @@
         {{ else }}
         <div class="contact-item__static">
           {{ with .icon }}
-          <span class="contact-item__icon">{{ partial "svg.html" . }}</span>
+          <span class="contact-item__icon">{{ partial "icon" . }}</span>
           {{ end }}
           <span class="contact-item__info">
             {{ with .label }}<span class="label">{{ . }}</span>{{ end }}

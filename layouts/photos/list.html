@@ -3,7 +3,7 @@
   <header class="section-header">
     <div class="section-header__top">
       <h1 class="section-header__title title-lg">{{ .Title }}</h1>
-      <a href="{{ .Permalink }}index.xml" class="section-header__rss" title="RSS Feed">{{- partial "svg" "rss" -}}</a>
+      <a href="{{ .Permalink }}index.xml" class="section-header__rss" title="RSS Feed">{{- partial "icon" "rss" -}}</a>
     </div>
     {{ with .Content }}
     <p class="section-header__desc">{{ . | plainify }}</p>
