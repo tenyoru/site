@@ -32,6 +32,17 @@
   }
 }
 
+// No-JS fallback: without JavaScript the inline head script never sets
+// [data-theme], so honour the OS preference here. JS visitors always have
+// [data-theme] set (higher specificity via :not), which keeps overriding.
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    @include emit-theme-vars(map.get(c.$themes, light));
+    --border-subtle: color-mix(in srgb, var(--border) 40%, transparent);
+    color-scheme: light;
+  }
+}
+
 // Generate [data-theme="name"] blocks for each theme
 @each $name, $map in c.$themes {
   :root[data-theme="#{$name}"] {
