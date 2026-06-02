@@ -4,9 +4,9 @@
     {{ with site.Params.media }}
     <div class="footer__row">
       <div class="footer__social">
-        {{ range . }}{{ if ne .icon "tangled" }}
+        {{ range . }}
         <a href="{{ .url }}" class="link" target="_blank" rel="noopener me">{{ .label }}</a>
-        {{ end }}{{ end }}
+        {{ end }}
         {{ with site.Params.contact.contacts.items }}{{ range . }}{{ if eq .icon "mail" }}
         <a href="{{ .url }}" class="link" rel="me">{{ .label }}</a>
         {{ end }}{{ end }}{{ end }}
