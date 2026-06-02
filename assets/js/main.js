@@ -346,21 +346,8 @@ const initShell = () => {
     }
   });
 
-  // Warm the page cache as early as possible: on hover (desktop) and on
-  // pointerdown (touch, and ~80ms before the click fires). The fetch result
-  // is reused by visit(), so the click itself does no network work.
-  const warm = (e) => {
-    const a = e.target.closest("a");
-    if (!a || a.origin !== location.origin || a.pathname === location.pathname) return;
-    if (a.hasAttribute("download") || (a.target && a.target !== "_self")) return;
-    const href = a.getAttribute("href");
-    if (!href || href.startsWith("#")) return;
-    fetchPage(a.href).catch(() => {});
-  };
-  document.addEventListener("mouseover", warm, { passive: true });
-  document.addEventListener("pointerdown", warm, { passive: true });
-
-  // Intercept same-origin link clicks → body-only swap.
+  // Intercept same-origin link clicks → body-only swap. The page is fetched
+  // here (via visit → fetchPage), so it only loads when you actually open it.
   document.addEventListener("click", (e) => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const a = e.target.closest("a");
