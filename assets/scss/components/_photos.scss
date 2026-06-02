@@ -32,9 +32,14 @@
   max-height: 90dvh;
   &::backdrop {
     background: color-mix(in srgb, theme(bg) 80%, transparent);
-    backdrop-filter: blur(12px);
+    @include blur-surface(4px);
     cursor: zoom-out;
   }
+}
+
+// Block background scrolling while the preview is open.
+html:has(.photo-preview[open]) {
+  overflow: hidden;
 }
 
 .photo-preview__img {

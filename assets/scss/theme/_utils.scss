@@ -14,6 +14,13 @@
   @return string.unquote("var(--#{$key})");
 }
 
+// Shared frosted-glass blur (header, mobile menu, photo preview backdrop).
+// Emits the -webkit- prefix too, which Safari still requires.
+@mixin blur-surface($amount: 12px) {
+  -webkit-backdrop-filter: blur($amount);
+  backdrop-filter: blur($amount);
+}
+
 // Default theme + prepare UA color-scheme hint
 :root {
   @include emit-theme-vars(map.get(c.$themes, c.$default-theme));
