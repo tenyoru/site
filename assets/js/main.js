@@ -142,7 +142,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const previewDialog = document.getElementById("photo-preview");
   if (previewDialog) {
     const previewImg = previewDialog.querySelector("img");
-    const openPreview = (src) => { previewImg.src = src; previewDialog.showModal(); };
+    const openPreview = (src) => {
+      if (previewImg.src === src) {
+        previewDialog.showModal();
+        return;
+      }
+      previewImg.removeAttribute("src");
+      previewImg.style.visibility = "hidden";
+      previewImg.onload = () => { previewImg.style.visibility = "visible"; };
+      previewImg.src = src;
+      previewDialog.showModal();
+    };
 
     document.querySelectorAll(".photo-grid__item a").forEach((a) => {
       a.addEventListener("click", (e) => { e.preventDefault(); openPreview(a.href); });
