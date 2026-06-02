@@ -55,12 +55,6 @@ value = "tenyoru"
 url = "https://github.com/tenyoru"
 icon = "github"
 
-[[params.media]]
-label = "Tangled"
-value = "tenyoru.io"
-url = "https://tangled.org/tenyoru.io"
-icon = "tangled"
-
 # [[params.media]]
 # label = "Codeberg"
 # value = "tenyoru"
