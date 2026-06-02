@@ -1,0 +1,9 @@
+{{- $src   := .Get "src" -}}
+{{- $alt   := .Get "alt" | default "" -}}
+{{- $base  := site.Params.r2BaseURL -}}
+{{- $full  := printf "%s/%s" $base $src -}}
+{{- $thumb := $full -}}
+{{- if site.Params.r2Transforms -}}
+  {{- $thumb = printf "%s/cdn-cgi/image/width=900,format=webp/%s" $base $src -}}
+{{- end -}}
+<img src="{{ $thumb }}" data-full="{{ $full }}" alt="{{ $alt }}" loading="lazy" decoding="async">
