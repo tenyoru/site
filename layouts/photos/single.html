@@ -16,21 +16,5 @@
   </header>
   {{ .Content }}
 </div>
-<dialog class="photo-preview" id="photo-preview">
-  <img class="photo-preview__img" src="" alt="">
-</dialog>
-<script>
-(function () {
-  var dialog = document.getElementById('photo-preview');
-  var img = dialog.querySelector('img');
-  document.querySelectorAll('.photo-grid__item a').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      e.preventDefault();
-      img.src = a.href;
-      dialog.showModal();
-    });
-  });
-  dialog.addEventListener('click', function () { dialog.close(); });
-})();
-</script>
+{{ partial "image-preview.html" . }}
 {{ end }}

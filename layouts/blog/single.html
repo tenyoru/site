@@ -1,12 +1,9 @@
 {{ define "main" }}
 {{- with .Params.cover }}
 <div class="article-cover">
-  {{- $path := printf "images/posts/%s" . -}}
-  {{- $src := . -}}
-  {{- $res := resources.Get $path -}}
-  {{- with $res }}{{- $src = .RelPermalink -}}{{- end }}
-  <img src="{{ $src }}" alt="" class="article-cover__img" loading="eager" decoding="async"
-    {{- with $res }} width="{{ .Width }}" height="{{ .Height }}"{{ end }}>
+  {{- $base := site.Params.r2BaseURL -}}
+  {{- $src := cond site.Params.r2Transforms (printf "%s/cdn-cgi/image/width=900,format=webp/%s" $base .) (printf "%s/%s" $base .) -}}
+  <img src="{{ $src }}" alt="" class="article-cover__img" loading="eager" decoding="async">
 </div>
 {{- end }}
 <article class="article shell--narrow">
@@ -50,4 +47,5 @@
   </div>
 
 </article>
+{{ partial "image-preview.html" . }}
 {{ end }}

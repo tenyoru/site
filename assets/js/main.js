@@ -96,6 +96,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // loadGiscus();
 
+  const previewDialog = document.getElementById("photo-preview");
+  if (previewDialog) {
+    const previewImg = previewDialog.querySelector("img");
+    const openPreview = (src) => { previewImg.src = src; previewDialog.showModal(); };
+
+    document.querySelectorAll(".photo-grid__item a").forEach((a) => {
+      a.addEventListener("click", (e) => { e.preventDefault(); openPreview(a.href); });
+    });
+
+    document.querySelectorAll(".article-content img").forEach((img) => {
+      img.style.cursor = "zoom-in";
+      img.addEventListener("click", () => openPreview(img.dataset.full || img.src));
+    });
+
+    previewDialog.addEventListener("click", () => previewDialog.close());
+  }
+
   const themeButtons = document.querySelectorAll(".theme-switcher__btn");
   themeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
