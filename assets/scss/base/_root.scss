@@ -9,3 +9,7 @@ html {
   scrollbar-width: thin;
   scrollbar-color: theme(accent) transparent;
 }
+
+@view-transition {
+  navigation: auto;
+}
