@@ -58,15 +58,8 @@ const initPage = () => {
 
   initTheme();
 
-  // Highlight the current page in the nav. The header isn't swapped on
-  // navigation, so the server-rendered .active would otherwise stay stuck on
-  // whichever page first loaded — recompute it from the current path here.
-  const path = location.pathname;
-  document.querySelectorAll(".menu-desktop a, .menu-list a").forEach((a) => {
-    const p = new URL(a.href).pathname;
-    const active = p === "/" ? path === "/" : path.startsWith(p);
-    a.classList.toggle("active", active);
-  });
+  // (Active-nav highlight needs no JS: the header is swapped on navigation, so
+  // the server-rendered .active class always matches the current page.)
 
   // Decode Cloudflare-obfuscated emails injected into this page.
   document.querySelectorAll("[data-cfemail]").forEach((el) => {
@@ -262,10 +255,12 @@ const initPage = () => {
   }
 };
 
-// In-memory page cache. Hovering a link kicks off the fetch and stores the
-// (pending) HTML, so by click time the network round-trip is already done —
-// the click path only parses and swaps.
+// In-memory page cache. A prefetch (or click) kicks off the fetch and stores
+// the (pending) HTML, so by click time the network round-trip is already done.
+// Bounded to CACHE_MAX entries — oldest evicted first — so a long session
+// can't grow it without limit.
 const PAGE_CACHE = new Map();
+const CACHE_MAX = 32;
 
 const fetchPage = (url) => {
   let pending = PAGE_CACHE.get(url);
@@ -280,15 +275,55 @@ const fetchPage = (url) => {
         throw err;
       });
     PAGE_CACHE.set(url, pending);
+    if (PAGE_CACHE.size > CACHE_MAX) PAGE_CACHE.delete(PAGE_CACHE.keys().next().value);
   }
   return pending;
 };
 
-// Body-only navigation: fetch the target page and swap just <main>, so the
-// inlined CSS/JS, header, and footer are never reloaded. Wrapped in the
-// same-document View Transitions API for a smooth fade where supported
-// (Chrome/Safari); other browsers (Firefox) swap instantly.
+// Page-specific <head> tags to sync on navigation. The inlined <style>/<script>
+// and charset/viewport are shared across pages, so they're deliberately left
+// untouched (re-running the inlined script would re-bind everything).
+const HEAD_SELECTOR =
+  'title, meta[name="description"], meta[property^="og:"], meta[name^="twitter:"], link[rel="canonical"]';
+const updateHead = (doc) => {
+  document.head.querySelectorAll(HEAD_SELECTOR).forEach((el) => el.remove());
+  // importNode brings the node into THIS document; cloning then appending a
+  // node still owned by the parsed document yields cross-document references
+  // that Firefox rejects with "Permission denied to access object".
+  doc.head.querySelectorAll(HEAD_SELECTOR).forEach((el) => document.head.appendChild(document.importNode(el, true)));
+};
+
+// Client-side navigation: fetch the target page and swap <main> plus the
+// header — the header carries the server-rendered active-nav state, so no JS
+// is needed to recompute it (and a fresh header means the mobile menu is
+// closed). Page-specific <head> tags are synced; the inlined CSS/JS and footer
+// never reload. Wrapped in the same-document View Transitions API for a smooth
+// fade where supported (Chrome/Safari); other browsers swap instantly.
+//
+// Fast eased scroll to an absolute Y (native smooth scroll gives no control
+// over duration, which felt sluggish). ~200ms, easeOutCubic.
+const smoothScrollTo = (to, duration = 350) => {
+  const start = window.scrollY;
+  const dist = to - start;
+  const t0 = performance.now();
+  const step = (now) => {
+    const p = Math.min((now - t0) / duration, 1);
+    window.scrollTo(0, start + dist * (1 - Math.pow(1 - p, 3)));
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+};
+
+// Scroll memory for Back/Forward only: each page's scroll is saved when you
+// leave it and restored when you return via the Back/Forward button; a normal
+// link click opens at the top. currentPath also lets popstate tell a real
+// navigation from an in-page hash change (a TOC link), which must NOT trigger
+// a re-render.
+const scrollPositions = new Map();
+let currentPath = location.pathname;
+
 const visit = async (url, push = true) => {
+  scrollPositions.set(currentPath, window.scrollY); // remember the page we're leaving
   let html;
   try {
     html = await fetchPage(url);
@@ -298,9 +333,9 @@ const visit = async (url, push = true) => {
   }
 
   const doc = new DOMParser().parseFromString(html, "text/html");
-  const next = doc.querySelector("main");
-  const current = document.querySelector("main");
-  if (!next || !current) {
+  const nextMain = doc.querySelector("main");
+  const curMain = document.querySelector("main");
+  if (!nextMain || !curMain) {
     window.location.href = url;
     return;
   }
@@ -308,13 +343,21 @@ const visit = async (url, push = true) => {
   if (push) history.pushState(null, "", url);
 
   const render = () => {
-    // Close the mobile menu (it lives in the persistent header, so the body
-    // swap wouldn't reset it on its own).
-    document.querySelector(".menu-mobile[open]")?.removeAttribute("open");
-    current.replaceWith(next);
-    document.title = doc.title;
+    // adoptNode re-homes the parsed nodes (and their descendants) into THIS
+    // document before insertion, so later access — TOC links, scroll-spy
+    // headings — doesn't hit a cross-document "Permission denied" in Firefox.
+    const nextHeader = doc.querySelector(".site-header-outer");
+    const curHeader = document.querySelector(".site-header-outer");
+    if (nextHeader && curHeader) curHeader.replaceWith(document.adoptNode(nextHeader));
+    curMain.replaceWith(document.adoptNode(nextMain));
+    updateHead(doc);
     initPage();
-    window.scrollTo(0, 0);
+    currentPath = location.pathname;
+    // Link clicks (push) open at the top; Back/Forward restore the saved
+    // position. Re-apply next frame so late layout can't clamp a restore.
+    const y = push ? 0 : scrollPositions.get(currentPath) ?? 0;
+    window.scrollTo(0, y);
+    if (y) requestAnimationFrame(() => window.scrollTo(0, y));
   };
 
   if (document.startViewTransition) {
@@ -328,7 +371,7 @@ const visit = async (url, push = true) => {
 const initShell = () => {
   history.scrollRestoration = "manual";
 
-  // Theme switcher lives in the persistent header — bind once.
+  // Theme switcher lives in the persistent footer — bind once.
   document.querySelectorAll(".theme-switcher__btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const preference = btn.dataset.themeValue;
@@ -346,11 +389,12 @@ const initShell = () => {
     }
   });
 
-  // Hover-intent prefetch: warm the cache only once the cursor lingers on a
-  // link (~100ms = intent), cancelling if it leaves first. Sweeping across a
-  // list prefetches nothing; pausing on one makes that click instant. Touch
-  // has no hover, so those just load on click.
-  let hoverTimer;
+  // Intent prefetch: fetch a page only after the cursor rests on its link, or
+  // it holds keyboard focus, for ~175ms (signalling intent), cancelling if the
+  // cursor/focus leaves sooner. Sweeping across — or tabbing through — a list
+  // prefetches nothing; dwelling on a link makes that click instant. Touch
+  // devices have no hover, so they load on click.
+  let intentTimer;
   const eligible = (a) =>
     a &&
     a.origin === location.origin &&
@@ -359,17 +403,17 @@ const initShell = () => {
     (!a.target || a.target === "_self") &&
     a.getAttribute("href") &&
     !a.getAttribute("href").startsWith("#");
-  document.addEventListener(
-    "mouseover",
-    (e) => {
-      const a = e.target.closest("a");
-      if (!eligible(a)) return;
-      clearTimeout(hoverTimer);
-      hoverTimer = setTimeout(() => fetchPage(a.href).catch(() => {}), 100);
-    },
-    { passive: true }
-  );
-  document.addEventListener("mouseout", () => clearTimeout(hoverTimer), { passive: true });
+  const scheduleWarm = (e) => {
+    const a = e.target.closest("a");
+    if (!eligible(a)) return;
+    clearTimeout(intentTimer);
+    intentTimer = setTimeout(() => fetchPage(a.href).catch(() => {}), 175);
+  };
+  const cancelWarm = () => clearTimeout(intentTimer);
+  document.addEventListener("mouseover", scheduleWarm, { passive: true });
+  document.addEventListener("focusin", scheduleWarm, { passive: true });
+  document.addEventListener("mouseout", cancelWarm, { passive: true });
+  document.addEventListener("focusout", cancelWarm, { passive: true });
 
   // Intercept same-origin link clicks → body-only swap. Pages not prefetched
   // are fetched here (via visit → fetchPage) when actually opened.
@@ -379,13 +423,35 @@ const initShell = () => {
     if (!a || a.origin !== location.origin) return;
     if (a.hasAttribute("download") || (a.target && a.target !== "_self")) return;
     const href = a.getAttribute("href");
-    if (!href || href.startsWith("#")) return;
-    if (a.pathname === location.pathname && a.hash) return; // same-page anchor
+    if (!href) return;
+
+    // In-page anchor (TOC links, etc.): just scroll to the target. We don't
+    // touch history or the URL, so it never pushes entries (no stepping
+    // through anchors on Back) and the address bar stays clean.
+    if (a.hash && a.pathname === location.pathname) {
+      const target = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+      if (target) {
+        e.preventDefault();
+        const margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+        const to = target.getBoundingClientRect().top + window.scrollY - margin;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce) window.scrollTo(0, to);
+        else smoothScrollTo(to);
+      }
+      return;
+    }
+
+    if (href.startsWith("#")) return; // hash with no matching element — leave it
     e.preventDefault();
     visit(a.href);
   });
 
-  window.addEventListener("popstate", () => visit(location.href, false));
+  window.addEventListener("popstate", () => {
+    // In-page hash navigation (same path) fires popstate in some browsers —
+    // let the browser scroll to the fragment instead of re-rendering.
+    if (location.pathname === currentPath) return;
+    visit(location.href, false);
+  });
 };
 
 document.addEventListener("DOMContentLoaded", () => {
