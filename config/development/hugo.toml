@@ -1,0 +1,7 @@
+# Development-only overrides. Merged on top of the root hugo.toml when the
+# environment is "development" — which is the default for `hugo server`.
+# Lets drafts, future-dated, and expired content show up locally without
+# needing the -D / -F flags. Never applied to production builds.
+buildDrafts = true
+buildFuture = true
+buildExpired = true
