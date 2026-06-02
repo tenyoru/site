@@ -346,21 +346,33 @@ const initShell = () => {
     }
   });
 
-  // Warm the page cache as early as possible: on hover (desktop) and on
-  // pointerdown (touch, and ~80ms before the click fires). The fetch result
-  // is reused by visit(), so the click itself does no network work.
-  const warm = (e) => {
-    const a = e.target.closest("a");
-    if (!a || a.origin !== location.origin || a.pathname === location.pathname) return;
-    if (a.hasAttribute("download") || (a.target && a.target !== "_self")) return;
-    const href = a.getAttribute("href");
-    if (!href || href.startsWith("#")) return;
-    fetchPage(a.href).catch(() => {});
-  };
-  document.addEventListener("mouseover", warm, { passive: true });
-  document.addEventListener("pointerdown", warm, { passive: true });
+  // Hover-intent prefetch: warm the cache only once the cursor lingers on a
+  // link (~100ms = intent), cancelling if it leaves first. Sweeping across a
+  // list prefetches nothing; pausing on one makes that click instant. Touch
+  // has no hover, so those just load on click.
+  let hoverTimer;
+  const eligible = (a) =>
+    a &&
+    a.origin === location.origin &&
+    a.pathname !== location.pathname &&
+    !a.hasAttribute("download") &&
+    (!a.target || a.target === "_self") &&
+    a.getAttribute("href") &&
+    !a.getAttribute("href").startsWith("#");
+  document.addEventListener(
+    "mouseover",
+    (e) => {
+      const a = e.target.closest("a");
+      if (!eligible(a)) return;
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(() => fetchPage(a.href).catch(() => {}), 100);
+    },
+    { passive: true }
+  );
+  document.addEventListener("mouseout", () => clearTimeout(hoverTimer), { passive: true });
 
-  // Intercept same-origin link clicks → body-only swap.
+  // Intercept same-origin link clicks → body-only swap. Pages not prefetched
+  // are fetched here (via visit → fetchPage) when actually opened.
   document.addEventListener("click", (e) => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const a = e.target.closest("a");
