@@ -1,6 +1,4 @@
 {{- $src   := .Get "src" -}}
-{{- $w     := .Get "w" | default "" -}}
-{{- $h     := .Get "h" | default "" -}}
 {{- $base  := site.Params.r2BaseURL -}}
 {{- $full  := printf "%s/%s" $base $src -}}
 {{- $thumb := $full -}}
@@ -8,9 +6,7 @@
   {{- $thumb = printf "%s/cdn-cgi/image/width=600,format=webp/%s" $base $src -}}
 {{- end -}}
 <figure class="photo-grid__item">
-  <a href="{{ $full }}"
-     {{- with $w }} data-pswp-width="{{ . }}"{{ end -}}
-     {{- with $h }} data-pswp-height="{{ . }}"{{ end -}}>
+  <a href="{{ $full }}">
     <img src="{{ $thumb }}" alt="" loading="lazy" decoding="async">
   </a>
 </figure>

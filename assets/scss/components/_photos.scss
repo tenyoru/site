@@ -24,6 +24,27 @@
   cursor: zoom-in;
 }
 
+.photo-preview {
+  padding: 0;
+  background: transparent;
+  border: none;
+  max-width: 90vw;
+  max-height: 90dvh;
+  &::backdrop {
+    background: color-mix(in srgb, theme(bg) 80%, transparent);
+    backdrop-filter: blur(12px);
+    cursor: zoom-out;
+  }
+}
+
+.photo-preview__img {
+  max-width: 90vw;
+  max-height: 90dvh;
+  object-fit: contain;
+  display: block;
+  border-radius: 0.25rem;
+}
+
 .photo-grid__item img {
   width: 100%;
   height: auto;
@@ -35,12 +56,6 @@
 .photo-grid__item a:hover img { opacity: 0.9; }
 
 
-// PhotoSwipe theme overrides
-.pswp {
-  --pswp-bg: #{theme(bg)};
-  --pswp-icon-color: #{theme(text)};
-  --pswp-icon-color-secondary: #{theme(muted)};
-}
 
 @media (max-width: v.mq(xs)) {
   .photo-grid { columns: 1; }
