@@ -34,6 +34,18 @@ const initTheme = () => {
   updateThemeSwitcher(stored);
 };
 
+// Decode a Cloudflare-obfuscated email (XOR each byte with the leading key
+// byte). Cloudflare's own decoder runs only on the initial full page load, so
+// after a body swap we decode the freshly injected emails ourselves.
+const cfDecodeEmail = (hex) => {
+  let out = "";
+  const key = parseInt(hex.substr(0, 2), 16);
+  for (let i = 2; i < hex.length; i += 2) {
+    out += String.fromCharCode(parseInt(hex.substr(i, 2), 16) ^ key);
+  }
+  return out;
+};
+
 // Per-page wiring. Runs on first load and after every body swap. Each call
 // aborts the previous AbortController, removing all listeners from the prior
 // page in one shot so nothing stacks on window/document across navigations.
@@ -54,6 +66,15 @@ const initPage = () => {
     const p = new URL(a.href).pathname;
     const active = p === "/" ? path === "/" : path.startsWith(p);
     a.classList.toggle("active", active);
+  });
+
+  // Decode Cloudflare-obfuscated emails injected into this page.
+  document.querySelectorAll("[data-cfemail]").forEach((el) => {
+    const email = cfDecodeEmail(el.dataset.cfemail);
+    el.textContent = email;
+    el.classList.remove("__cf_email__");
+    const link = el.closest('a[href*="email-protection"]') || (el.tagName === "A" ? el : null);
+    if (link) link.href = "mailto:" + email;
   });
 
   const previewDialog = document.getElementById("photo-preview");
