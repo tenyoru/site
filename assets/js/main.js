@@ -46,6 +46,16 @@ const initPage = () => {
 
   initTheme();
 
+  // Highlight the current page in the nav. The header isn't swapped on
+  // navigation, so the server-rendered .active would otherwise stay stuck on
+  // whichever page first loaded — recompute it from the current path here.
+  const path = location.pathname;
+  document.querySelectorAll(".menu-desktop a, .menu-list a").forEach((a) => {
+    const p = new URL(a.href).pathname;
+    const active = p === "/" ? path === "/" : path.startsWith(p);
+    a.classList.toggle("active", active);
+  });
+
   const previewDialog = document.getElementById("photo-preview");
   if (previewDialog) {
     const previewImg = previewDialog.querySelector("img");
