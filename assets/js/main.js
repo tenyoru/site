@@ -346,8 +346,33 @@ const initShell = () => {
     }
   });
 
-  // Intercept same-origin link clicks → body-only swap. The page is fetched
-  // here (via visit → fetchPage), so it only loads when you actually open it.
+  // Hover-intent prefetch: warm the cache only once the cursor lingers on a
+  // link (~100ms = intent), cancelling if it leaves first. Sweeping across a
+  // list prefetches nothing; pausing on one makes that click instant. Touch
+  // has no hover, so those just load on click.
+  let hoverTimer;
+  const eligible = (a) =>
+    a &&
+    a.origin === location.origin &&
+    a.pathname !== location.pathname &&
+    !a.hasAttribute("download") &&
+    (!a.target || a.target === "_self") &&
+    a.getAttribute("href") &&
+    !a.getAttribute("href").startsWith("#");
+  document.addEventListener(
+    "mouseover",
+    (e) => {
+      const a = e.target.closest("a");
+      if (!eligible(a)) return;
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(() => fetchPage(a.href).catch(() => {}), 100);
+    },
+    { passive: true }
+  );
+  document.addEventListener("mouseout", () => clearTimeout(hoverTimer), { passive: true });
+
+  // Intercept same-origin link clicks → body-only swap. Pages not prefetched
+  // are fetched here (via visit → fetchPage) when actually opened.
   document.addEventListener("click", (e) => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const a = e.target.closest("a");
