@@ -96,6 +96,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // loadGiscus();
 
+  // Speculative navigation: prerender (Chrome) or prefetch (Firefox/Safari)
+  // internal links on hover so clicks resolve near-instantly.
+  const supportsSpecRules =
+    HTMLScriptElement.supports && HTMLScriptElement.supports("speculationrules");
+
+  if (supportsSpecRules) {
+    const rules = document.createElement("script");
+    rules.type = "speculationrules";
+    rules.textContent = JSON.stringify({
+      prerender: [
+        {
+          source: "document",
+          where: {
+            and: [{ href_matches: "/*" }, { not: { href_matches: "/cdn-cgi/*" } }],
+          },
+          eagerness: "moderate",
+        },
+      ],
+    });
+    document.body.appendChild(rules);
+  } else {
+    const prefetched = new Set();
+    document.addEventListener(
+      "mouseover",
+      (e) => {
+        const a = e.target.closest("a");
+        if (
+          !a ||
+          a.origin !== location.origin ||
+          a.pathname === location.pathname ||
+          prefetched.has(a.href)
+        )
+          return;
+        prefetched.add(a.href);
+        const link = document.createElement("link");
+        link.rel = "prefetch";
+        link.href = a.href;
+        document.head.appendChild(link);
+      },
+      { passive: true }
+    );
+  }
+
   const previewDialog = document.getElementById("photo-preview");
   if (previewDialog) {
     const previewImg = previewDialog.querySelector("img");
