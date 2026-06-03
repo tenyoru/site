@@ -12,6 +12,11 @@
         {{ partial "icon" .icon }}
       </a>
       {{ end }}
+      {{ with site.Params.contact.contacts.items }}{{ range . }}{{ if eq .icon "mail" }}
+      <a href="{{ .url }}" class="home-media__link" title="{{ .label }}" rel="me">
+        {{ partial "icon" .icon }}
+      </a>
+      {{ end }}{{ end }}{{ end }}
     </div>
     {{ end }}
   </section>
