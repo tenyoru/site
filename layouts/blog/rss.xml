@@ -23,10 +23,8 @@
       <link>{{ .Permalink }}</link>
       <guid isPermaLink="true">{{ .Permalink }}</guid>
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
-      {{- $desc := .Summary | plainify -}}
-      {{- with .Params.summary }}{{- $desc = . -}}{{- end -}}
-      {{- with $desc }}
-      <description><![CDATA[{{ . }}]]></description>
+      {{- with .Params.summary }}
+      <description>{{ . | transform.XMLEscape | safeHTML }}</description>
       {{- end }}
       {{- with .Params.tags }}
         {{- range . }}
