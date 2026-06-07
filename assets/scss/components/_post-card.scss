@@ -24,8 +24,8 @@
 .pagination__info { font-size: 0.8rem; color: theme(muted); font-variant-numeric: tabular-nums; }
 
 .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.tag-list__link { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; text-decoration: none; font-size: 0.9rem; color: theme(muted); background: theme(card); border-radius: 0.25rem; transition: color 0.15s ease, background 0.15s ease; }
-.tag-list__link:hover { color: theme(accent); background: color-mix(in srgb, theme(border) 30%, transparent); text-decoration: none; }
+.tag-list__link { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; text-decoration: none; font-size: 0.9rem; color: theme(muted); background: theme(card); border-radius: 0.25rem; transition: color 0.15s ease, background-color 0.15s ease; }
+.tag-list__link:hover { color: theme(accent); background-color: color-mix(in srgb, theme(border) 30%, transparent); text-decoration: none; }
 .tag-list__name::before { content: "#"; opacity: 0.5; }
 .tag-list__count { font-size: 0.75rem; opacity: 0.6; }
 

@@ -8,9 +8,7 @@
     {{- if hugo.IsDevelopment }}
       <script src="{{ .RelPermalink }}" defer></script>
     {{- else }}
-      {{- with . | resources.Minify }}
-        <script>{{ .Content | safeJS }}</script>
-      {{- end }}
+      <script>{{ .Content | safeJS }}</script>
     {{- end }}
   {{- end }}
 {{- end }}
