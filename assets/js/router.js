@@ -172,6 +172,7 @@ export const startRouter = (onAfterSwap) => {
     if (!href) return;
 
     if (a.hash && a.pathname === location.pathname) {
+      if (a.closest("[data-post-toc]")) return;
       if (scrollToAnchor(a.hash)) e.preventDefault();
       return;
     }
