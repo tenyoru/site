@@ -2,7 +2,7 @@
 @use "../vars" as v;
 
 .article-cover { width: 100%; margin-top: 0; margin-bottom: 1.25rem; overflow: hidden; border-radius: 0.5rem; }
-.article-cover__img { width: 100%; aspect-ratio: 3 / 1; object-fit: cover; display: block; }
+.article-cover__img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; display: block; }
 .article-cover + .article { padding-block-start: 0; }
 
 .article-header__sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
