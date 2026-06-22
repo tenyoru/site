@@ -9,8 +9,7 @@
 .post-toc__body { margin-top: 1rem; }
 .post-toc__body ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
 .post-toc__body li { line-height: 1.4; }
-.post-toc__body a { font-size: 0.9rem; color: theme(subtle); text-decoration: none; transition: color 0.15s ease; }
-.post-toc__body a:hover { color: theme(accent); }
+.post-toc__body a { font-size: 0.9rem; color: theme(subtle); transition: color 0.15s ease; }
 .post-toc__body a.is-active { color: theme(accent); }
 .post-toc__body ul ul { padding-left: 1rem; margin-top: 0.5rem; }
 
