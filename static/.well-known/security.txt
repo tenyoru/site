@@ -1,0 +1,4 @@
+Contact: mailto:mail@tenyoru.io
+Expires: 2027-01-01T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://tenyoru.io/.well-known/security.txt
