@@ -1,0 +1,17 @@
+# Tenyoru
+
+> Personal engineering blog and portfolio — engineering notes, writing, and collaborations.
+
+## Blog
+
+- [Blog](https://tenyoru.io/blog/) — Engineering articles and writing
+- [Tags](https://tenyoru.io/tags/) — Browse posts by topic
+- [RSS Feed](https://tenyoru.io/blog/index.xml) — Subscribe to new posts
+
+## Contact
+
+- [Contact](https://tenyoru.io/contact/) — Get in touch
+
+## License
+
+Content is licensed under CC BY-NC-SA 4.0.
