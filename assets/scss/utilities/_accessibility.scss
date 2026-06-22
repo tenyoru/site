@@ -5,16 +5,15 @@
 
 .skip-link {
   position: fixed;
-  // Just below the header, with a small gap.
+  // Top-left corner of the page, just below the header.
   top: calc(#{v.$header-height} + 0.5rem);
-  // Align the left edge with the centered header column, falling back to the
-  // shell padding on viewports narrower than the content width.
-  left: max(#{v.$padding-inline}, calc(50% - #{v.content-width()} / 2 + #{v.$padding-inline}));
+  left: #{v.$padding-inline};
   z-index: 10000;
   max-width: calc(100vw - #{v.$padding-inline} * 2);
   padding: 0.4rem 0.85rem;
-  background: theme(accent);
-  color: theme(bg);
+  background: theme(card);
+  color: theme(text);
+  border: 1px solid theme(accent);
   font-weight: 600;
   font-size: 0.875rem;
   line-height: 1.2;
@@ -26,8 +25,7 @@
   transform: translateY(calc(-100% - #{v.$header-height} - 0.5rem));
   &:focus {
     transform: translateY(0);
-    outline-color: theme(bg); // contrast against the accent button
-    outline-offset: 0; // frame flush against the filled button, no gap
+    outline: none; // the accent border is the focus indicator
   }
 }
 
