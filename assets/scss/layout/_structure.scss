@@ -4,7 +4,7 @@
 .shell { margin-inline: auto; box-sizing: border-box; padding: v.$padding-inline; }
 .shell--narrow { max-width: v.content-width(); }
 .inner { justify-content: center; align-items: center; width: 100%; min-height: 80vh; }
-.content { padding-block: 2rem; min-block-size: calc(100dvh - v.$header-height); }
+.content { padding-block: 2rem; min-block-size: calc(100dvh - v.$header-height); scroll-margin-top: v.$header-height; }
 .page-title { text-align: left; margin-block-end: 0.2rem; }
 img, video, iframe { max-width: 100%; height: auto; display: block; }
 
