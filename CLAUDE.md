@@ -4,226 +4,84 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Hugo static site for a personal engineering blog and portfolio at https://tenyoru.io/. The site features a dark-first design with sophisticated theming, minimal JavaScript, and strong focus on typography and accessibility.
+Hugo (extended) static site for a personal engineering blog and portfolio at https://tenyoru.io/. Dark-first design, CSS-variable theming via Dart Sass, and a small hand-rolled client-side SPA router. Multilingual: English (default), French, Russian.
 
-## Development Commands
+Requires **Hugo extended** (CI pins `0.162.1`) and **Dart Sass** (CI pins `1.100.0`) — Sass compiles via Hugo's pipeline, so the standalone `dart-sass` binary must be on `PATH`. A Nix `devenv` (`devenv.yaml`) provides the toolchain.
 
-### Build & Serve
+## Commands
+
 ```bash
-# Development server with live reload
-hugo server
-
-# Production build (outputs to public/)
-hugo build
-
-# Development server with drafts visible
-hugo server -D
-```
-
-### Content Management
-```bash
-# Create new blog post
+hugo server          # dev server, live reload (drafts shown: section.html forces them on in dev)
+hugo server -D       # also render content marked draft
+just build           # production build → public/  (alias for `hugo`)
+just deploy          # build, then `wrangler pages deploy public` to Cloudflare Pages (project "tenyoru")
 hugo new content/blog/post-name.md
-
-# Create new page
-hugo new content/page-name.md
 ```
 
-## Architecture Overview
+There is no test suite, linter, or Node toolchain — `js.Build` (esbuild, bundled in Hugo) handles JS.
 
-### Theme System (Critical)
+## Deployment (two targets — important)
 
-The site uses a **CSS variables-based theming system** with Sass. This is the most important architectural pattern to understand:
+- **Primary, manual:** `just deploy` pushes the built `public/` to **Cloudflare Pages** via `wrangler`. This is what serves `tenyoru.io`. A `git push` alone does **not** update it.
+- **Secondary, automatic:** `.github/workflows/hugo.yml` builds on push to `main` and deploys to **GitHub Pages** (`www.tenyoru.io`).
+- Consequence: the live site can be stale relative to `main` until someone runs `just deploy`. When something added to the repo (e.g. a new `static/` file) "isn't live," suspect the deploy, not the file.
+- `static/_headers` (Cloudflare/Netlify syntax) sets cache + security headers; `static/.well-known/security.txt`, `robots.txt`, `llms.txt`, and the web manifest are plain `static/` files served at the root.
 
-**Color tokens** are defined in `assets/scss/theme/_colors.scss`:
-```scss
-$themes: (
-  light: ( bg: #color, text: #color, accent: #color, ... ),
-  dark: ( bg: #color, text: #color, accent: #color, ... )
-)
-```
+## JavaScript Architecture (read before touching `assets/js/`)
 
-**Theme application** happens in `assets/scss/theme/_utils.scss`:
-- `@mixin emit-theme-vars()` - Converts Sass maps to CSS variables
-- `@function theme($key)` - References CSS variables in Sass
-- `:root` selectors apply themes based on `data-theme` attribute
+ES modules bundled from the single entry `assets/js/main.js` via `js.Build` (see `layouts/partials/head/js.html`): minified + fingerprinted + SRI-hashed in production, external source map in dev. All modules import shared helpers from `dom.js` (`$`, `$$`, `storage`, `prefersReducedMotion`).
 
-**Usage in components**:
-```scss
-// Use theme() function to reference colors
-background-color: theme(bg);
-color: theme(text);
-border-color: theme(border);
-```
+The site is a **client-side SPA**, not classic multi-page:
 
-**Theme switching** is handled by JavaScript in `assets/js/main.js`:
-- Reads/writes `preferred-theme` to localStorage
-- Updates `document.documentElement.dataset.theme`
-- Syncs with Giscus comments iframe
+- `router.js` intercepts internal navigations, fetches the target, swaps `<body>` contents, and maintains a bounded prefetch **cache** (`CACHE_MAX = 32`) so clicks feel instant. It exports `navigate()` and `startRouter()`.
+- `main.js` holds **per-page wiring that must be idempotent** — it re-runs after every body swap, tearing down the previous page's listeners via a fresh `AbortController` each time. When adding page behavior, register it here and pass the `signal`; do not attach un-abortable global listeners.
+- Anchor scrolling/focus lives in `router.js` (`scrollToAnchor` honors reduced-motion and moves focus to the target for the skip link).
 
-### SCSS Module Structure
+Feature modules (each `init*(signal)`):
+- `theme.js` — theme management (NOT `main.js`). Reads/writes `preferred-theme` in localStorage, sets `document.documentElement.dataset.theme`, falls back to system theme, and syncs the Giscus iframe.
+- `toc.js` — sticky table of contents: persists collapse state (`toc-state`), clamps the panel above the footer, highlights the active section.
+- `cards.js` — makes `[data-card-link]` containers fully clickable/keyboard-activatable while leaving inner links working; internal links route through the injected `navigate()`.
+- `photo-preview.js` — lightbox via native `<dialog>`, reusing one `<img>`.
+- `email.js` — decodes Cloudflare-obfuscated email addresses (XOR with leading key byte).
 
-All styles are organized in `assets/scss/`:
-```
-main.scss                 # Entry point, imports all modules
-├── theme/
-│   ├── _colors.scss      # Theme token definitions
-│   ├── _utils.scss       # Theme system utilities
-│   └── _index.scss       # Theme module exports
-├── base/
-│   ├── _root.scss        # CSS variable setup, resets
-│   └── _typography.scss  # Font stacks, heading styles
-├── layout/
-│   └── _structure.scss   # Shell containers, footer, layout primitives
-├── components/           # All UI components
-└── utilities/            # Helper classes
-```
+Everything degrades gracefully without JS, and `storage` wraps localStorage so private-browsing failures don't throw.
 
-**Compilation**: Handled by `layouts/partials/head/scss.html`
-- Dev: Source maps, expanded output, external stylesheet
-- Prod: Minified, fingerprinted, inlined with integrity hash
+## Theme System (most important pattern)
 
-### Layout Template Hierarchy
+CSS-variables-based theming generated from Sass maps.
 
-```
-baseof.html (master template)
-├── home.html              # Homepage with rings animation
-├── section.html           # Blog listing, tag pages
-├── blog/single.html       # Individual blog posts
-├── contact/list.html      # Contact page
-└── page.html             # Generic pages
-```
+- **Tokens:** `assets/scss/theme/_colors.scss` defines `$themes: (light: (...), dark: (...))`.
+- **Plumbing:** `assets/scss/theme/_utils.scss` — `@mixin emit-theme-vars()` turns the maps into CSS custom properties on `:root[data-theme=...]`; `@function theme($key)` reads them back in Sass.
+- **Usage in components:** always `theme(bg)`, `theme(text)`, `theme(accent)`, etc. — never hardcode colors. Adding a color = add the key to both `light` and `dark` maps; the CSS variable is generated automatically.
+- **Identity:** very dark warm background (`#0a0807`-ish), light theme blue accent (`#2563eb`), dark theme gold/brown accent (`#f5b574`). System font stack; monospace = JetBrains Mono stack.
 
-**Shell system** for responsive widths:
-- `.shell--wide`: 1024px max (headers, full-width sections)
-- `.shell--narrow`: 820px max (blog posts, readable content)
-- `.post-column`: 70ch max (optimal reading line length)
+## SCSS Structure & Conventions
 
-### JavaScript Architecture
+`assets/scss/main.scss` imports everything. Layout: `theme/`, `base/` (`_root`, `_typography`), `layout/_structure`, `components/`, `utilities/`. Compiled by `layouts/partials/head/scss.html` (dev: expanded + source map, external; prod: minified, fingerprinted, inlined with integrity).
 
-`assets/js/main.js` is minimal and progressive:
-- **Storage safety wrapper** - Handles localStorage failures gracefully
-- **Theme management** - Persists user preference, detects system theme
-- **Giscus integration** - Lazy-loads comments, syncs theme
-- **Interactive cards** - Click-anywhere navigation with keyboard support
-- **TOC state** - Persists collapse/expand state
+- New component: create `components/_name.scss`, `@use "../theme" as *;` for `theme()`, `@use "../vars" as v;` for breakpoints/widths, then `@use "components/name";` in `main.scss`. BEM-like class names.
+- Breakpoints/widths come from `_vars.scss`: `mq(md)` = 768px, `mq(lg)` = 1024px; `content-width()` = 820px; `$header-height` = 3rem; `$padding-inline` = 1rem.
+- **Link styling convention:** the base reset in `base/_typography.scss` sets `a { text-decoration: none }` and a single global `a:hover { color: theme(accent) }`. Do not re-declare these per component. Only add a hover/`text-decoration` rule when you need something the global can't give: coloring a **non-anchor child**, a non-color property (border, opacity, background), or a deliberately different hover color (e.g. `.menu-desktop a:hover` → `theme(text)`).
 
-All features degrade gracefully when JavaScript is disabled.
+## Layout & Content
 
-### Content Structure
+- Templates inherit from `layouts/_default/baseof.html` via `{{ define "main" }}`. Body is wrapped in `<main id="main-content">` (skip-link target) inside `.inner`.
+- Shell widths: `.shell--wide` (1024px), `.shell--narrow` (820px), `.post-column` (70ch).
+- `_default/section.html` is the blog listing (and forces drafts visible in dev). Taxonomy: `taxonomy.html` (single tag) + `terms.html` (all tags). Sections with bespoke templates: `photos/`, `contact/`.
+- Custom code-fence render hook: `layouts/_default/_markup/render-codeblock.html` strips Hugo's auto-added `tabindex` from highlighted `<pre>`.
+- Shortcodes (`layouts/shortcodes/`): `{{< svg "icon" >}}`, `{{< color "theme-key" "text" >}}`, `{{< ff "key" "value" "url?" >}}`.
 
-```
-content/
-├── _index.md           # Homepage (uses home.html)
-├── blog/              # Blog posts (RSS enabled)
-│   ├── _index.md
-│   └── *.md
-└── contact/
-    └── _index.md
-```
+## Configuration (`hugo.toml`)
 
-**Frontmatter patterns**:
-```yaml
----
-title: "Post Title"
-date: 2024-01-01
-tags: ["tag1", "tag2"]
-summary: "Brief description"
-draft: false
----
-```
+- `[languages]`: `en` (w1), `fr` (w2), `ru` (w3); `defaultContentLanguageInSubdir = false`. Translations live as `name.<lang>.md` (e.g. `post.ru.md`); `head.html` emits `hreflang` alternates.
+- `[menus.main]`: Blog, Photos, Contact (Tags is intentionally **not** in the nav — surfaced as a small link in the blog section header instead).
+- Syntax highlighting: Chroma, `noClasses = false`, styled in `assets/scss/components/_chroma.scss` (Monokai-derived) — edit there, not inline.
+- `[params.giscus]`: comments repo `tenyoru/Tenyoru.github.io`, theme synced from `theme.js`.
 
-### Custom Shortcodes
+## Gotchas
 
-Located in `layouts/shortcodes/`:
-
-- `{{< svg "icon-name" >}}` - Inline SVG icons from `assets/images/`
-- `{{< color "theme-key" "text" >}}` - Apply theme colors to text
-- `{{< ff "key" "value" "url?" >}}` - Fastfetch-style key-value pairs
-
-## Key Configuration
-
-### Hugo Config (`hugo.toml`)
-
-**Syntax highlighting**: Uses Chroma with `noClasses: false`
-- Styles are in `assets/scss/components/_chroma.scss`
-- Uses Monokai theme
-- To change: Update styles in `_chroma.scss`, not inline
-
-**Giscus comments**: Configured under `[params.giscus]`
-- Repo: tenyoru/Tenyoru.github.io
-- Category: Announcements
-- Theme changes are synced via JavaScript
-
-**Menu structure**: Main navigation defined in `[menu.main]`
-- Blog (weight 10)
-- Tags (weight 20)
-- Contact (weight 30)
-
-## Important Patterns
-
-### Adding New Theme Colors
-
-1. Add to both light and dark maps in `_colors.scss`
-2. Reference using `theme(key-name)` function
-3. No need to update CSS variables manually - they're auto-generated
-
-### Creating New Components
-
-1. Create `assets/scss/components/_component-name.scss`
-2. Import in `main.scss`: `@use "components/component-name";`
-3. Use `@use "../theme" as *;` to access `theme()` function
-4. Follow BEM-like naming for classes
-
-### Responsive Design
-
-Use breakpoint functions from `_vars.scss`:
-```scss
-@media (min-width: mq(md)) { /* 768px */ }
-@media (min-width: mq(lg)) { /* 1024px */ }
-```
-
-Width functions:
-```scss
-max-width: content-width();  // 820px
-max-width: header-width();   // 1024px
-```
-
-### Adding Blog Posts
-
-1. Create markdown file in `content/blog/`
-2. Include proper frontmatter (title, date, tags, summary)
-3. Use `draft: true` while writing
-4. Tags automatically create taxonomy pages
-
-### Modifying Layouts
-
-**For blog changes**: Edit `layouts/blog/single.html`
-**For navigation**: Edit `layouts/partials/header.html`
-**For footer**: Edit `layouts/partials/footer.html`
-**For post cards**: Edit `layouts/partials/post/card.html`
-
-All layouts inherit from `baseof.html` via `{{ define "main" }}` blocks.
-
-## Common Gotchas
-
-1. **Theme colors not updating**: Make sure to use `theme()` function, not hardcoded colors
-2. **JavaScript features broken**: Check localStorage availability (private browsing can block it)
-3. **Styles not compiling**: Ensure Dart Sass is installed and hugo.toml has correct paths
-4. **Giscus not loading**: Verify repo settings and category ID in hugo.toml
-5. **Post cards not clickable**: Ensure card wrapper has `data-card-link` attribute
-
-## Build Output
-
-- `public/` - Generated static site (gitignored)
-- `resources/` - Hugo's asset cache (gitignored)
-- CSS is fingerprinted with content hash in production
-
-## Site Identity
-
-- Warm, sophisticated aesthetic with premium dark mode
-- Light theme: Blue accents (#2563eb)
-- Dark theme: Bright brown/gold accents (#f5b574)
-- Very dark background (#0a0807) with subtle warmth
-- Typography: System font stack (browser defaults)
-- Code: Monospace stack with fallbacks
+- Colors not switching → you hardcoded instead of `theme()`.
+- New page JS not firing after navigation → you registered it outside `main.js`'s re-run path, or didn't pass the `AbortController` signal.
+- New `static/` file 404/stale in prod → run `just deploy`; `git push` updates GitHub Pages, not Cloudflare.
+- Sass won't compile → `dart-sass` not on `PATH` / Hugo not the extended build.
+- `public/` and `resources/` are gitignored build output.
