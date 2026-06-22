@@ -1,8 +1,11 @@
 @use "../theme" as *;
 @use "../vars" as v;
 
-.highlight, pre:not(.chroma) { max-width: 100%; overflow-x: auto; overflow-y: hidden; white-space: pre; border-radius: 0.5rem; background: theme(card); border: 1px solid theme(border); color: theme(code); padding: 1rem 1.25rem; font-size: 0.875rem; line-height: 1.6; font-family: v.$font-mono; scrollbar-width: none; }
+.highlight, pre:not(.chroma) { max-width: 100%; overflow-x: auto; overflow-y: hidden; white-space: pre; border-radius: 0.5rem; background: theme(card); border: 1px solid theme(border); color: theme(code); padding: 1rem 1.25rem; font-size: 0.875rem; line-height: 1.6; font-family: v.$font-mono; scrollbar-width: none; transition: border-color 0.15s ease; }
 .highlight::-webkit-scrollbar, pre:not(.chroma)::-webkit-scrollbar { display: none; }
+@media (hover: hover) {
+  .highlight:hover, pre:not(.chroma):hover { border-color: theme(accent); }
+}
 .highlight { padding: 0; }
 .highlight pre { margin: 0; padding: 1rem 1.25rem; }
 
