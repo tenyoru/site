@@ -20,7 +20,8 @@
 
 .menu-desktop { display: flex; gap: 1.5rem; align-items: center; }
 .menu-desktop a { color: theme(muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.15s ease; }
-.menu-desktop a:hover, .menu-desktop a:focus-visible { color: theme(text); outline: none; }
+.menu-desktop a:hover { color: theme(text); }
+.menu-desktop a:focus-visible { color: theme(text); }
 .menu-desktop a.active { color: theme(heading); }
 
 .menu-mobile { display: none; position: relative; z-index: 10000; }
@@ -43,7 +44,7 @@
 .menu-list a { display: flex; align-items: baseline; gap: 0.5rem; font-size: 1.1rem; font-weight: 500; text-decoration: none; color: theme(muted); padding: 0.5rem 0; transition: color 0.15s ease; }
 .menu-list__num { font-size: 0.65rem; font-weight: 400; color: theme(muted); font-variant-numeric: tabular-nums; letter-spacing: 0.05em; opacity: 0.6; transition: color 0.15s ease, opacity 0.15s ease; }
 .menu-list a.active .menu-list__num { opacity: 1; }
-.menu-list a:focus-visible { color: theme(accent); outline: none; }
+.menu-list a:focus-visible { color: theme(accent); }
 .menu-list a.active { color: theme(heading); }
 @media (hover: hover) {
   .menu-list a:hover .menu-list__num { opacity: 1; }

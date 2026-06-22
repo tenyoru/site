@@ -139,6 +139,7 @@ const scrollToAnchor = (hash) => {
   const to = target.getBoundingClientRect().top + window.scrollY - margin;
   if (prefersReducedMotion()) window.scrollTo(0, to);
   else smoothScrollTo(to);
+  target.focus({ preventScroll: true }); // move focus (skip link); no-op on non-focusable targets
   return true;
 };
 

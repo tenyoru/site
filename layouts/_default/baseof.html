@@ -4,12 +4,13 @@
   {{ partial "head.html" . }}
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <div class="site-header-outer">
     <header class="shell shell--narrow site-header flex">
       {{ partial "header.html" . }}
     </header>
   </div>
-    <main class="shell content flex flex-col shell--narrow{{ if .Params.cover }} content--has-cover{{ end }}">
+    <main id="main-content" tabindex="-1" class="shell content flex flex-col shell--narrow{{ if .Params.cover }} content--has-cover{{ end }}">
       <div class = "inner">
         {{ block "main" . }}{{ end }}
       </div>
