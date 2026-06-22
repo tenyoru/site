@@ -5,17 +5,30 @@
 
 .skip-link {
   position: fixed;
-  top: -10rem;
-  left: 1rem;
+  // Just below the header, with a small gap.
+  top: calc(#{v.$header-height} + 0.5rem);
+  // Align the left edge with the centered header column, falling back to the
+  // shell padding on viewports narrower than the content width.
+  left: max(#{v.$padding-inline}, calc(50% - #{v.content-width()} / 2 + #{v.$padding-inline}));
   z-index: 10000;
-  padding: 0.375rem 0.875rem;
+  max-width: calc(100vw - #{v.$padding-inline} * 2);
+  padding: 0.4rem 0.85rem;
   background: theme(accent);
   color: theme(bg);
   font-weight: 600;
   font-size: 0.875rem;
-  border-radius: 0 0 4px 4px;
+  line-height: 1.2;
+  border-radius: 6px;
   text-decoration: none;
-  &:focus { top: v.$header-height; }
+  white-space: nowrap;
+  // Hide above the viewport, offset by its own height + the header so it
+  // slides down from behind the header at any size.
+  transform: translateY(calc(-100% - #{v.$header-height} - 0.5rem));
+  &:focus {
+    transform: translateY(0);
+    outline-color: theme(bg); // contrast against the accent button
+    outline-offset: 0; // frame flush against the filled button, no gap
+  }
 }
 
 @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition: none !important; } }
