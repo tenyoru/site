@@ -9,7 +9,9 @@
 .section-header__title { font-size: clamp(2rem, 5vw, 2.5rem); margin: 0 0 0.5rem; }
 .section-header__rss { display: flex; align-items: center; color: theme(muted); opacity: 0.5; transition: opacity 0.15s ease, color 0.15s ease; }
 .section-header__rss svg { width: 1.5rem; height: 1.5rem; }
-.section-header__rss:hover { opacity: 1; color: theme(accent); }
+.section-header__rss:hover { opacity: 1; }
+.section-header__tags { margin-left: auto; font-size: 0.95rem; color: theme(accent); transition: opacity 0.15s ease; }
+.section-header__tags:hover { opacity: 0.7; }
 .section-header__label { font-size: 0.8rem; font-weight: 500; color: theme(muted); margin: 0; }
 .section-header__label + .section-header__title { margin-top: 0; margin-left: -0.05em; }
 
@@ -24,13 +26,12 @@
 .pagination__info { font-size: 0.8rem; color: theme(muted); font-variant-numeric: tabular-nums; }
 
 .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.tag-list__link { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; text-decoration: none; font-size: 0.9rem; color: theme(muted); background: theme(card); border-radius: 0.25rem; transition: color 0.15s ease, background-color 0.15s ease; }
-.tag-list__link:hover { color: theme(accent); background-color: color-mix(in srgb, theme(border) 30%, transparent); text-decoration: none; }
+.tag-list__link { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; font-size: 0.9rem; color: theme(muted); background: theme(card); border-radius: 0.25rem; transition: color 0.15s ease, background-color 0.15s ease; }
+.tag-list__link:hover { background-color: color-mix(in srgb, theme(border) 30%, transparent); }
 .tag-list__name::before { content: "#"; opacity: 0.5; }
 .tag-list__count { font-size: 0.75rem; opacity: 0.6; }
 
 .tag-back { margin-top: 1rem; }
-.tag-back__link { font-size: 0.85rem; font-weight: 500; color: theme(muted); text-decoration: none; }
+.tag-back__link { font-size: 0.85rem; font-weight: 500; color: theme(muted); }
 .tag-back__link::before { content: "\2190\00a0"; }
-.tag-back__link:hover { color: theme(accent); text-decoration: none; }
 

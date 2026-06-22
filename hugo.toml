@@ -114,11 +114,6 @@ themeDark = "dark"
     weight = 10
 
   [[menus.main]]
-    name = 'Tags'
-    url = '/tags/'
-    weight = 20
-
-  [[menus.main]]
     name = 'Photos'
     url = '/photos/'
     weight = 25
