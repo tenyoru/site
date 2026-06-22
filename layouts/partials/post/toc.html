@@ -1,24 +1,23 @@
 {{- $toc := .TableOfContents -}}
 {{- if and $toc (strings.Contains $toc "<li>") }}
   {{- /* One <details>: a bottom-right circle when closed, a "Contents" bottom
-         sheet when open, a sticky sidebar at >= 1400px. The summary is only the
-         circle/sidebar toggle; the sheet closes via its own button. */ -}}
+         sheet when open, a sticky sidebar at >= 1400px. The <summary> is the
+         native toggle (works without JS); with JS only the X closes the sheet
+         (see toc.js). */ -}}
   <details class="post-toc" data-post-toc>
     <summary class="post-toc__summary" aria-label="Table of contents">
       <svg class="post-toc__burger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
         <line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/>
       </svg>
+      <span class="post-toc__title">Contents</span>
+      <span class="post-toc__x" data-toc-close aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>
+        </svg>
+      </span>
       <span class="post-toc__label">Table of contents</span>
       <span class="post-toc__chevron" aria-hidden="true"></span>
     </summary>
-    <div class="post-toc__header">
-      <span class="post-toc__title">Contents</span>
-      <button type="button" class="post-toc__close" data-toc-close aria-label="Close table of contents">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-          <line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>
-        </svg>
-      </button>
-    </div>
     <nav class="post-toc__body" aria-label="Table of contents">
       {{ $toc | safeHTML }}
     </nav>
