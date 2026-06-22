@@ -9,4 +9,6 @@
 
 **[Social preview](https://socialsharepreview.com/?url=https://tenyoru.io)** — OG/Twitter card checker
 
+**[The Website Specification](https://specification.website)** — best-practices audit (also tested with its MCP server)
+
 
