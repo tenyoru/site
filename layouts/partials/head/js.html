@@ -8,7 +8,8 @@
     {{- if hugo.IsDevelopment }}
       <script src="{{ .RelPermalink }}" defer></script>
     {{- else }}
-      <script>{{ .Content | safeJS }}</script>
+      {{- $fp := . | fingerprint }}
+      <script src="{{ $fp.RelPermalink }}" defer integrity="{{ $fp.Data.Integrity }}" crossorigin="anonymous"></script>
     {{- end }}
   {{- end }}
 {{- end }}
