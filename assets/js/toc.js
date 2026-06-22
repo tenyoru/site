@@ -32,10 +32,12 @@ export const initToc = (signal) => {
     }, { signal });
   }
 
-  // Floating sheet: dismiss via its close button, Escape, outside click, or
-  // after picking a section. (The anchor jump is left to the browser; see
-  // router.js.)
-  $("[data-toc-close]", toc)?.addEventListener("click", () => { toc.open = false; }, { signal });
+  // The <summary> is the native toggle, so the sheet still opens/closes without
+  // JS. With JS, keep an open sheet from closing unless the X is hit; it also
+  // dismisses on Escape, backdrop/outside click, or after picking a section.
+  $(".post-toc__summary", toc)?.addEventListener("click", (e) => {
+    if (floating.matches && toc.open && !e.target.closest("[data-toc-close]")) e.preventDefault();
+  }, { signal });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && toc.open && floating.matches) toc.open = false;
   }, { signal });
