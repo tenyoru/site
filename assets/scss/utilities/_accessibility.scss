@@ -19,9 +19,10 @@
   line-height: 1.2;
   border-radius: 6px;
   white-space: nowrap;
-  // Hide above the viewport, offset by its own height + the header so it
-  // slides down from behind the header at any size.
-  transform: translateY(calc(-100% - #{v.$header-height} - 0.5rem));
+  // Hide fully above the viewport. The extra 1.5rem (vs the 0.5rem reveal gap)
+  // clears the bottom edge past y=0 so its accent border can't show as a 1px
+  // line at the top.
+  transform: translateY(calc(-100% - #{v.$header-height} - 1.5rem));
   &:focus {
     transform: translateY(0);
     outline: none; // the accent border is the focus indicator
