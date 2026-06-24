@@ -32,12 +32,9 @@ export const initToc = (signal) => {
     }, { signal });
   }
 
-  // The <summary> is the native toggle, so the sheet still opens/closes without
-  // JS. With JS, keep an open sheet from closing unless the X is hit; it also
-  // dismisses on Escape, backdrop/outside click, or after picking a section.
-  $(".post-toc__summary", toc)?.addEventListener("click", (e) => {
-    if (floating.matches && toc.open && !e.target.closest("[data-toc-close]")) e.preventDefault();
-  }, { signal });
+  // The floating sheet overlays the circle; it closes via its button, Escape,
+  // backdrop/outside click, or after picking a section.
+  $("[data-toc-close]", toc)?.addEventListener("click", () => { toc.open = false; }, { signal });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && toc.open && floating.matches) toc.open = false;
   }, { signal });
@@ -88,8 +85,11 @@ export const initToc = (signal) => {
   };
 
   // Keep the floating circle above the footer instead of overlapping it.
+  // While the sheet is open the circle is covered, so leave it untouched —
+  // otherwise resetting its bottom makes it visibly jump under the animation.
   const fabClamp = () => {
-    if (!footer || !floating.matches || toc.open) {
+    if (toc.open) return;
+    if (!footer || !floating.matches) {
       toc.style.bottom = "";
       return;
     }
