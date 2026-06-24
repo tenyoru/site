@@ -40,6 +40,11 @@
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:image" content="{{ $ogImageURL }}">
 <meta name="twitter:card" content="summary_large_image">
+{{- if .IsHome }}
+{{- $sameAs := slice }}
+{{- range site.Params.media }}{{ $sameAs = $sameAs | append .url }}{{ end }}
+<script type="application/ld+json">{{ (dict "@context" "https://schema.org" "@type" "Person" "name" site.Title "url" site.BaseURL "sameAs" $sameAs) | jsonify }}</script>
+{{- end }}
 <script>
   document.documentElement.classList.add('js');
   (function () {
