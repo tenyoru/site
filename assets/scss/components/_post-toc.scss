@@ -18,11 +18,15 @@
 .post-toc__body li { line-height: 1.4; }
 .post-toc__body a { font-size: 0.9rem; color: theme(subtle); transition: color 0.15s ease; }
 .post-toc__body a:hover { color: theme(heading); }
-.post-toc__body a.is-active { color: theme(accent); }
 .post-toc__body ul ul { padding-left: 1rem; margin-top: 0.5rem; }
 
 // === JS enhancement ===
 .js {
+  // Single source of truth for the active item (scroll-spy only runs with JS).
+  // `.js .post-toc__body a.is-active` (0,3,1) outranks the per-breakpoint
+  // `.js .post-toc__body a` colors, so it's never re-declared per block.
+  .post-toc__body a.is-active { color: theme(accent); }
+
   // --- Small screens: bottom-right circle that opens a "Contents" sheet ---
   @media (max-width: 1399.98px) {
     .post-toc { position: fixed; right: 1.25rem; bottom: 1.25rem; left: auto; z-index: 50; margin: 0; padding: 0; border: none; background: transparent; }

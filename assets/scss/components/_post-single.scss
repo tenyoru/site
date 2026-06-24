@@ -29,6 +29,7 @@
 .article-content p a, .article-content li a { color: theme(accent); }
 .article-content p a:hover, .article-content li a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
 .article-content h1 a, .article-content h2 a, .article-content h3 a, .article-content h4 a { color: inherit; }
+.article-content h1 a:hover, .article-content h2 a:hover, .article-content h3 a:hover, .article-content h4 a:hover { color: theme(accent); }
 .article-content blockquote { margin: 1.5rem 0; padding: 0 0 0 1rem; border-left: 2px solid color-mix(in srgb, theme(border) 60%, transparent); color: theme(subtle); font-style: italic; }
 .article-content img, .article-content video { border-radius: 0.5rem; margin: 1.5rem 0; max-width: 100%; height: auto; }
 
