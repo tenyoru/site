@@ -1,8 +1,7 @@
 ---
 title: "Test Album"
 date: 2026-06-01
-gear: "Test Camera · Test Film"
-location: "Somewhere"
+description: "A test album for checking gallery layout and rendering."
 draft: true
 ---
 

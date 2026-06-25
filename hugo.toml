@@ -18,13 +18,7 @@ r2BaseURL = "https://assets.tenyoru.io"
 r2Transforms = true
 r2Thumb = "cdn-cgi/image/width=600,format=webp"
 
-[params.contact.hero]
-title = "Let's build something together"
-body = "Got something on your mind? Whether it's a project, a question, or just to talk shop — drop me a line."
-
 [params.contact.contacts]
-heading = "Pick the channel that suits you"
-intro = "Every message lands in my personal inbox, so feel free to be detailed."
 
   [[params.contact.contacts.items]]
   label = "Email"

@@ -6,7 +6,7 @@
       <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "02 Jan, 2006" }}</time>
     </span>
   </a>
-  {{ with $page.Params.gear }}
+  {{ with $page.Description }}
   <p class="post-item__excerpt">{{ . }}</p>
   {{ end }}
 </li>

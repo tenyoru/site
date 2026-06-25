@@ -26,30 +26,42 @@
 {{- if not $desc }}{{ with .Params.summary }}{{ $desc = . }}{{ end }}{{ end -}}
 {{- if not $desc }}{{ with site.Params.description }}{{ $desc = . }}{{ end }}{{ end -}}
 {{- if not $desc }}{{ $desc = site.Title }}{{ end -}}
-{{- $desc = $desc | plainify | htmlEscape | truncate 160 -}}
+{{- $desc = $desc | plainify | truncate 160 -}}
+{{- /* card desc: home → site tagline; other pages → their OWN description, no site fallback. */ -}}
+{{- $ownDesc := "" -}}
+{{- with .Description }}{{ $ownDesc = . }}{{ end -}}
+{{- if not $ownDesc }}{{ with .Params.description }}{{ $ownDesc = . }}{{ end }}{{ end -}}
+{{- if not $ownDesc }}{{ with .Params.summary }}{{ $ownDesc = . }}{{ end }}{{ end -}}
+{{- $cardDesc := cond .IsHome $desc ($ownDesc | plainify | truncate 160) -}}
 {{- $ogTitle := cond .IsHome (printf "%s — Engineering, writing, and collaborations" site.Title) (printf "%s | %s" .Title site.Title) -}}
-{{- $ogImageURL := printf "%s/cdn-cgi/image/width=1200,height=630,fit=cover,format=webp/cat.jpg" site.Params.r2BaseURL -}}
-{{- $page := . -}}
+{{- /* og:image — dynamic card per page (title/type/date); real image only when a page sets `cover`. */ -}}
+{{- $ogImageURL := "" -}}
+{{- $hasCustom := false -}}
 {{- if .IsPage -}}
-  {{- $hasCustom := false -}}
   {{- with .Params.cover -}}
     {{- $path := printf "images/posts/%s" . -}}
-    {{- with resources.Get $path -}}{{- $ogImageURL = .Permalink | absURL -}}{{- $hasCustom = true -}}{{- end -}}
+    {{- with resources.Get $path -}}
+      {{- $raw := .Permalink | absURL -}}
+      {{- $ogImageURL = cond site.Params.r2Transforms (printf "%s/cdn-cgi/image/width=1200,height=630,fit=cover,format=webp,quality=80/%s" site.Params.r2BaseURL $.Params.cover) $raw -}}
+      {{- $hasCustom = true -}}
+    {{- end -}}
   {{- end -}}
-  {{- if not $hasCustom -}}
-    {{- $q := slice (printf "title=%s" ($page.Title | urlquery)) -}}
-    {{- with $page.Section }}{{- $q = $q | append (printf "type=%s" (. | urlquery)) -}}{{- end -}}
-    {{- $q = $q | append (printf "date=%s" ($page.Date.Format "Jan 2006" | urlquery)) -}}
-    {{- with $page.Description }}{{- $q = $q | append (printf "desc=%s" (. | urlquery)) -}}{{- end -}}
-    {{- $ogImageURL = printf "%sog-image?%s" site.BaseURL (delimit $q "&") -}}
-  {{- end -}}
+{{- end -}}
+{{- if not $hasCustom -}}
+  {{- $imgTitle := cond .IsHome site.Title .Title -}}
+  {{- $q := slice (printf "title=%s" ($imgTitle | urlquery)) -}}
+  {{- if eq .Kind "section" }}{{- $q = $q | append "section=1" -}}{{- end -}}
+  {{- with .Section }}{{- $q = $q | append (printf "type=%s" (. | urlquery)) -}}{{- end -}}
+  {{- if .IsPage }}{{- with .Date }}{{- if not .IsZero }}{{- $q = $q | append (printf "date=%s" (.Format "Jan 2006" | urlquery)) -}}{{- end -}}{{- end -}}{{- end -}}
+  {{- with $cardDesc }}{{- $q = $q | append (printf "desc=%s" (. | urlquery)) -}}{{- end -}}
+  {{- $ogImageURL = printf "%sog-image?%s" site.BaseURL (delimit $q "&") -}}
 {{- end -}}
 <meta name="description" content="{{ $desc }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:title" content="{{ $ogTitle }}">
 <meta property="og:description" content="{{ $desc }}">
 <meta property="og:url" content="{{ .Permalink }}">
-<meta property="og:image" content="{{ $ogImageURL }}">
+{{ printf `<meta property="og:image" content="%s">` $ogImageURL | safeHTML }}
 <meta name="twitter:card" content="summary_large_image">
 {{- if .IsHome }}
 {{- $sameAs := slice }}

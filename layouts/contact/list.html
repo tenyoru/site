@@ -1,19 +1,11 @@
 {{ define "main" }}
 <div class="contact shell--narrow">
   {{ $siteContact := .Site.Params.contact }}
-  {{ $hero := .Params.hero }}
-  {{ if not $hero }}
-    {{ with $siteContact }}
-      {{ with .hero }}{{ $hero = . }}{{ end }}
-    {{ end }}
-  {{ end }}
 
   <header class="contact-header">
     <h1 class="contact-header__title title-lg">{{ .Title }}</h1>
-    {{ with $hero }}
-      {{ with .body }}
-      <p class="contact-header__desc">{{ . | markdownify | plainify }}</p>
-      {{ end }}
+    {{ with .Description }}
+    <p class="contact-header__desc">{{ . }}</p>
     {{ end }}
   </header>
 

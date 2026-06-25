@@ -4,6 +4,6 @@
 {{- $full  := printf "%s/%s" $base $src -}}
 {{- $thumb := $full -}}
 {{- if site.Params.r2Transforms -}}
-  {{- $thumb = printf "%s/cdn-cgi/image/width=900,format=webp/%s" $base $src -}}
+  {{- $thumb = printf "%s/cdn-cgi/image/width=600,format=webp/%s" $base $src -}}
 {{- end -}}
 <img src="{{ $thumb }}" data-full="{{ $full }}" alt="{{ $alt }}" loading="lazy" decoding="async">

@@ -21,16 +21,13 @@
     {{- range $pages }}
     {{- $r2base    := site.Params.r2BaseURL }}
     {{- $rawLinks  := findRE `href="https://[^/"]+/[^/"]+\.[a-z]+"` .Content }}
-    {{- $meta      := slice -}}
-    {{- with .Params.gear     }}{{- $meta = $meta | append . -}}{{- end -}}
-    {{- with .Params.location }}{{- $meta = $meta | append . -}}{{- end -}}
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
       <guid isPermaLink="true">{{ .Permalink }}</guid>
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
-      {{- with $meta }}
-      <description>{{ delimit . " · " | transform.XMLEscape | safeHTML }}</description>
+      {{- with .Description }}
+      <description>{{ . | transform.XMLEscape | safeHTML }}</description>
       {{- end }}
       {{- range $rawLinks }}
       {{- $url  := . | replaceRE `^href="` "" | replaceRE `"$` "" }}
