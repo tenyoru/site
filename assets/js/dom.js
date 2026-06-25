@@ -21,5 +21,5 @@ export const storage = (() => {
   }
 })();
 
-export const prefersReducedMotion = () =>
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const _rmq = window.matchMedia("(prefers-reduced-motion: reduce)");
+export const prefersReducedMotion = () => _rmq.matches;

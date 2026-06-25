@@ -4,9 +4,9 @@ import { $$ } from "./dom.js";
 // key byte.
 const decode = (hex) => {
   let out = "";
-  const key = parseInt(hex.substr(0, 2), 16);
+  const key = parseInt(hex.slice(0, 2), 16);
   for (let i = 2; i < hex.length; i += 2) {
-    out += String.fromCharCode(parseInt(hex.substr(i, 2), 16) ^ key);
+    out += String.fromCharCode(parseInt(hex.slice(i, i + 2), 16) ^ key);
   }
   return out;
 };

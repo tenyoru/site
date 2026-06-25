@@ -1,15 +1,11 @@
 <dialog class="photo-preview" id="photo-preview">
+  <button type="button" class="photo-preview__close" data-preview-close aria-label="Close preview">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
   <div class="photo-preview__stage">
-    <button type="button" class="photo-preview__nav photo-preview__nav--prev" data-preview-nav="prev" aria-label="Previous image" hidden>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-    </button>
     <img class="photo-preview__img" src="" alt="">
-    <button type="button" class="photo-preview__nav photo-preview__nav--next" data-preview-nav="next" aria-label="Next image" hidden>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
-    </button>
   </div>
+  <p class="photo-preview__hint" aria-hidden="true"></p>
 </dialog>
