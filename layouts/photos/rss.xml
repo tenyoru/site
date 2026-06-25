@@ -6,7 +6,7 @@
 {{- $feed := .OutputFormats.Get "RSS" -}}
 {{- $description := .Description | default (printf "Latest photo albums from %s" site.Title) -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" | safeHTML -}}
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>{{ .Title }} | {{ site.Title }}</title>
     <link>{{ .Permalink }}</link>
@@ -17,17 +17,29 @@
     <language>{{ site.Language.Locale }}</language>
     <generator>Hugo {{ hugo.Version }}</generator>
     <ttl>60</ttl>
+    {{- $mimeTypes := dict "jpg" "image/jpeg" "jpeg" "image/jpeg" "png" "image/png" "webp" "image/webp" }}
     {{- range $pages }}
+    {{- $r2base    := site.Params.r2BaseURL }}
+    {{- $rawLinks  := findRE `href="https://[^/"]+/[^/"]+\.[a-z]+"` .Content }}
+    {{- $meta      := slice -}}
+    {{- with .Params.gear     }}{{- $meta = $meta | append . -}}{{- end -}}
+    {{- with .Params.location }}{{- $meta = $meta | append . -}}{{- end -}}
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
       <guid isPermaLink="true">{{ .Permalink }}</guid>
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
-      {{- $desc := "" -}}
-      {{- with .Params.gear }}{{- $desc = . -}}{{- end -}}
-      {{- with .Params.location }}{{- $desc = printf "%s · %s" $desc . -}}{{- end -}}
-      {{- with $desc }}
-      <description><![CDATA[{{ . }}]]></description>
+      {{- with $meta }}
+      <description>{{ delimit . " · " | transform.XMLEscape | safeHTML }}</description>
+      {{- end }}
+      {{- range $rawLinks }}
+      {{- $url  := . | replaceRE `^href="` "" | replaceRE `"$` "" }}
+      {{- $ext  := path.Ext $url | strings.TrimPrefix "." | lower }}
+      {{- $mime := index $mimeTypes $ext | default "image/jpeg" }}
+      {{- $thumb := printf "%s/%s/%s" $r2base site.Params.r2Thumb (path.Base $url) }}
+      <media:content url="{{ $url }}" medium="image" type="{{ $mime }}">
+        <media:thumbnail url="{{ $thumb }}"/>
+      </media:content>
       {{- end }}
     </item>
     {{- end }}
