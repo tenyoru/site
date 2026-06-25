@@ -1,0 +1,7 @@
+{
+  "name": "tenyoru-site",
+  "private": true,
+  "dependencies": {
+    "workers-og": "*"
+  }
+}
