@@ -38,7 +38,7 @@
 
     // Overlay: instant backdrop, then the sheet slides in over the circle.
     .post-toc[open]::before { content: ""; position: fixed; inset: v.$header-height 0 0 0; z-index: 60; background: rgba(0, 0, 0, 0.5); }
-    .post-toc[open] .post-toc__sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 61; display: flex; flex-direction: column; max-height: 65vh; background: theme(bg); border-top: 1px solid theme(border); border-radius: 0.75rem 0.75rem 0 0; box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.2); animation: toc-sheet-in 0.18s ease; }
+    .post-toc[open] .post-toc__sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 61; display: flex; flex-direction: column; max-height: 65vh; background: theme(bg); border-top: 1px solid theme(border); border-radius: 0.75rem 0.75rem 0 0; box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.2); animation: toc-sheet-in 0.25s ease; }
 
     .post-toc__header { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1rem; border-bottom: 1px solid theme(border); }
     .post-toc__title { font-size: 0.85rem; font-weight: 700; color: theme(heading); }
