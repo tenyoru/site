@@ -9,3 +9,5 @@ h3 { color: theme(heading); }
 a { color: theme(link); text-decoration: none; }
 a:hover { color: theme(accent); }
 a:focus-visible { outline: 2px solid theme(accent); outline-offset: 2px; }
+li:has(> input[type="checkbox"]) { list-style: none; margin-inline-start: -1.25em; }
+li > input[type="checkbox"] { margin-inline-end: 0.4em; }

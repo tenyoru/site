@@ -9,6 +9,6 @@
 .highlight { padding: 0; }
 .highlight pre { margin: 0; padding: 1rem 1.25rem; }
 
-:not(pre) > code { font-size: 0.85em; background: color-mix(in srgb, theme(card) 80%, theme(border) 20%); color: theme(text); padding: 0.2em 0.4em; border-radius: 0.25rem; font-family: v.$font-mono; }
+:not(pre) > code { font-size: 0.85em; background: theme(border); color: theme(code); padding: 0.2em 0.4em; border-radius: 0.25rem; font-family: v.$font-mono; }
 
 .highlight code, pre code { background: transparent; border: 0; padding: 0; color: inherit; font-size: inherit; line-height: inherit; }
