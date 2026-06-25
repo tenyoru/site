@@ -53,7 +53,7 @@ async function render(context) {
     </div>
   `;
 
-  const response = new ImageResponse(html, {
+  const img = new ImageResponse(html, {
     width: 1200,
     height: 630,
     fonts: [
@@ -62,7 +62,13 @@ async function render(context) {
     ],
   });
 
-  response.headers.set('Cache-Control', 'public, max-age=86400, s-maxage=604800');
+  const buf = await img.arrayBuffer();
+  const response = new Response(buf, {
+    headers: {
+      'Content-Type': 'image/png',
+      'Cache-Control': 'public, max-age=86400, s-maxage=604800',
+    },
+  });
   context.waitUntil(cache.put(context.request, response.clone()));
   return response;
 }
