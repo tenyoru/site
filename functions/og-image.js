@@ -5,6 +5,14 @@ const TEXT   = '#ddd9d4';
 const MUTED  = '#6b6460';
 const ACCENT = '#f5b574';
 
+// Satori VDOM node. Passing objects (not an HTML string) to ImageResponse skips
+// workers-og's HTMLRewriter, so there are no whitespace text nodes and no
+// implicit-display surprises — every box here is an explicit flex container.
+const h = (style, children) => ({
+  type: 'div',
+  props: { style: { display: 'flex', ...style }, children },
+});
+
 export const onRequest = async (context) => {
   try {
     return await render(context);
@@ -22,26 +30,53 @@ async function render(context) {
   if (hit) return hit;
 
   const { searchParams } = new URL(context.request.url);
-  const title = searchParams.get('title') || 'Tenyoru';
-  const type  = (searchParams.get('type') || '').toUpperCase();
-  const date  = searchParams.get('date') || '';
-  const desc  = searchParams.get('desc') || '';
+  const title  = searchParams.get('title') || 'Tenyoru';
+  const type   = (searchParams.get('type') || '').toUpperCase();
+  const date   = searchParams.get('date') || '';
+  const desc   = searchParams.get('desc') || '';
 
   const [reg, bold] = await Promise.all([
     loadGoogleFont({ family: 'Inter', weight: 400 }),
     loadGoogleFont({ family: 'Inter', weight: 700 }),
   ]);
 
-  const titleSize = title.length > 55 ? 52 : title.length > 35 ? 60 : 72;
-  const footerLeft = [type, date].filter(Boolean).join(' · ');
   const truncDesc = desc.length > 130 ? desc.slice(0, 130) + '…' : desc;
+  const isSection = searchParams.get('section') === '1';
 
-  // No whitespace between tags — HTMLRewriter parses whitespace as text nodes,
-  // and Satori requires display:flex on every element with multiple children.
-  const descEl = truncDesc ? `<div style="color:${MUTED};font-size:22px;line-height:1.5;display:flex;">${truncDesc}</div>` : '';
-  const html = `<div style="width:100%;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:56px 72px;background:${BG};font-family:Inter;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:10px;height:10px;background:${ACCENT};"></div><span style="color:${MUTED};font-size:15px;letter-spacing:4px;text-transform:uppercase;">Tenyoru</span></div><div style="display:flex;flex-direction:column;gap:20px;"><div style="color:${TEXT};font-size:${titleSize}px;font-weight:700;line-height:1.1;letter-spacing:-1px;display:flex;">${title}</div>${descEl}</div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:${MUTED};font-size:15px;letter-spacing:2px;text-transform:uppercase;">${footerLeft}</span><span style="color:${ACCENT};font-size:15px;letter-spacing:2px;text-transform:uppercase;">tenyoru.io</span></div></div>`;
+  // Section landing pages: the description is the headline (title color); the
+  // section name sits bottom-left. Other pages: title headline, desc beneath.
+  const headline = isSection ? (truncDesc || title) : title;
+  const headlineSize = headline.length > 55 ? 52 : headline.length > 35 ? 60 : 72;
+  const footerLeft = isSection
+    ? type
+    : [type, date]
+        .filter(Boolean)
+        .filter((p) => p.toUpperCase() !== title.toUpperCase())
+        .join(' · ');
 
-  const img = new ImageResponse(html, {
+  const middle = [
+    h({ color: TEXT, fontSize: headlineSize, fontWeight: 700, lineHeight: 1.1, letterSpacing: '-1px' }, headline),
+  ];
+  if (!isSection && truncDesc) {
+    middle.push(h({ color: MUTED, fontSize: 22, lineHeight: 1.5 }, truncDesc));
+  }
+
+  const tree = h(
+    { width: '100%', height: '100%', flexDirection: 'column', justifyContent: 'space-between', padding: '56px 72px', background: BG, fontFamily: 'Inter' },
+    [
+      h({ alignItems: 'center', gap: 10 }, [
+        h({ width: 10, height: 10, background: ACCENT }, []),
+        h({ color: MUTED, fontSize: 15, letterSpacing: '4px', textTransform: 'uppercase' }, 'Tenyoru'),
+      ]),
+      h({ flexDirection: 'column', gap: 20 }, middle),
+      h({ justifyContent: 'space-between', alignItems: 'center' }, [
+        h({ color: MUTED, fontSize: 15, letterSpacing: '2px', textTransform: 'uppercase' }, footerLeft),
+        h({ color: ACCENT, fontSize: 15, letterSpacing: '2px', textTransform: 'uppercase' }, 'tenyoru.io'),
+      ]),
+    ],
+  );
+
+  const img = new ImageResponse(tree, {
     width: 1200,
     height: 630,
     fonts: [

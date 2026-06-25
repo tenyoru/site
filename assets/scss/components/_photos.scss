@@ -1,12 +1,6 @@
 @use "../theme" as *;
 @use "../vars" as v;
 
-.photo-album__location {
-  font-size: 0.95rem;
-  color: theme(subtle);
-  margin: 0.5rem 0 0;
-}
-
 .photo-grid {
   columns: 2;
   column-gap: 0.5rem;

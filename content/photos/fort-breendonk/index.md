@@ -1,7 +1,7 @@
 ---
 title: "Fort Breendonk"
 date: 2026-06-21
-location: "Breendonk, Belgium"
+description: "A visit to Fort Breendonk — a former fortress turned wartime memorial near Antwerp."
 ---
 
 {{< gallery >}}
