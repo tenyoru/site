@@ -1,22 +1,9 @@
-import { ImageResponse } from 'workers-og';
+import { ImageResponse, loadGoogleFont } from 'workers-og';
 
 const BG     = '#0e0c0b';
 const TEXT   = '#ddd9d4';
 const MUTED  = '#6b6460';
 const ACCENT = '#f5b574';
-
-async function getFont(weight) {
-  const url = `https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-${weight}-normal.woff2`;
-  const cache = caches.default;
-  const hit = await cache.match(url);
-  if (hit) return hit.arrayBuffer();
-  const res = await fetch(url);
-  const buf = await res.arrayBuffer();
-  cache.put(url, new Response(buf.slice(0), {
-    headers: { 'Cache-Control': 'public, max-age=31536000, immutable' },
-  }));
-  return buf;
-}
 
 export const onRequest = async (context) => {
   try {
@@ -40,10 +27,13 @@ async function render(context) {
   const date  = searchParams.get('date') || '';
   const desc  = searchParams.get('desc') || '';
 
-  const [reg, bold] = await Promise.all([getFont(400), getFont(700)]);
+  const [reg, bold] = await Promise.all([
+    loadGoogleFont({ family: 'Inter', weight: 400 }),
+    loadGoogleFont({ family: 'Inter', weight: 700 }),
+  ]);
 
   const titleSize = title.length > 55 ? 52 : title.length > 35 ? 60 : 72;
-  const footerLeft = [type, date].filter(Boolean).join(`<span style="color:${ACCENT}"> · </span>`);
+  const footerLeft = [type, date].filter(Boolean).join(' · ');
   const truncDesc = desc.length > 130 ? desc.slice(0, 130) + '…' : desc;
 
   const html = `
@@ -57,7 +47,7 @@ async function render(context) {
         ${truncDesc ? `<div style="color:${MUTED};font-size:22px;line-height:1.5">${truncDesc}</div>` : ''}
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <div style="display:flex;gap:12px;color:${MUTED};font-size:15px;letter-spacing:2px;text-transform:uppercase">${footerLeft}</div>
+        <span style="color:${MUTED};font-size:15px;letter-spacing:2px;text-transform:uppercase">${footerLeft}</span>
         <span style="color:${ACCENT};font-size:15px;letter-spacing:2px;text-transform:uppercase">tenyoru.io</span>
       </div>
     </div>
