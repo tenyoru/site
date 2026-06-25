@@ -1,5 +1,6 @@
 public/
 resources/
+node_modules/
 .hugo_build.lock
 todo.md
 .devenv/

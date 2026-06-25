@@ -29,10 +29,21 @@
 {{- $desc = $desc | plainify | htmlEscape | truncate 160 -}}
 {{- $ogTitle := cond .IsHome (printf "%s — Engineering, writing, and collaborations" site.Title) (printf "%s | %s" .Title site.Title) -}}
 {{- $ogImageURL := printf "%s/cdn-cgi/image/width=1200,height=630,fit=cover,format=webp/cat.jpg" site.Params.r2BaseURL -}}
-{{- with .Params.cover -}}
-  {{- $path := printf "images/posts/%s" . -}}
-  {{- with resources.Get $path }}{{- $ogImageURL = .Permalink | absURL -}}{{- end -}}
-{{- end }}
+{{- $page := . -}}
+{{- if .IsPage -}}
+  {{- $hasCustom := false -}}
+  {{- with .Params.cover -}}
+    {{- $path := printf "images/posts/%s" . -}}
+    {{- with resources.Get $path -}}{{- $ogImageURL = .Permalink | absURL -}}{{- $hasCustom = true -}}{{- end -}}
+  {{- end -}}
+  {{- if not $hasCustom -}}
+    {{- $q := slice (printf "title=%s" ($page.Title | urlquery)) -}}
+    {{- with $page.Section }}{{- $q = $q | append (printf "type=%s" (. | urlquery)) -}}{{- end -}}
+    {{- $q = $q | append (printf "date=%s" ($page.Date.Format "Jan 2006" | urlquery)) -}}
+    {{- with $page.Description }}{{- $q = $q | append (printf "desc=%s" (. | urlquery)) -}}{{- end -}}
+    {{- $ogImageURL = printf "%sog-image?%s" site.BaseURL (delimit $q "&") -}}
+  {{- end -}}
+{{- end -}}
 <meta name="description" content="{{ $desc }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:title" content="{{ $ogTitle }}">
