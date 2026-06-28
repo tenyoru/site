@@ -23,7 +23,6 @@
 {{- $desc := "" -}}
 {{- with .Description }}{{ $desc = . }}{{ end -}}
 {{- if not $desc }}{{ with .Params.description }}{{ $desc = . }}{{ end }}{{ end -}}
-{{- if not $desc }}{{ with .Params.summary }}{{ $desc = . }}{{ end }}{{ end -}}
 {{- if not $desc }}{{ with site.Params.description }}{{ $desc = . }}{{ end }}{{ end -}}
 {{- if not $desc }}{{ $desc = site.Title }}{{ end -}}
 {{- $desc = $desc | plainify | truncate 160 -}}
@@ -31,7 +30,6 @@
 {{- $ownDesc := "" -}}
 {{- with .Description }}{{ $ownDesc = . }}{{ end -}}
 {{- if not $ownDesc }}{{ with .Params.description }}{{ $ownDesc = . }}{{ end }}{{ end -}}
-{{- if not $ownDesc }}{{ with .Params.summary }}{{ $ownDesc = . }}{{ end }}{{ end -}}
 {{- $cardDesc := cond .IsHome $desc ($ownDesc | plainify | truncate 160) -}}
 {{- $ogTitle := cond .IsHome (printf "%s — Engineering, writing, and collaborations" site.Title) (printf "%s | %s" .Title site.Title) -}}
 {{- /* og:image — dynamic card per page (title/type/date); real image only when a page sets `cover`. */ -}}

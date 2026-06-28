@@ -1,7 +1,6 @@
 {{- $page := .page -}}
-{{- $summary := $page.Params.summary -}}
-{{- $cleanSummary := replaceRE "\\s+" " " ($summary | plainify) -}}
-{{- $excerpt := cond (gt (len $cleanSummary) 0) ($cleanSummary | truncate 120) "" -}}
+{{- $cleanDesc := replaceRE "\\s+" " " ($page.Description | plainify) -}}
+{{- $excerpt := cond (gt (len $cleanDesc) 0) ($cleanDesc | truncate 120) "" -}}
 
 <li class="post-item">
   <a href="{{ $page.RelPermalink }}" class="list__link">
