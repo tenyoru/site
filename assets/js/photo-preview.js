@@ -85,10 +85,15 @@ export const initPhotoPreview = (signal) => {
     setTimeout(() => { wheelLocked = false; }, 300);
   }, { passive: true, signal });
 
-  // Swipe navigation.
+  // Swipe navigation. Ignore multi-touch (pinch-to-zoom) so zooming doesn't step.
   let touchX = 0;
-  dialog.addEventListener("touchstart", (e) => { touchX = e.touches[0].clientX; }, { passive: true, signal });
+  let pinching = false;
+  dialog.addEventListener("touchstart", (e) => {
+    pinching = e.touches.length > 1;
+    touchX = e.touches[0].clientX;
+  }, { passive: true, signal });
   dialog.addEventListener("touchend", (e) => {
+    if (pinching || e.touches.length > 0) return;
     const dx = e.changedTouches[0].clientX - touchX;
     if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
   }, { signal });
