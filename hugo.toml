@@ -3,6 +3,7 @@ locale = 'en-us'
 title = 'Tenyoru'
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
+capitalizeListTitles = false
 
 [languages]
   [languages.en]
