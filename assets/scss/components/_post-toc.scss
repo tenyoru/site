@@ -28,7 +28,7 @@
   // --- Small screens: a static bottom-right circle + overlay sheet ---
   @media (max-width: 1399.98px) {
     // The circle never changes shape/position; the sheet covers it when open.
-    .post-toc { position: fixed; right: 1.25rem; bottom: 1.25rem; left: auto; z-index: 50; margin: 0; padding: 0; border: none; background: transparent; }
+    .post-toc { position: fixed; right: 1.25rem; bottom: 1.25rem; left: auto; z-index: 50; margin: 0; padding: 0; border: none; background: transparent; --toc-anim: 0.2s; }
     .post-toc__label, .post-toc__chevron { display: none; }
     .post-toc__summary { display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; border-radius: 50%; background: theme(card); color: theme(text); border: 1px solid theme(border); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18); transition: color 0.15s ease, border-color 0.15s ease; }
     @media (hover: hover) { // avoid sticky :hover on touch
@@ -38,7 +38,8 @@
 
     // Overlay: instant backdrop, then the sheet slides in over the circle.
     .post-toc[open]::before { content: ""; position: fixed; inset: v.$header-height 0 0 0; z-index: 60; background: rgba(0, 0, 0, 0.5); }
-    .post-toc[open] .post-toc__sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 61; display: flex; flex-direction: column; max-height: 65vh; background: theme(bg); border-top: 1px solid theme(border); border-radius: 0.75rem 0.75rem 0 0; box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.2); animation: toc-sheet-in 0.25s ease; }
+    .post-toc__sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 61; display: none; flex-direction: column; max-height: 65vh; background: theme(bg); border-top: 1px solid theme(border); border-radius: 0.75rem 0.75rem 0 0; box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.2); opacity: 0; transform: translateY(0.75rem); transition: opacity var(--toc-anim) ease, transform var(--toc-anim) ease, display var(--toc-anim) allow-discrete; }
+    .post-toc[open] .post-toc__sheet { display: flex; opacity: 1; transform: translateY(0); @starting-style { opacity: 0; transform: translateY(0.75rem); } }
 
     .post-toc__header { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1rem; border-bottom: 1px solid theme(border); }
     .post-toc__title { font-size: 0.85rem; font-weight: 700; color: theme(heading); }
@@ -71,10 +72,3 @@
   }
 }
 
-// Appearance of the mobile sheet (keyframes, since <details> toggles display
-// and a transition wouldn't fire). Disabled under prefers-reduced-motion by the
-// global rule in _accessibility.scss.
-@keyframes toc-sheet-in {
-  from { opacity: 0; transform: translateY(0.75rem); }
-  to { opacity: 1; transform: translateY(0); }
-}
