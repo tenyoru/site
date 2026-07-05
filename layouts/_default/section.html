@@ -5,7 +5,7 @@
       <h1 class="section-header__title title-lg">{{ .Title }}</h1>
       <a href="{{ .Permalink }}index.xml" class="section-header__rss" title="RSS Feed">{{- partial "icon" "rss" -}}</a>
       {{ if eq .Section "blog" }}
-      <a href="{{ "/tags/" | relLangURL }}" class="section-header__tags">tags</a>
+      <a href="{{ "/tags/" | relLangURL }}" class="section-header__tags tag-list__link"><span class="tag-list__name">tags</span></a>
       {{ end }}
     </div>
     {{ with .Content }}
