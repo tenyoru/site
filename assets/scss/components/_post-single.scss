@@ -23,7 +23,15 @@
 .article-content > * { margin-top: 1.5rem; margin-bottom: 0; }
 .article-content p, .article-content ul, .article-content ol { margin-top: 1.25rem; }
 .article-content h2, .article-content h3, .article-content h4 { scroll-margin-top: calc(v.$header-height + 1.5rem); color: theme(heading); font-weight: 600; }
-.article-content :target { animation: target-flash 0.3s steps(1, end) 3; }
+.copied-toast { position: absolute; z-index: 200; pointer-events: none; white-space: nowrap; font-size: 0.7rem; font-weight: 500; color: theme(accent); background: theme(card); border: 1px solid theme(border); padding: 0.15rem 0.45rem; border-radius: 0.25rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); animation: copied-toast 1.2s ease forwards; }
+@keyframes copied-toast {
+  0% { opacity: 0; transform: translate(-50%, -100%); }
+  15% { opacity: 1; transform: translate(-50%, -160%); }
+  70% { opacity: 1; transform: translate(-50%, -160%); }
+  100% { opacity: 0; transform: translate(-50%, -230%); }
+}
+@media (prefers-reduced-motion: reduce) { .copied-toast { animation: none; opacity: 1; transform: translate(-50%, -140%); } }
+.article-content :target, .article-content .is-flash { animation: target-flash 0.3s steps(1, end) 3; }
 @keyframes target-flash { 0%, 50% { color: theme(accent); } 51%, 100% { color: theme(heading); } }
 @media (prefers-reduced-motion: reduce) { .article-content :target { animation: none; } }
 .article-content h2 { font-size: 1.5rem; margin-top: 2rem; letter-spacing: -0.01em; }
