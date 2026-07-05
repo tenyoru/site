@@ -23,8 +23,12 @@
 .article-content > * { margin-top: 1.5rem; margin-bottom: 0; }
 .article-content p, .article-content ul, .article-content ol { margin-top: 1.25rem; }
 .article-content h2, .article-content h3, .article-content h4 { scroll-margin-top: calc(v.$header-height + 1.5rem); color: theme(heading); font-weight: 600; }
-.article-content h2 { font-size: 1.5rem; margin-top: 1.75rem; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
-.article-content h3 { font-size: 1.17rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+.article-content :target { animation: target-flash 0.3s steps(1, end) 3; }
+@keyframes target-flash { 0%, 50% { color: theme(accent); } 51%, 100% { color: theme(heading); } }
+@media (prefers-reduced-motion: reduce) { .article-content :target { animation: none; } }
+.article-content h2 { font-size: 1.5rem; margin-top: 2rem; letter-spacing: -0.01em; }
+.article-content h3 { font-size: 1.17rem; margin-top: 1.5rem; }
+.article-content :is(h2, h3, h4) + * { margin-top: 0.5rem; }
 .article-content ul, .article-content ol { padding-inline-start: 1.5rem; }
 .article-content p a, .article-content li a { color: theme(accent); }
 .article-content p a:hover, .article-content li a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
