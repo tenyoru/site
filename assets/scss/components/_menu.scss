@@ -34,8 +34,9 @@
 .menu-mobile[open] .menu-line:nth-child(2) { opacity: 0; }
 .menu-mobile[open] .menu-line:nth-child(3) { transform: translateY(-50%) rotate(-45deg); }
 
-.menu-panel { position: fixed; top: v.$header-height; left: 0; width: 100vw; height: calc(100vh - v.$header-height); z-index: 9999; display: none; background: color-mix(in srgb, theme(bg) 90%, transparent); @include blur-surface; border-top: 1px solid theme(border); }
-.menu-mobile[open] .menu-panel { display: flex; align-items: center; justify-content: center; }
+.menu-panel { position: fixed; top: v.$header-height; left: 0; width: 100vw; height: calc(100vh - v.$header-height); z-index: 9999; display: none; opacity: 0; background: color-mix(in srgb, theme(bg) 90%, transparent); @include blur-surface; border-top: 1px solid theme(border); transition: opacity 0.25s ease, display 0.25s allow-discrete; }
+.menu-mobile[open] .menu-panel { display: flex; opacity: 1; align-items: center; justify-content: center; @starting-style { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .menu-panel { transition: none; } }
 
 .menu-list { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
 .menu-list a { display: flex; align-items: baseline; gap: 0.5rem; font-size: 1.1rem; font-weight: 500; color: theme(muted); padding: 0.5rem 0; transition: color 0.15s ease; }
