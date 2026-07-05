@@ -62,6 +62,30 @@ const smoothScrollTo = (to, duration = 350) => {
 const scrollPositions = new Map();
 let currentPath = location.pathname;
 
+// Re-triggerable blink on the element we just jumped to. CSS :target only fires
+// on a full page load, so anchor clicks and SPA navigations blink via this class.
+const flashTarget = (el) => {
+  if (!el) return;
+  el.classList.remove("is-flash");
+  void el.offsetWidth; // reflow so re-adding replays the animation
+  el.classList.add("is-flash");
+  el.addEventListener("animationend", () => el.classList.remove("is-flash"), { once: true });
+};
+
+// Clicking a heading copies its link (you're already there — nothing to scroll to).
+// A floating toast pops up at the cursor, outside the layout flow.
+const copyHeadingLink = (url, x, y) => {
+  navigator.clipboard.writeText(url).then(() => {
+    const tip = document.createElement("div");
+    tip.className = "copied-toast";
+    tip.textContent = "link copied";
+    tip.style.left = `${x}px`;
+    tip.style.top = `${y}px`;
+    document.body.appendChild(tip);
+    setTimeout(() => tip.remove(), 1200);
+  }).catch(() => {});
+};
+
 // ---------------------------------------------------------------------------
 // Navigation. Fetch the target, swap <main> + the header (so server-rendered
 // active-nav comes along and the mobile menu resets), sync the <head>, then
@@ -100,9 +124,16 @@ export const navigate = async (url, push = true) => {
     syncHead(doc);
     afterSwap();
     currentPath = location.pathname;
-    // Link clicks open at the top; Back/Forward restore the saved position.
-    // Re-apply next frame so late layout can't clamp a restore.
-    const y = push ? 0 : scrollPositions.get(currentPath) ?? 0;
+    // Link clicks open at the top (or at the linked #anchor); Back/Forward
+    // restore the saved position. Re-apply next frame so late layout can't clamp.
+    const anchor = push && location.hash
+      && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    let y = push ? 0 : scrollPositions.get(currentPath) ?? 0;
+    if (anchor) {
+      const margin = parseFloat(getComputedStyle(anchor).scrollMarginTop) || 0;
+      y = anchor.getBoundingClientRect().top + window.scrollY - margin;
+      flashTarget(anchor);
+    }
     window.scrollTo(0, y);
     if (y) requestAnimationFrame(() => window.scrollTo(0, y));
   };
@@ -140,6 +171,7 @@ const scrollToAnchor = (hash) => {
   if (prefersReducedMotion()) window.scrollTo(0, to);
   else smoothScrollTo(to);
   target.focus({ preventScroll: true }); // move focus (skip link); no-op on non-focusable targets
+  flashTarget(target);
   return true;
 };
 
@@ -173,7 +205,17 @@ export const startRouter = (onAfterSwap) => {
     if (!href) return;
 
     if (a.hash && a.pathname === location.pathname) {
-      if (a.closest("[data-post-toc]")) return;
+      const heading = a.closest("h1, h2, h3, h4, h5, h6");
+      if (heading && navigator.clipboard) {
+        e.preventDefault();
+        const r = heading.getBoundingClientRect(); // keyboard (pageX 0) → near the heading
+        copyHeadingLink(
+          a.href,
+          e.pageX || r.left + window.scrollX + 16,
+          e.pageY || r.top + window.scrollY + r.height / 2,
+        );
+        return;
+      }
       if (scrollToAnchor(a.hash)) e.preventDefault();
       return;
     }
