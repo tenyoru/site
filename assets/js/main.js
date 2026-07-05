@@ -3,6 +3,7 @@ import { decodeCloudflareEmails } from "./email.js";
 import { initPhotoPreview } from "./photo-preview.js";
 import { initCards } from "./cards.js";
 import { initToc } from "./toc.js";
+import { initCopy } from "./copy.js";
 import { navigate, startRouter } from "./router.js";
 
 // Per-page wiring, re-runnable after every body swap. A fresh AbortController
@@ -20,6 +21,7 @@ const initPage = () => {
   initPhotoPreview(signal);
   initCards(signal, navigate);
   initToc(signal);
+  initCopy(signal);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
