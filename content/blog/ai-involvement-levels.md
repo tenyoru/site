@@ -35,6 +35,8 @@ The first is responsibility. I'm the one accountable for the quality of the prod
 
 The second is skill. The more I hand off to AI, the faster I lose my edge. It gets to the point where I can't always judge its work, because to judge code you have to be able to write it yourself. That's why I keep myself at the keyboard, even when it's slower.
 
+In some areas speed matters more than safety or responsibility. A prototype or a throwaway experiment isn't about solid code but about testing an idea, playing with it, and seeing whether it's worth building for real.
+
 These levels aren't about banning AI. They're about being honest with myself: how much I hand off, and how much I give up in return.
 
 ## What about writing
