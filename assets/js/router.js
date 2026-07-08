@@ -138,8 +138,9 @@ export const navigate = async (url, push = true) => {
     if (y) requestAnimationFrame(() => window.scrollTo(0, y));
   };
 
-  if (document.startViewTransition) document.startViewTransition(render);
-  else render();
+  // No startViewTransition: its whole-page crossfade reads as a blink on
+  // every swap — the instant replace is the point of the PJAX router.
+  render();
 };
 
 // ---------------------------------------------------------------------------
