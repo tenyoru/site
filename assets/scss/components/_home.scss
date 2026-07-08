@@ -9,6 +9,12 @@
 .home-intro__name { font-size: clamp(2.5rem, 7vw, 3.5rem); font-weight: 700; color: theme(heading); margin: 0; letter-spacing: -0.03em; line-height: 1.1; }
 .home-intro__bio { font-size: 1.1rem; line-height: 1.6; color: theme(text); margin: 0.5rem 0 0; }
 
+// ASCII cloud hero: full-bleed band right under the header. Canvas stays hidden
+// until clouds.js takes over (no-JS keeps the plain h1 in the intro).
+.home-hero { width: 100vw; margin-inline: calc(50% - 50vw); margin-top: -2rem; }
+.home-hero__canvas { display: none; width: 100%; height: clamp(7rem, 16vw, 11rem); }
+.home-hero--on .home-hero__canvas { display: block; }
+
 .home-media { display: flex; gap: 0.65rem; justify-content: flex-end; padding-right: 1rem; }
 .home-media__link { display: flex; color: theme(text); transition: color 0.15s ease; }
 .home-media__link svg { width: 1.25rem; height: 1.25rem; }
