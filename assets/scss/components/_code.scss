@@ -23,6 +23,9 @@
   .copy-btn { opacity: 0; }
   .code-wrap:hover .copy-btn, .copy-btn:focus-visible { opacity: 1; }
 }
+@media (hover: none) {
+  .copy-btn { display: none; }
+}
 
 :not(pre) > code { font-size: 0.85em; background: theme(border); color: theme(code); padding: 0.2em 0.4em; border-radius: 0.25rem; font-family: v.$font-mono; }
 
