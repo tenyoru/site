@@ -144,6 +144,9 @@ export const initClouds = (signal) => {
     const isSun = body === SUN;
     const bodyStr = body.join(",");
     const R = Math.max(2.5, rows * 0.17); // body radius, in cells
+    // narrow screens see a thin slice of the sky and can look empty — lower the
+    // condensation threshold as the viewport shrinks (zero on desktop widths)
+    const bias = cols < 110 ? ((110 - cols) / 110) * 0.12 : 0;
     for (let r = 0; r < rows; r++) {
       const y = (r + 0.5) * cell;
       // fade near the band's top/bottom so shapes don't get sliced by the edge
@@ -171,7 +174,10 @@ export const initClouds = (signal) => {
         // the body color where its light hits.
         const far = fbm((c + t * 0.5) * 0.014, r * 0.045 + 19);
         const near = fbm((c + t * 1.4) * 0.02, r * 0.055 + 57);
-        const dens = Math.max(clamp01((far - 0.42) / 0.35) * 0.55, clamp01((near - 0.45) / 0.3));
+        const dens = Math.max(
+          clamp01((far - 0.42 + bias) / 0.35) * 0.55,
+          clamp01((near - 0.45 + bias) / 0.3),
+        );
         if (dist <= R) {
           // The body, in the sky's halftone language: a dense glyph core that
           // loosens toward the rim. Both bodies hide behind clouds (and the
