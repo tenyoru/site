@@ -1,6 +1,7 @@
 @use "../vars" as v;
 @use "../theme" as *;
 
+body { overflow-x: clip; } // 100vw full-bleed elements (.home-hero) overshoot by the scrollbar width
 .shell { margin-inline: auto; box-sizing: border-box; padding: v.$padding-inline; }
 .shell--narrow { max-width: v.content-width(); }
 .inner { justify-content: center; align-items: center; width: 100%; min-height: 80vh; }

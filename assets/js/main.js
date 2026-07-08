@@ -4,6 +4,7 @@ import { initPhotoPreview } from "./photo-preview.js";
 import { initCards } from "./cards.js";
 import { initToc } from "./toc.js";
 import { initCopy } from "./copy.js";
+import { initClouds } from "./clouds.js";
 import { navigate, startRouter } from "./router.js";
 
 // Per-page wiring, re-runnable after every body swap. A fresh AbortController
@@ -22,6 +23,7 @@ const initPage = () => {
   initCards(signal, navigate);
   initToc(signal);
   initCopy(signal);
+  initClouds(signal);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
