@@ -3,9 +3,8 @@ date = '2026-07-01T16:02:39+02:00'
 draft = false
 title = 'AI Involvement Levels'
 tags = ['ai']
+description = "This is a scale for describing how I use AI in a project. It's not a licence — it's a personal covenant, so you don't have to follow it."
 +++
-
-This is a scale for describing how I use AI in a project. It's not a licence — it's a personal covenant, so you don't have to follow it.
 
 ## Levels
 ---
