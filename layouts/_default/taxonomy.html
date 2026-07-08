@@ -2,7 +2,7 @@
 <div class="section shell--narrow">
   <header class="section-header">
     <p class="section-header__label">Tag</p>
-    <h1 class="section-header__title title-lg">{{ .Title }}</h1>
+    <h1 class="section-header__title title-lg"><span class="tag-list__name">{{ .Title }}</span></h1>
   </header>
 
   {{- $pages := sort .Pages "Date" "desc" -}}

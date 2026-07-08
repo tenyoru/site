@@ -3,8 +3,8 @@
 <div class="section shell--narrow">
   <header class="section-header">
     <div class="section-header__top">
-      <h1 class="section-header__title title-lg">{{ .Title }}</h1>
-      <a href="{{ .Permalink }}index.xml" class="section-header__rss" title="RSS Feed">{{- partial "icon" "rss" -}}</a>
+      <h1 class="label">Albums</h1>
+      <a href="{{ .Permalink }}index.xml" class="section-header__rss tag-list__link" title="RSS Feed">{{- partial "icon" "rss" -}}rss</a>
     </div>
     {{ with .Content }}
     <p class="section-header__desc">{{ . | plainify }}</p>

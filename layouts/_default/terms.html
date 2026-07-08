@@ -1,10 +1,11 @@
 {{ define "main" }}
+{{ partial "cloud-hero.html" (upper .Title) }}
 <div class="section shell--narrow">
   <header class="section-header">
-    <h1 class="section-header__title title-lg">{{ .Title }}</h1>
-    {{ with .Content }}
-    <p class="section-header__desc">{{ . | plainify }}</p>
-    {{ end }}
+    <div class="section-header__top">
+      <h1 class="label">{{ .Title }}</h1>
+    </div>
+    <p class="section-header__desc">{{ with .Content }}{{ . | plainify }}{{ else }}Everything I write about, sorted by how often it comes up.{{ end }}</p>
   </header>
 
   {{- $showDrafts := hugo.IsDevelopment -}}

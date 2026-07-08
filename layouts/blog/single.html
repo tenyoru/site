@@ -26,9 +26,6 @@
       {{- end }}
     </div>
     <h1 class="article-title title-lg">{{ .Title }}</h1>
-    {{ with .Description }}
-    <p class="article-desc">{{ . | plainify }}</p>
-    {{ end }}
     {{- with .GetTerms "tags" }}
     <ul class="article-tags tag-list list-none">
       {{- range . -}}
@@ -36,6 +33,9 @@
       {{- end -}}
     </ul>
     {{- end }}
+    {{ with .Description }}
+    <p class="article-desc">{{ . | plainify }}</p>
+    {{ end }}
   </header>
 
   <div class="article-body">
