@@ -10,9 +10,10 @@
 .post-toc__summary { display: inline-flex; align-items: center; justify-content: flex-start; gap: 0.4rem; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: theme(muted); cursor: pointer; list-style: none; user-select: none; }
 .post-toc__summary::-webkit-details-marker { display: none; }
 .post-toc__burger, .post-toc__header { display: none; } // JS-mode chrome
-.no-transition .post-toc__chevron { transition: none !important; }
-.post-toc__chevron { width: 0.4rem; height: 0.4rem; border-right: 1.5px solid currentColor; border-top: 1.5px solid currentColor; transform: rotate(135deg); transition: transform 0.15s ease; order: -1; margin-right: 0.2rem; }
-.post-toc[open] .post-toc__chevron { transform: rotate(-45deg); }
+// Pixel caret: five 2px "pixels" drawn with box-shadow, flipped down while closed.
+.post-toc__chevron { order: -1; margin-right: 0.2rem; position: relative; width: 10px; height: 6px; transform: scaleY(-1); }
+.post-toc__chevron::before { content: ""; position: absolute; top: 0; left: 4px; width: 2px; height: 2px; background: currentColor; box-shadow: -2px 2px currentColor, 2px 2px currentColor, -4px 4px currentColor, 4px 4px currentColor; }
+.post-toc[open] .post-toc__chevron { transform: none; }
 .post-toc__body { margin-top: 1rem; }
 .post-toc__body ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
 .post-toc__body li { line-height: 1.4; }
