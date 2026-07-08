@@ -3,10 +3,10 @@
 <div class="section shell--narrow">
   <header class="section-header">
     <div class="section-header__top">
-      <h1 class="section-header__title title-lg">{{ .Title }}</h1>
-      <a href="{{ .Permalink }}index.xml" class="section-header__rss" title="RSS Feed">{{- partial "icon" "rss" -}}</a>
+      <h1 class="label">Posts</h1>
+      <a href="{{ .Permalink }}index.xml" class="section-header__rss tag-list__link" title="RSS Feed">{{- partial "icon" "rss" -}}rss</a>
       {{ if eq .Section "blog" }}
-      <a href="{{ "/tags/" | relLangURL }}" class="section-header__tags tag-list__link"><span class="tag-list__name">tags</span></a>
+      <a href="{{ "/tags/" | relLangURL }}" class="tag-list__link"><span class="tag-list__name">tags</span></a>
       {{ end }}
     </div>
     {{ with .Content }}

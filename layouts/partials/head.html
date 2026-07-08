@@ -79,6 +79,7 @@
     } catch (_) {}
   })();
 </script>
+<link rel="preload" href="/fonts/Silkscreen-Regular.woff2" as="font" type="font/woff2" crossorigin>
 {{ partialCached "head/scss.html" . }}
 {{ partialCached "head/js.html" . }}
 {{ if and .IsPage (eq .Section "photos") }}{{ partial "head/gallery.html" . }}{{ end }}

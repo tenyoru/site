@@ -3,8 +3,7 @@
 <div class="home shell--narrow">
   {{/* Intro */}}
   <section class="home-intro">
-    <p class="home-intro__greeting">Hey, I'm</p>
-    <h1 class="home-intro__name">{{ .Site.Title }}</h1>
+    <h1 class="label">About</h1>
     {{ with .Content }}<div class="home-intro__bio">{{ . }}</div>{{ end }}
     {{ with .Site.Params.media }}
     <div class="home-media">
@@ -54,7 +53,7 @@
       </li>
       {{ end }}
     </ul>
-    <a href="/blog/" class="list__more link">All posts →</a>
+    <a href="/blog/" class="list__more link">All posts -&gt;</a>
   </section>
   {{ end }}
 </div>

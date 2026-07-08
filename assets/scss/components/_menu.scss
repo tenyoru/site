@@ -40,7 +40,7 @@
 
 .menu-list { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
 .menu-list a { display: flex; align-items: baseline; gap: 0.5rem; font-size: 1.1rem; font-weight: 500; color: theme(muted); padding: 0.5rem 0; transition: color 0.15s ease; }
-.menu-list__num { font-size: 0.65rem; font-weight: 400; color: theme(muted); font-variant-numeric: tabular-nums; letter-spacing: 0.05em; opacity: 0.6; transition: color 0.15s ease, opacity 0.15s ease; }
+.menu-list__num { font-size: 0.65rem; font-weight: 400; color: theme(muted); font-variant-numeric: tabular-nums; letter-spacing: 0.05em; opacity: 0.35; transition: color 0.15s ease, opacity 0.15s ease; }
 .menu-list a.active .menu-list__num { opacity: 1; }
 .menu-list a:focus-visible { color: theme(accent); }
 .menu-list a.active { color: theme(heading); }
