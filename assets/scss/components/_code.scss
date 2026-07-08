@@ -1,7 +1,7 @@
 @use "../theme" as *;
 @use "../vars" as v;
 
-.highlight, pre:not(.chroma) { max-width: 100%; overflow-x: auto; overflow-y: hidden; white-space: pre; border-radius: 0.5rem; background: theme(card); border: 1px solid theme(border); color: theme(code); padding: 1rem 1.25rem; font-size: 0.875rem; line-height: 1.6; font-family: v.$font-mono; scrollbar-width: none; transition: border-color 0.15s ease; }
+.highlight, pre:not(.chroma) { max-width: 100%; overflow-x: auto; overflow-y: hidden; white-space: pre; background: theme(card); border: 2px solid theme(border); border-radius: 3px; color: theme(code); padding: 1rem 1.25rem; font-size: 0.875rem; line-height: 1.6; font-family: v.$font-mono; scrollbar-width: none; transition: border-color 0.15s ease; }
 .highlight::-webkit-scrollbar, pre:not(.chroma)::-webkit-scrollbar { display: none; }
 @media (hover: hover) {
   .highlight:hover, pre:not(.chroma):hover { border-color: theme(accent); }
@@ -12,9 +12,9 @@
 .code-wrap { position: relative; }
 .copy-btn {
   position: absolute; top: 0.5rem; right: 0.5rem;
-  padding: 0.2rem 0.5rem; font-size: 0.75rem; font-family: v.$font-mono;
-  color: theme(muted); background: theme(card); border: 1px solid theme(border);
-  border-radius: 0.25rem; cursor: pointer;
+  padding: 0.2rem 0.5rem; font-size: 0.7rem; font-family: "Silkscreen", monospace;
+  color: theme(muted); background: theme(card); border: 2px solid theme(border);
+  border-radius: 3px; cursor: pointer;
   transition: opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 .copy-btn:hover, .copy-btn:focus-visible { color: theme(accent); border-color: theme(accent); }
