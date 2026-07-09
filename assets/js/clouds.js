@@ -6,6 +6,8 @@ import { $, prefersReducedMotion } from "./dom.js";
 
 const RAMP = " .·:•oO@"; // cloud density → glyph
 const TRANSIT = 75; // seconds for the sun/moon to cross the band
+const FIRST_DELAY = 5; // s before the first rise — soon, so visitors see one
+const gap = () => 15 + Math.random() * 25; // s of empty sky between transits
 // Artwork colors, not UI theme tokens: the sun is warm and the moon is pale
 // regardless of theme (theme only decides which body is up).
 const SUN = [244, 180, 96];
@@ -132,12 +134,19 @@ export const initClouds = (signal) => {
     colors = { heading: parse("--heading"), muted: parse("--muted"), accent: parse("--accent") };
   };
 
+  let riseAt = Infinity; // t of the current/next transit's start
+
   const draw = (t) => {
     readColors();
     ctx.clearRect(0, 0, w, h);
     const { heading, accent } = colors;
     // Terraria-style transit: rise on the left, apex mid-band, set on the right.
-    const p = (t / TRANSIT) % 1;
+    // Transits are episodes, not a loop — after one ends the sky stays empty
+    // for a while, so the body never teleports back to the left edge.
+    if (t >= riseAt + TRANSIT) riseAt = t + gap();
+    const p = (t - riseAt) / TRANSIT;
+    // light ramps in at rise and out at set (and is 0 between transits)
+    const fade = clamp01(Math.min(p, 1 - p) / 0.1);
     const bx = p * (cols + 24) - 12; // start/end just off-band
     const by = rows * (0.9 - 0.72 * Math.sin(p * Math.PI));
     const body = themeKey === "light" ? SUN : MOON;
@@ -153,21 +162,6 @@ export const initClouds = (signal) => {
       const edge = clamp01(Math.min(r, rows - 1 - r) / (rows * 0.18));
       for (let c = 0; c < cols; c++) {
         const x = (c + 0.5) * cell;
-        const dx = c - bx;
-        const dy = r - by;
-        const dist = Math.hypot(dx, dy);
-        // Sun: long wide rays (30papers-style angular lobes) reaching across the
-        // band. Moon: calm circular glow, no rays.
-        // both bodies get a tight glowing circle; the sun adds wide rays that
-        // reach across most of the band
-        const halo = clamp01(1 - dist / (R * (isSun ? 2.4 : 3.2))) ** 1.3;
-        const light = isSun
-          ? clamp01(
-              halo * 0.9 +
-                clamp01(1 - dist / (R * 20)) ** 1.1 *
-                  (0.1 + 1.4 * (0.5 + 0.5 * Math.sin(Math.atan2(dy, dx) * 9 + t * 0.5)) ** 2),
-            )
-          : clamp01(halo * 1.1 + clamp01(1 - dist / (R * 8)) ** 1.5 * 0.7);
         // Halftone sky: a glyph in (almost) every cell — faint dots for open
         // sky, denser marks inside clouds. Two fbm fields at different drift
         // speeds give parallax; clouds wear the theme accent and warm toward
@@ -178,19 +172,40 @@ export const initClouds = (signal) => {
           clamp01((far - 0.42 + bias) / 0.35) * 0.55,
           clamp01((near - 0.45 + bias) / 0.3),
         );
-        if (dist <= R) {
-          // The body, in the sky's halftone language: a dense glyph core that
-          // loosens toward the rim. Both bodies hide behind clouds (and the
-          // wordmark, drawn later) — their light doesn't. The moon's crescent
-          // comes from subtracting an offset disc.
-          let v = clamp01(((R - dist) / R) * 2.2) * (1 - clamp01(dens * 1.7));
-          if (!isSun) {
-            const biteDist = Math.hypot(c - (bx + R * 0.55), r - (by - R * 0.25));
-            v *= clamp01((biteDist - R * 0.55) / (R * 0.45));
-          }
-          if (v > 0.05) {
-            ctx.fillStyle = `rgba(${bodyStr},${0.5 + 0.5 * v})`;
-            ctx.fillText(RAMP[Math.round((0.6 + 0.4 * v) * (RAMP.length - 1))], x, y);
+        let halo = 0;
+        let light = 0;
+        if (fade > 0) {
+          const dx = c - bx;
+          const dy = r - by;
+          const dist = Math.hypot(dx, dy);
+          // Sun: long wide rays (30papers-style angular lobes) reaching across the
+          // band. Moon: calm circular glow, no rays.
+          // both bodies get a tight glowing circle; the sun adds wide rays that
+          // reach across most of the band
+          halo = fade * clamp01(1 - dist / (R * (isSun ? 2.4 : 3.2))) ** 1.3;
+          light =
+            fade *
+            (isSun
+              ? clamp01(
+                  halo * 0.9 +
+                    clamp01(1 - dist / (R * 20)) ** 1.1 *
+                      (0.1 + 1.4 * (0.5 + 0.5 * Math.sin(Math.atan2(dy, dx) * 9 + t * 0.5)) ** 2),
+                )
+              : clamp01(halo * 1.1 + clamp01(1 - dist / (R * 8)) ** 1.5 * 0.7));
+          if (dist <= R) {
+            // The body, in the sky's halftone language: a dense glyph core that
+            // loosens toward the rim. Both bodies hide behind clouds (and the
+            // wordmark, drawn later) — their light doesn't. The moon's crescent
+            // comes from subtracting an offset disc.
+            let v = clamp01(((R - dist) / R) * 2.2) * (1 - clamp01(dens * 1.7));
+            if (!isSun) {
+              const biteDist = Math.hypot(c - (bx + R * 0.55), r - (by - R * 0.25));
+              v *= clamp01((biteDist - R * 0.55) / (R * 0.45));
+            }
+            if (v > 0.05) {
+              ctx.fillStyle = `rgba(${bodyStr},${0.5 + 0.5 * v})`;
+              ctx.fillText(RAMP[Math.round((0.6 + 0.4 * v) * (RAMP.length - 1))], x, y);
+            }
           }
         }
         // clouds are drawn after (over) the body, so it sits behind them.
@@ -217,6 +232,9 @@ export const initClouds = (signal) => {
   const reduced = prefersReducedMotion();
   let raf = 0;
   const loop = (now) => {
+    // t is time since page load, not since init (SPA swaps re-run this), so
+    // anchor the first rise to the first frame we actually draw
+    if (riseAt === Infinity) riseAt = now / 1000 + FIRST_DELAY;
     draw(now / 1000);
     raf = requestAnimationFrame(loop);
   };
@@ -224,6 +242,7 @@ export const initClouds = (signal) => {
   const staticT = TRANSIT * 0.35; // reduced motion: body frozen mid-morning
   resize();
   if (reduced) {
+    riseAt = 0;
     draw(staticT);
     // static frame won't repaint on its own, so follow theme switches
     const mo = new MutationObserver(() => draw(staticT));
