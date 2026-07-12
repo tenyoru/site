@@ -5,7 +5,10 @@
 import { $, prefersReducedMotion } from "./dom.js";
 
 const RAMP = " .·:•oO@"; // cloud density → glyph
-const TRANSIT = 75; // seconds for the sun/moon to cross the band
+const TRANSIT = 75; // seconds for the sun/moon to cross the band (at 100% zoom)
+// Baseline zoom, captured once per page load (module scope, so SPA re-inits
+// don't rebase it and change the speed mid-session).
+const DPR_BASE = window.devicePixelRatio || 1;
 const FIRST_DELAY = 5; // s before the first rise — soon, so visitors see one
 const gap = () => 15 + Math.random() * 25; // s of empty sky between transits
 // Artwork colors, not UI theme tokens: the sun is warm and the moon is pale
@@ -134,7 +137,7 @@ export const initClouds = (signal) => {
     colors = { heading: parse("--heading"), muted: parse("--muted"), accent: parse("--accent") };
   };
 
-  let riseAt = Infinity; // t of the current/next transit's start
+  let riseAt = FIRST_DELAY; // t of the current/next transit's start
 
   const draw = (t) => {
     readColors();
@@ -230,12 +233,21 @@ export const initClouds = (signal) => {
   };
 
   const reduced = prefersReducedMotion();
+  // Page zoom scales devicePixelRatio, and with it the physical size of the
+  // band — a fixed-duration transit then looks faster. Dividing frame time by
+  // the zoom factor keeps all motion (transit, drift, rays) at a constant
+  // on-screen speed: exactly 2x slower wall-clock at 200%, never compounding,
+  // because nothing else in the timing depends on zoom. Accumulating world
+  // time frame by frame also means zooming mid-transit never teleports the body.
   let raf = 0;
+  let wt = 0; // world time, in seconds slowed by zoom
+  let last = 0;
   const loop = (now) => {
-    // t is time since page load, not since init (SPA swaps re-run this), so
-    // anchor the first rise to the first frame we actually draw
-    if (riseAt === Infinity) riseAt = now / 1000 + FIRST_DELAY;
-    draw(now / 1000);
+    const t = now / 1000;
+    // clamp dt: first frame's `last` is 0, and t counts from page load, not init
+    wt += (Math.min(t - last, 0.1) * DPR_BASE) / (window.devicePixelRatio || 1);
+    last = t;
+    draw(wt);
     raf = requestAnimationFrame(loop);
   };
 
