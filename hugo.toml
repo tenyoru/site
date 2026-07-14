@@ -84,6 +84,10 @@ icon = "topo"
 [params.footer]
 credits = "© 2026 Tenyoru"
 
+[params.license]
+name = "CC BY-NC-SA 4.0"
+url = "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+
 [params.giscus]
 repo = "tenyoru/Tenyoru.github.io"
 repoID = "R_kgDOP75SYA"
