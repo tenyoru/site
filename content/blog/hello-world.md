@@ -2,6 +2,7 @@
 date = '2026-05-25T15:03:50+02:00'
 draft = false
 title = 'Hello, World!'
+repost = false
 +++
 
 Hi! Honestly, I'm not sure what's supposed to go in a first post — or if it even needs to exist.
