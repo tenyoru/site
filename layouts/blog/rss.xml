@@ -26,6 +26,7 @@
       {{- with .Description }}
       <description>{{ . | transform.XMLEscape | safeHTML }}</description>
       {{- end }}
+      <repost>{{ ne .Params.repost false }}</repost>
       {{- with .Params.tags }}
         {{- range . }}
       <category>{{ . }}</category>

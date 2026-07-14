@@ -29,6 +29,7 @@
       {{- with .Description }}
       <description>{{ . | transform.XMLEscape | safeHTML }}</description>
       {{- end }}
+      <repost>{{ ne .Params.repost false }}</repost>
       {{- range $rawLinks }}
       {{- $url  := . | replaceRE `^href="` "" | replaceRE `"$` "" }}
       {{- $ext  := path.Ext $url | strings.TrimPrefix "." | lower }}
