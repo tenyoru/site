@@ -2,3 +2,5 @@
 <div class="home-hero" data-cloud-hero="{{ . }}">
   <canvas class="home-hero__canvas" aria-hidden="true"></canvas>
 </div>
+{{- /* Reserve the band's space before first paint (CLS); no-JS still collapses. */}}
+<script>document.currentScript.previousElementSibling.classList.add("home-hero--on");</script>
