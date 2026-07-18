@@ -77,7 +77,7 @@ icon = "telegram"
 
 [[params.projects]]
 name = "topo.love"
-desc = "Startup I'm currently building"
+desc = "Past side project"
 url = "https://topo.love"
 icon = "topo"
 
