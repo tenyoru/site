@@ -8,7 +8,7 @@
         <a href="{{ .url }}" class="link" target="_blank" rel="noopener me">{{ .label }}</a>
         {{ end }}
         {{ with site.Params.contact.contacts.items }}{{ range . }}{{ if eq .icon "mail" }}
-        <a href="{{ .url }}" class="link" rel="me">{{ .label }}</a>
+        <a href="{{ .url }}" class="link" rel="me">{{ .label }}{{ with .value }}<span class="sr-only"> {{ . }}</span>{{ end }}</a>
         {{ end }}{{ end }}{{ end }}
       </div>
     </div>
