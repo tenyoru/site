@@ -21,7 +21,7 @@ I'm at the wheel. The AI rides shotgun. It reads the road ahead, explaining, que
 #### 2b. AI as Autocomplete {#ai-as-autocomplete}
 Now the AI takes the wheel. It writes straight into the editor a line, a block, a whole function and I ride shotgun, reading the road and calling out when it drifts.  I review each piece, accept it, and move on. Faster than the mentor level, but the guarantee is weaker: I understood it well enough to approve it, not necessarily well enough to have written it cold.
 
-### 3 Delegated Development {#delegated-development}
+### 3. Delegated Development {#delegated-development}
 As the name suggests, I delegate the whole build to an agent. It's a gamble: I place my bet, spin the reels, and wait for the jackpot. The speed is unbeatable, but I don't control the process. All I can do is accept the result, whatever it turns out to be.
 
 ---
