@@ -2,7 +2,7 @@
 // behind a pixel-font wordmark; a letter cell warms to the accent color while
 // the near cloud passes behind it. Canvas 2D only, one rAF loop.
 // The wordmark comes from data-cloud-hero="..." on the hero element; empty = clouds only.
-import { $, prefersReducedMotion } from "./dom.js";
+import { $, prefersReducedMotion, storage } from "./dom.js";
 
 const RAMP = " .·:•oO@"; // cloud density → glyph
 const TRANSIT = 75; // seconds for the sun/moon to cross the band (at 100% zoom)
@@ -122,7 +122,7 @@ export const initClouds = (signal) => {
     mask = buildMask(word, cols, rows);
   };
 
-  // ponytail: assumes theme color tokens are 6-digit hex (they are, see _colors.scss)
+  // assumes theme color tokens are 6-digit hex (they are, see _colors.scss)
   let themeKey = null;
   let colors;
   const readColors = () => {
@@ -239,8 +239,17 @@ export const initClouds = (signal) => {
   // on-screen speed: exactly 2x slower wall-clock at 200%, never compounding,
   // because nothing else in the timing depends on zoom. Accumulating world
   // time frame by frame also means zooming mid-transit never teleports the body.
+  // Resume world time from a stored epoch instead of restarting at 0 on every
+  // SPA nav / refresh, so the sky doesn't visibly reset. Anchor never rebases,
+  // so precision drifts after weeks of an open tab — fine here.
+  const WT_ANCHOR_KEY = "cloud-wt-anchor";
+  let anchor = Number(storage?.getItem(WT_ANCHOR_KEY));
+  if (!anchor) {
+    anchor = Date.now();
+    storage?.setItem(WT_ANCHOR_KEY, anchor);
+  }
   let raf = 0;
-  let wt = 0; // world time, in seconds slowed by zoom
+  let wt = (Date.now() - anchor) / 1000; // world time, in seconds slowed by zoom
   let last = 0;
   const loop = (now) => {
     const t = now / 1000;
