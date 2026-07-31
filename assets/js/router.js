@@ -1,4 +1,4 @@
-import { $, $$, prefersReducedMotion } from "./dom.js";
+import { $, $$, prefersReducedMotion, sessionStore } from "./dom.js";
 
 // ---------------------------------------------------------------------------
 // Page cache. A prefetch (or click) stores the pending HTML so the network
@@ -59,7 +59,6 @@ const smoothScrollTo = (to, duration = 350) => {
   requestAnimationFrame(step);
 };
 
-const scrollPositions = new Map();
 let currentPath = location.pathname;
 
 // Re-triggerable blink on the element we just jumped to. CSS :target only fires
@@ -96,7 +95,7 @@ const copyHeadingLink = (url, x, y) => {
 let afterSwap = () => {};
 
 export const navigate = async (url, push = true) => {
-  scrollPositions.set(currentPath, window.scrollY); // remember the page we're leaving
+  sessionStore?.setItem(currentPath, window.scrollY); // remember the page we're leaving
 
   let html;
   try {
@@ -128,7 +127,7 @@ export const navigate = async (url, push = true) => {
     // restore the saved position. Re-apply next frame so late layout can't clamp.
     const anchor = push && location.hash
       && document.getElementById(decodeURIComponent(location.hash.slice(1)));
-    let y = push ? 0 : scrollPositions.get(currentPath) ?? 0;
+    let y = push ? 0 : Number(sessionStore?.getItem(currentPath)) || 0;
     if (anchor) {
       const margin = parseFloat(getComputedStyle(anchor).scrollMarginTop) || 0;
       y = anchor.getBoundingClientRect().top + window.scrollY - margin;
@@ -228,5 +227,20 @@ export const startRouter = (onAfterSwap) => {
   window.addEventListener("popstate", () => {
     if (location.pathname === currentPath) return; // in-page hash change
     navigate(location.href, false);
+  });
+
+  // Leaving to an external site skips navigate() entirely, so its scroll-save
+  // never runs. pagehide covers that (and doesn't disable bfcache like
+  // beforeunload would); pageshow restores on the way back, whether the page
+  // reloaded fresh or was revived from bfcache.
+  window.addEventListener("pagehide", () => {
+    sessionStore?.setItem(currentPath, window.scrollY);
+  });
+  window.addEventListener("pageshow", () => {
+    const y = Number(sessionStore?.getItem(currentPath)) || 0;
+    if (y) {
+      window.scrollTo(0, y);
+      requestAnimationFrame(() => window.scrollTo(0, y));
+    }
   });
 };
