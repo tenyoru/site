@@ -13,11 +13,12 @@
   padding: 0.4rem 0.85rem;
   background: theme(card);
   color: theme(text);
-  border: 1px solid theme(accent);
+  // Same "window" look as .copy-btn / code panels (2px border, 3px radius).
+  border: 2px solid theme(border);
   font-weight: 600;
   font-size: 0.875rem;
   line-height: 1.2;
-  border-radius: 6px;
+  border-radius: 3px;
   white-space: nowrap;
   // Hide fully above the viewport. The extra 1.5rem (vs the 0.5rem reveal gap)
   // clears the bottom edge past y=0 so its accent border can't show as a 1px
@@ -25,6 +26,7 @@
   transform: translateY(calc(-100% - #{v.$header-height} - 1.5rem));
   &:focus {
     transform: translateY(0);
+    border-color: theme(accent); // same hover/focus swap as .copy-btn
     outline: none; // the accent border is the focus indicator
   }
 }
