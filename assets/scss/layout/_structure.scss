@@ -1,11 +1,14 @@
 @use "../vars" as v;
 @use "../theme" as *;
 
-body { overflow-x: clip; } // 100vw full-bleed elements (.home-hero) overshoot by the scrollbar width
+// overflow-x: clip - 100vw full-bleed elements (.home-hero) overshoot by the scrollbar width
+// flex column + min-height - lets .footer's margin-top: auto below pin it to the
+// viewport bottom on short pages instead of trailing off past a full-height .content
+body { overflow-x: clip; display: flex; flex-direction: column; min-height: 100dvh; }
 .shell { margin-inline: auto; box-sizing: border-box; padding: v.$padding-inline; }
 .shell--narrow { max-width: v.content-width(); }
 .inner { justify-content: center; align-items: center; width: 100%; min-height: 80vh; }
-.content { padding-block: 2rem; min-block-size: calc(100dvh - v.$header-height); scroll-margin-top: v.$header-height; }
+.content { padding-block: 2rem; flex: 1 0 auto; scroll-margin-top: v.$header-height; }
 .page-title { text-align: left; margin-block-end: 0.2rem; }
 img, video, iframe { max-width: 100%; height: auto; display: block; }
 
