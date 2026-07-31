@@ -10,7 +10,7 @@
       {{ partial "header.html" . }}
     </header>
   </div>
-    <main id="main-content" tabindex="-1" class="shell content flex flex-col shell--narrow{{ if .Params.cover }} content--has-cover{{ end }}">
+    <main id="main-content" tabindex="-1" class="shell content flex flex-col{{ if not (and (eq .Section "photos") (eq .Kind "section")) }} shell--narrow{{ end }}{{ if .Params.cover }} content--has-cover{{ end }}">
       <div class = "inner">
         {{ block "main" . }}{{ end }}
       </div>
