@@ -23,7 +23,7 @@
 .pagination__link { font-size: 0.875rem; font-weight: 500; }
 .pagination__info { font-size: 0.8rem; color: theme(muted); font-variant-numeric: tabular-nums; }
 
-.tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-bottom: 1rem; margin-bottom: 0.5rem; border-bottom: 1px solid theme(border); }
 .tag-list__link { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.9rem; color: theme(muted); transition: color 0.15s ease; }
 .tag-list__link:hover { color: theme(text); }
 .tag-list__name::before { content: "#"; opacity: 0.5; }
