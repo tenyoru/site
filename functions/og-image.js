@@ -2,7 +2,7 @@ import { ImageResponse, loadGoogleFont } from 'workers-og';
 
 const BG     = '#0e0c0b';
 const TEXT   = '#ddd9d4';
-const MUTED  = '#6b6460';
+const MUTED  = '#a59d97';
 const ACCENT = '#f5b574';
 
 // Satori VDOM node. Passing objects (not an HTML string) to ImageResponse skips
