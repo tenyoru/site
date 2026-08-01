@@ -4,11 +4,14 @@
 @supports selector(:has(*)) {
   @media (max-width: v.mq(sm)) {
     html:has(.menu-mobile[open]) { overflow: hidden; }
-    .site-header-outer:has(.menu-mobile[open]) { backdrop-filter: none; background: theme(bg); }
   }
 }
 
-.site-header-outer { position: sticky; top: 0; z-index: 100; background: theme(header-bg); @include blur-surface(8px); border-bottom: 1px solid color-mix(in srgb, theme(border) 50%, transparent); }
+.site-header-outer { position: sticky; top: 0; z-index: 100; }
+// The blur lives on this inner strip, NOT on .site-header-outer: the fixed
+// .menu-panel is a sibling inside the outer, and an ancestor with
+// backdrop-filter would form a backdrop root and kill the panel's own blur.
+.site-header-bar { background: color-mix(in srgb, theme(bg) 90%, transparent); @include blur-surface(8px); border-bottom: 1px solid theme(border); }
 .site-header { height: v.$header-height; box-sizing: border-box; justify-content: space-between; align-items: center; }
 .header-left { display: flex; align-items: center; }
 
@@ -34,8 +37,9 @@
 .menu-mobile[open] .menu-line:nth-child(2) { opacity: 0; }
 .menu-mobile[open] .menu-line:nth-child(3) { transform: translateY(-50%) rotate(-45deg); }
 
-.menu-panel { position: fixed; top: v.$header-height; left: 0; width: 100vw; height: calc(100vh - v.$header-height); z-index: 9999; display: none; opacity: 0; background: color-mix(in srgb, theme(bg) 90%, transparent); @include blur-surface; border-top: 1px solid theme(border); transition: opacity 0.25s ease, display 0.25s allow-discrete; }
-.menu-mobile[open] .menu-panel { display: flex; opacity: 1; align-items: center; justify-content: center; @starting-style { opacity: 0; } }
+// Same blur strength as .site-header-bar so the two surfaces read as one.
+.menu-panel { position: fixed; top: v.$header-height; left: 0; width: 100vw; height: calc(100vh - v.$header-height); z-index: 9999; display: none; opacity: 0; background: color-mix(in srgb, theme(bg) 90%, transparent); @include blur-surface(8px); border-top: 1px solid theme(border); transition: opacity 0.25s ease, display 0.25s allow-discrete; }
+.site-header-outer:has(.menu-mobile[open]) .menu-panel { display: flex; opacity: 1; align-items: center; justify-content: center; @starting-style { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .menu-panel { transition: none; } }
 
 .menu-list { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }

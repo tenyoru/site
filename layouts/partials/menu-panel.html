@@ -1,0 +1,21 @@
+{{- /* Mobile menu panel. Lives OUTSIDE .site-header-bar (the blurred strip):
+       an ancestor with backdrop-filter forms a backdrop root and would kill
+       this panel's own blur. Toggled via :has() on .site-header-outer. */ -}}
+<div class="menu-panel">
+  <nav class="menu-list">
+    <a href="{{ "/" | relURL }}" class="{{ if .IsHome }}active{{ end }}">
+      <span class="menu-list__num">01</span>
+      Home
+    </a>
+    {{ $page := . }}
+    {{ with site.Menus.main }}
+      {{ range $i, $item := . }}
+        <a href="{{ $item.URL }}" class="{{ if strings.HasPrefix $page.RelPermalink $item.URL }}active{{ end }}">
+          <span class="menu-list__num">{{ printf "%02d" (add $i 2) }}</span>
+          {{ $item.Name }}
+        </a>
+      {{ end }}
+    {{ end }}
+  </nav>
+  {{ partial "theme-switcher.html" }}
+</div>
