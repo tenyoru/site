@@ -23,7 +23,7 @@
   Cross-Origin-Resource-Policy: same-origin
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
-  Link: <{{ $cssURL }}>; rel=preload; as=style
+  Link: <{{ $cssURL }}>; rel=preload; as=style; crossorigin=anonymous
 
 /css/*
   Cache-Control: public, max-age=31536000, immutable
