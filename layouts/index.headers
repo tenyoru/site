@@ -1,16 +1,8 @@
-{{- $opts := dict
-  "enableSourceMap" false
-  "outputStyle" "compressed"
-  "targetPath" "css/main.css"
-  "transpiler" "dartsass"
-  "vars" site.Params.styles
-  "includePaths" (slice "node_modules/bootstrap/scss")
--}}
-{{- $cssURL := "" -}}
-{{- with resources.Get "scss/main.scss" | toCSS $opts -}}
-  {{- $asset := . | minify | fingerprint -}}
-  {{- $cssURL = $asset.RelPermalink -}}
-{{- end -}}
+{{- /* No Link: rel=preload header here on purpose: Cloudflare turns it into a
+     103 Early Hint AND still forwards the same header on the actual 200
+     response, so the browser saw two separate preload signals for the same
+     URL and fetched the CSS twice. The <link rel="stylesheet"> in <head>
+     already discovers it early enough on its own. */ -}}
 /.well-known/atproto-did
   Content-Type: text/plain
 
@@ -23,7 +15,6 @@
   Cross-Origin-Resource-Policy: same-origin
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
-  Link: <{{ $cssURL }}>; rel=preload; as=style; crossorigin=anonymous
 
 /css/*
   Cache-Control: public, max-age=31536000, immutable
