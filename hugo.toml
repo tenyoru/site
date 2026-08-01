@@ -5,6 +5,22 @@ defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 capitalizeListTitles = false
 
+# Generates static/_headers as a Hugo output (see layouts/index.headers) so
+# it can reference the current build's fingerprinted CSS URL for the Link
+# preload header - a plain static/_headers file can't see that hash.
+[mediaTypes."text/netlify"]
+delimiter = ""
+suffixes = []
+
+[outputFormats.Headers]
+mediaType = "text/netlify"
+baseName = "_headers"
+isPlainText = true
+notAlternative = true
+
+[outputs]
+home = ["HTML", "RSS", "Headers"]
+
 [languages]
   [languages.en]
     weight = 1

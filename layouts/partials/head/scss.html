@@ -13,7 +13,10 @@
     {{ else }}
       {{ $min := . | minify }}
       {{ $asset := $min | fingerprint }}
-      <style>{{ $asset.Content | safeCSS }}</style>
+      {{/* External, not inlined: the same fingerprinted URL on every page
+           means the browser fetches it once and reuses it from cache on
+           every other page, instead of re-downloading it inline each time. */}}
+      <link rel="stylesheet" href="{{ $asset.RelPermalink }}" integrity="{{ $asset.Data.Integrity }}" crossorigin="anonymous">
     {{ end }}
   {{ end }}
 {{ end }}
