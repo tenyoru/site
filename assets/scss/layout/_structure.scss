@@ -5,7 +5,9 @@
 // flex column + min-height - lets .footer's margin-top: auto below pin it to the
 // viewport bottom on short pages instead of trailing off past a full-height .content
 body { overflow-x: clip; display: flex; flex-direction: column; min-height: 100dvh; }
-.shell { margin-inline: auto; box-sizing: border-box; padding: v.$padding-inline; }
+// width: 100% - body is a column flex container; without it, .shell's auto
+// margins cancel the flex-item stretch and <main> shrinks to fit-content.
+.shell { width: 100%; margin-inline: auto; box-sizing: border-box; padding: v.$padding-inline; }
 .shell--narrow { max-width: v.content-width(); }
 .inner { width: 100%; }
 .content { padding-block: 2rem; flex: 1 0 auto; scroll-margin-top: v.$header-height; }
