@@ -2,6 +2,7 @@
 date = '2026-06-28T03:31:34+02:00'
 title = "I Build My Corner of the Internet – Here's Why"
 description = "Made my own site to replace social media: no algorithms, no search, no comments. Minimal design, instant loading, nothing extra."
+cover = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Paul_Klee%2C_Swiss_-_Fish_Magic_-_Google_Art_Project.jpg/960px-Paul_Klee%2C_Swiss_-_Fish_Magic_-_Google_Art_Project.jpg"
 tags = ['meta', 'web']
 +++
 

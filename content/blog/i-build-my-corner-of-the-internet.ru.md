@@ -2,6 +2,7 @@
 date = '2026-06-28T03:31:34+02:00'
 title = "Я строю свой уголок интернета — и вот почему"
 description = "Почему личный сайт вместо соцсетей: одностороннее пространство без алгоритмов, комментариев и регуляций — только текст, пять цветов и мгновенные переходы."
+cover = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Paul_Klee%2C_Swiss_-_Fish_Magic_-_Google_Art_Project.jpg/960px-Paul_Klee%2C_Swiss_-_Fish_Magic_-_Google_Art_Project.jpg"
 tags = ['meta', 'web']
 +++
 
