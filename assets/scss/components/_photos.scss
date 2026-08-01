@@ -52,9 +52,11 @@ html:has(.photo-preview[open]) {
   border: none;
   color: theme(subtle);
   cursor: pointer;
+  font-family: "Silkscreen", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
   transition: color 0.15s ease;
   &:hover { color: theme(text); }
-  svg { width: 1.1rem; height: 1.1rem; }
 }
 
 .photo-preview__stage {
@@ -79,7 +81,9 @@ html:has(.photo-preview[open]) {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.75rem;
+  font-family: "Silkscreen", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
   color: theme(subtle);
   white-space: nowrap;
   pointer-events: none;

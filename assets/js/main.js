@@ -26,8 +26,20 @@ const initPage = () => {
   initClouds(signal);
 };
 
+// .menu-panel lives outside .site-header-outer (see menu-panel.html) and
+// isn't touched by the router's swap, so a session-level delegated listener
+// is enough - same reasoning as bindThemeControls().
+const bindMenuClose = () => {
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("[data-menu-close]")) return;
+    const details = document.querySelector(".menu-mobile");
+    if (details) details.open = false;
+  });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   bindThemeControls();
+  bindMenuClose();
   startRouter(initPage); // the router calls initPage() after every swap
   initPage();
 });
