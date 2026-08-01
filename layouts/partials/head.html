@@ -37,11 +37,16 @@
 {{- $hasCustom := false -}}
 {{- if .IsPage -}}
   {{- with .Params.cover -}}
-    {{- $path := printf "images/posts/%s" . -}}
-    {{- with resources.Get $path -}}
-      {{- $raw := .Permalink | absURL -}}
-      {{- $ogImageURL = cond site.Params.r2Transforms (printf "%s/cdn-cgi/image/width=1200,height=630,fit=cover,format=webp,quality=80/%s" site.Params.r2BaseURL $.Params.cover) $raw -}}
+    {{- if hasPrefix . "http" -}}
+      {{- $ogImageURL = . -}}
       {{- $hasCustom = true -}}
+    {{- else -}}
+      {{- $path := printf "images/posts/%s" . -}}
+      {{- with resources.Get $path -}}
+        {{- $raw := .Permalink | absURL -}}
+        {{- $ogImageURL = cond site.Params.r2Transforms (printf "%s/cdn-cgi/image/width=1200,height=630,fit=cover,format=webp,quality=80/%s" site.Params.r2BaseURL $.Params.cover) $raw -}}
+        {{- $hasCustom = true -}}
+      {{- end -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

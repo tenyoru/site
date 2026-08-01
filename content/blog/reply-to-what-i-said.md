@@ -4,6 +4,7 @@ draft = false
 title = 'Reply to a Comment, Not an Assumption'
 tags = ['war', 'story', 'response']
 description = "A comment about the visual design of an anti-war poster got read as a moral position on war I never stated. A reply, and why it's here instead of on Mastodon."
+cover = "https://media.tech.lgbt/media_attachments/files/116/901/692/881/050/532/original/97c19b38d1e7cf26.webp"
 repost = false
 +++
 
