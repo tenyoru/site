@@ -4,8 +4,10 @@ draft = false
 title = 'Links'
 repost = false
 pin = true
+recent = false
 description = 'Links I found interesting or useful.'
 tags = ['meta']
+cover = 'https://i.pinimg.com/736x/2a/11/08/2a11086bfcc50e6d2207fa3411615025.jpg'
 +++
 
 tndntsdnsdtntsd
