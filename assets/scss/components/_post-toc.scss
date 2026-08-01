@@ -31,7 +31,9 @@
     // The circle never changes shape/position; the sheet covers it when open.
     .post-toc { position: fixed; right: 1.25rem; bottom: 1.25rem; left: auto; z-index: 50; margin: 0; padding: 0; border: none; background: transparent; --toc-anim: 0.2s; }
     .post-toc__label, .post-toc__chevron { display: none; }
-    .post-toc__summary { display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; border-radius: 50%; background: theme(card); color: theme(text); border: 1px solid theme(border); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18); transition: color 0.15s ease, border-color 0.15s ease; }
+    // Round, toned down toward the page background so it sits quietly
+    // in the corner; hover still lights it up with the accent.
+    .post-toc__summary { display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; border-radius: 50%; background: color-mix(in srgb, theme(card) 60%, theme(bg)); color: color-mix(in srgb, theme(muted) 70%, theme(bg)); border: 1px solid color-mix(in srgb, theme(border) 55%, theme(bg)); transition: color 0.15s ease, border-color 0.15s ease; }
     @media (hover: hover) { // avoid sticky :hover on touch
       .post-toc__summary:hover { color: theme(accent); border-color: theme(accent); }
     }

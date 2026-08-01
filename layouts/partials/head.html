@@ -1,8 +1,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f4f2">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161411">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f4e9">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0b09">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -78,7 +78,7 @@
       var storedTheme = localStorage.getItem('preferred-theme');
       var theme = storedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.documentElement.dataset.theme = theme;
-      document.documentElement.style.background = theme === 'dark' ? '#161411' : '#f6f4f2';
+      document.documentElement.style.background = theme === 'dark' ? '#0d0b09' : '#f8f4e9';
       document.documentElement.style.color = theme === 'dark' ? '#ddd9d4' : '#2b2621';
       document.documentElement.style.colorScheme = theme;
     } catch (_) {}
