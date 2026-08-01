@@ -40,7 +40,18 @@
 // [open] is removed the instant the menu closes, so anything not covered by
 // the opacity/display transition would snap back immediately and "teleport"
 // while the panel is still fading out.
-.menu-panel { position: fixed; top: v.$header-height; left: 0; width: 100vw; height: calc(100vh - v.$header-height); z-index: 9999; display: none; opacity: 0; align-items: center; justify-content: center; background: color-mix(in srgb, theme(bg) 90%, transparent); @include blur-surface(8px); border-top: 1px solid theme(border); transition: opacity 0.25s ease, display 0.25s allow-discrete; }
+// The box spans the full screen (header included) purely so its content
+// centers against the true viewport middle instead of the shorter area
+// below the header, which read as too low. The header itself must stay
+// uncovered, so the visible surface (blur/tint/border) is a separate layer
+// (::before) that starts below it, not the box's own background.
+// pointer-events: none - the box's own hit area now reaches over the header
+// (see above), which would otherwise block clicks on [ x ] there even though
+// nothing is painted over it. Re-enabled on the actual visible/clickable
+// pieces below.
+.menu-panel { position: fixed; inset: 0; z-index: 9999; display: none; opacity: 0; align-items: center; justify-content: center; pointer-events: none; transition: opacity 0.25s ease, display 0.25s allow-discrete; }
+.menu-panel::before { content: ""; position: absolute; top: v.$header-height; left: 0; right: 0; bottom: 0; z-index: -1; background: color-mix(in srgb, theme(bg) 90%, transparent); @include blur-surface(8px); border-top: 1px solid theme(border); }
+.menu-panel > * { pointer-events: auto; }
 .site-header-outer:has(.menu-mobile[open]) .menu-panel { display: flex; opacity: 1; @starting-style { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .menu-panel { transition: none; } }
 
