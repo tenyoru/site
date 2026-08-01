@@ -48,4 +48,7 @@
   .menu-list a:hover .menu-list__num { opacity: 1; }
 }
 
+// Same shared partial as the footer's switcher, pinned to the panel's bottom-right.
+.menu-panel .theme-switcher { position: absolute; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); }
+
 @media (max-width: v.mq(sm)) { .menu-desktop { display: none; } .menu-mobile { display: block; } }

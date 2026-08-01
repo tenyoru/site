@@ -15,17 +15,7 @@
     {{ end }}
     <div class="footer__row">
       <span class="footer__credits">{{ or $footer.credits (printf "© %d %s" now.Year site.Title) }} · <a href="{{ site.Params.license.url }}" class="link" target="_blank" rel="noopener license">{{ site.Params.license.name }}</a></span>
-      <div class="theme-switcher" role="radiogroup" aria-label="Color theme">
-        <button class="theme-switcher__btn" type="button" data-theme-value="system" aria-label="System theme">
-          {{ partial "icon" "system" }}
-        </button>
-        <button class="theme-switcher__btn" type="button" data-theme-value="light" aria-label="Light theme">
-          {{ partial "icon" "sun" }}
-        </button>
-        <button class="theme-switcher__btn" type="button" data-theme-value="dark" aria-label="Dark theme">
-          {{ partial "icon" "moon" }}
-        </button>
-      </div>
+      {{ partial "theme-switcher.html" }}
     </div>
   </div>
 </footer>
