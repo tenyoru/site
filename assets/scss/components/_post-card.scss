@@ -16,7 +16,9 @@
 .section-header__title .tag-list__name { font-size: clamp(1.85rem, 4.5vw, 2.25rem); }
 // Center the label+heading as one group (fit to the wider heading) so "Tag"
 // sits at the heading's left edge instead of centering on its own, narrower line.
-.tag-header { margin-bottom: 2rem; }
+.tag-header { margin-bottom: 3rem; }
+.tag-header__desc { margin: 0 0 0.5rem; }
+.tag-header__desc p { margin: 0; }
 .tag-header__group { width: fit-content; margin-inline: auto; }
 .tag-header__group .section-header__label { font-size: 0.9rem; margin-bottom: -0.2rem; }
 
