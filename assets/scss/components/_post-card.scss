@@ -12,6 +12,13 @@
 .section-header__rss svg { width: 1em; height: 1em; }
 .section-header__label { font-size: 0.8rem; font-weight: 500; line-height: 1.2; color: theme(muted); margin: 0; }
 .section-header__label + .section-header__title { margin-top: 0; margin-left: -0.05em; }
+// Single-tag page: a short word (e.g. "AI") looks lost at full heading size.
+.section-header__title .tag-list__name { font-size: clamp(1.85rem, 4.5vw, 2.25rem); }
+// Center the label+heading as one group (fit to the wider heading) so "Tag"
+// sits at the heading's left edge instead of centering on its own, narrower line.
+.tag-header { margin-bottom: 2rem; }
+.tag-header__group { width: fit-content; margin-inline: auto; }
+.tag-header__group .section-header__label { font-size: 0.9rem; margin-bottom: -0.2rem; }
 
 .post-list { display: flex; flex-direction: column; list-style: none; margin: 0; padding: 0; }
 .post-item { padding: 1rem 0; border-bottom: 1px solid theme(border); }
@@ -23,7 +30,9 @@
 .pagination__link { font-size: 0.875rem; font-weight: 500; }
 .pagination__info { font-size: 0.8rem; color: theme(muted); font-variant-numeric: tabular-nums; }
 
-.tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-bottom: 1rem; margin-bottom: 0.5rem; border-bottom: 1px solid theme(border); }
+.tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+// The /tags/ index only - not .article-tags (a post's own tag footer).
+.tag-list:not(.article-tags) { padding-bottom: 0.75rem; border-bottom: 1px solid theme(border); }
 .tag-list__link { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.9rem; color: theme(muted); transition: color 0.15s ease; }
 .tag-list__link:hover { color: theme(text); }
 .tag-list__name::before { content: "#"; opacity: 0.5; }

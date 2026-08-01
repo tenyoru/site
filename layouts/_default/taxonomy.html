@@ -1,9 +1,13 @@
 {{ define "main" }}
 <div class="section shell--narrow">
-  <header class="section-header">
-    <p class="section-header__label">Tag</p>
-    <h1 class="section-header__title title-lg"><span class="tag-list__name">{{ .Title }}</span></h1>
+  <header class="section-header tag-header">
+    <div class="tag-header__group">
+      <p class="section-header__label">Tag</p>
+      <h1 class="section-header__title title-lg"><span class="tag-list__name">{{ .Title }}</span></h1>
+    </div>
   </header>
+
+  <h2 class="label">Posts</h2>
 
   {{- $pages := sort .Pages "Date" "desc" -}}
   {{- $showDrafts := hugo.IsDevelopment -}}
