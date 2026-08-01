@@ -1,29 +1,29 @@
 $themes: (
   light: (
-    bg: #f6f4f2,
-    text: #322c26,
-    muted: #6a625a,
+    bg: #f8f4e9,
+    text: #3a332a,
+    muted: #756a58,
     accent: #1d4ed8,
-    card: #efece9,
-    border: #d6d0c9,
+    card: #f1ebdc,
+    border: #ded4bf,
     link: #1d4ed8,
     code: #1a1714,
-    subtle: #5f5850,
-    heading: #0d0b0a,
+    subtle: #665c4d,
+    heading: #171310,
     grain-opacity: 0.03
   ),
   dark: (
-    bg: #161411,
-    text: #d4cfc9,
-    muted: #978d83,
+    bg: #0d0b09,
+    text: #cdc7bd,
+    muted: #948b7e,
     accent: #e5b77e,
-    card: #121009,
-    border: #2e2a20,
+    card: #171411,
+    border: #2e2a24,
     link: #e5b77e,
     code: #ffffff,
-    subtle: #b0a89f,
-    heading: #faf9f7,
-    grain-opacity: 0.07
+    subtle: #b1a99d,
+    heading: #f6f3ee,
+    grain-opacity: 0.09
   )
 );
 $default-theme: dark !default;
