@@ -10,3 +10,5 @@ tags = ['meta']
 cover = 'https://i.pinimg.com/736x/2a/11/08/2a11086bfcc50e6d2207fa3411615025.jpg'
 +++
 
+## AI
+[30papers](https://30papers.com/) - website is based on a rumoured list of papers that Ilya Sutskever gave to John Carmack
