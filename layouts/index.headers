@@ -1,3 +1,16 @@
+{{- $opts := dict
+  "enableSourceMap" false
+  "outputStyle" "compressed"
+  "targetPath" "css/main.css"
+  "transpiler" "dartsass"
+  "vars" site.Params.styles
+  "includePaths" (slice "node_modules/bootstrap/scss")
+-}}
+{{- $cssURL := "" -}}
+{{- with resources.Get "scss/main.scss" | toCSS $opts -}}
+  {{- $asset := . | minify | fingerprint -}}
+  {{- $cssURL = $asset.RelPermalink -}}
+{{- end -}}
 /.well-known/atproto-did
   Content-Type: text/plain
 
@@ -10,6 +23,7 @@
   Cross-Origin-Resource-Policy: same-origin
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Link: <{{ $cssURL }}>; rel=preload; as=style
 
 /css/*
   Cache-Control: public, max-age=31536000, immutable
