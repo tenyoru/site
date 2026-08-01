@@ -15,7 +15,9 @@
   </header>
 
   {{- $showDrafts := or hugo.IsDevelopment hugo.IsDevelopment -}}
-  {{- $pages := .RegularPages -}}
+  {{- $pinned := where .RegularPages "Params.pin" true -}}
+  {{- $rest := where .RegularPages "Params.pin" "!=" true -}}
+  {{- $pages := $pinned | append $rest -}}
 
   {{- if gt (len $pages) 0 -}}
     <ul class="post-list list-none">

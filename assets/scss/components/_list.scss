@@ -5,5 +5,6 @@
 .list__link { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.35rem 0; color: theme(text); transition: color 0.15s ease; }
 .list__link:hover .list__link-date { color: theme(accent); }
 .list__link-title { font-weight: 500; }
+.star-icon { width: 0.8em; height: auto; margin-right: 0.35em; color: theme(accent); vertical-align: -0.05em; }
 .list__link-date { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: theme(muted); flex-shrink: 0; transition: color 0.15s ease; }
 .list__more { font-size: 0.85rem; font-weight: 500; }
