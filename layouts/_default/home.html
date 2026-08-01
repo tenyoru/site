@@ -41,6 +41,7 @@
 
   {{/* Recent Posts */}}
   {{ $posts := where .Site.RegularPages "Section" "blog" }}
+  {{ $posts = where $posts "Params.recent" "!=" false }}
   {{ with $posts | first 5 }}
   <section class="list">
     <h2 class="label">Recent posts</h2>
@@ -48,7 +49,7 @@
       {{ range . }}
       <li class="list__item">
         <a href="{{ .RelPermalink }}" class="list__link">
-          <span class="list__link-title">{{ .Title }}</span>
+          <span class="list__link-title">{{ if .Params.pin }}{{ partial "icon" "star" }}{{ end }}{{ .Title }}</span>
           <time class="list__link-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2006" }}</time>
         </a>
       </li>
