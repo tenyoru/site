@@ -239,18 +239,23 @@ export const initClouds = (signal) => {
   // on-screen speed: exactly 2x slower wall-clock at 200%, never compounding,
   // because nothing else in the timing depends on zoom. Accumulating world
   // time frame by frame also means zooming mid-transit never teleports the body.
-  // Resume world time from a stored epoch instead of restarting at 0 on every
-  // SPA nav / refresh, so the sky doesn't visibly reset. Anchor never rebases,
-  // so precision drifts after weeks of an open tab — fine here.
-  const WT_ANCHOR_KEY = "cloud-wt-anchor";
-  let anchor = Number(storage?.getItem(WT_ANCHOR_KEY));
-  if (!anchor) {
-    anchor = Date.now();
-    storage?.setItem(WT_ANCHOR_KEY, anchor);
-  }
+  // Resume world time from where it was last saved instead of restarting at 0
+  // on every SPA nav / refresh, so the sky doesn't visibly reset. The gap is
+  // capped so a long absence (tab closed for hours) advances the scene by a
+  // bounded amount instead of jumping to a wildly different pattern/transit.
+  const WT_KEY = "cloud-wt";
+  const WT_SEEN_KEY = "cloud-wt-seen";
+  const WT_MAX_GAP = 90; // seconds
+  const wtNow = Date.now();
+  const savedWt = Number(storage?.getItem(WT_KEY)) || 0;
+  const lastSeen = Number(storage?.getItem(WT_SEEN_KEY)) || wtNow;
   let raf = 0;
-  let wt = (Date.now() - anchor) / 1000; // world time, in seconds slowed by zoom
+  let wt = savedWt + Math.min((wtNow - lastSeen) / 1000, WT_MAX_GAP); // world time, in seconds slowed by zoom
   let last = 0;
+  const saveWt = () => {
+    storage?.setItem(WT_KEY, wt);
+    storage?.setItem(WT_SEEN_KEY, Date.now());
+  };
   const loop = (now) => {
     const t = now / 1000;
     // clamp dt: first frame's `last` is 0, and t counts from page load, not init
@@ -271,7 +276,12 @@ export const initClouds = (signal) => {
     signal.addEventListener("abort", () => mo.disconnect());
   } else {
     raf = requestAnimationFrame(loop);
-    signal.addEventListener("abort", () => cancelAnimationFrame(raf));
+    signal.addEventListener("abort", () => {
+      cancelAnimationFrame(raf);
+      saveWt();
+    });
+    // pagehide covers reload/tab close/backgrounding, which abort doesn't see
+    window.addEventListener("pagehide", saveWt, { signal });
   }
   window.addEventListener(
     "resize",
