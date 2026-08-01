@@ -3,6 +3,10 @@
 // Layout
 .flex { display: flex; }
 .flex-col { display: flex; flex-direction: column; }
+// Lets a flex/grid item shrink below its content's intrinsic width instead
+// of forcing the row wider (the default min-width: auto fights overflow-x:
+// auto on a child - see .article-content).
+.min-w-0 { min-width: 0; }
 
 // Resets
 .list-none { list-style: none; margin: 0; padding: 0; }

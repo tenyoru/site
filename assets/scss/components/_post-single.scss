@@ -18,7 +18,7 @@
 
 .article-body { display: flex; flex-direction: column; gap: 2rem; }
 
-.article-content { line-height: 1.75; color: theme(text); }
+.article-content { min-width: 0; line-height: 1.75; color: theme(text); }
 .article-content > :first-child { margin-top: 0; }
 .article-content > * { margin-top: 1.5rem; margin-bottom: 0; }
 .article-content p, .article-content ul, .article-content ol { margin-top: 1.25rem; }
