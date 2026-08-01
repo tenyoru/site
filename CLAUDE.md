@@ -66,7 +66,7 @@ CSS-variables-based theming generated from Sass maps.
 ## Layout & Content
 
 - Templates inherit from `layouts/_default/baseof.html` via `{{ define "main" }}`. Body is wrapped in `<main id="main-content">` (skip-link target) inside `.inner`.
-- Shell widths: `.shell--narrow` (820px, default), `.post-column` (70ch). `/photos/` (`.Kind == "section"`) is deliberately exempt from `shell--narrow` in `baseof.html` — full width, not centered.
+- Shell widths: `.shell--narrow` (820px) on every page, including `/photos/`. `.shell` needs its `width: 100%` — `<main>` is a flex item of the column-flex `body`, and auto inline margins would otherwise cancel the stretch and shrink it to fit-content.
 - `_default/section.html` is the blog listing (and forces drafts visible in dev). Taxonomy: `taxonomy.html` (single tag) + `terms.html` (all tags). Sections with bespoke templates: `photos/`, `contact/`.
 - **Pinning:** `pin = true` in front matter sorts a post/album first on `/blog/` or `/photos/` (date order preserved within each group; see `where ... "Params.pin"` in `_default/section.html` / `photos/list.html`), with a star icon (`assets/images/star.svg`) next to the title. Home's "Recent posts" is untouched by design.
 - Custom code-fence render hook: `layouts/_default/_markup/render-codeblock.html` strips Hugo's auto-added `tabindex` from highlighted `<pre>`.
