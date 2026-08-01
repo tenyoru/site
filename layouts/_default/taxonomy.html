@@ -7,6 +7,11 @@
     </div>
   </header>
 
+  {{ with .Content }}
+  <h2 class="label tag-header__desc-label">About</h2>
+  <div class="section-header__desc tag-header__desc">{{ . }}</div>
+  {{ end }}
+
   <h2 class="label">Posts</h2>
 
   {{- $pages := sort .Pages "Date" "desc" -}}
