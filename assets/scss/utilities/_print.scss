@@ -1,5 +1,7 @@
 @media print {
   .site-header-outer, .footer, .post-nav, .post-toc { display: none !important; }
+  body::after { display: none !important; } // paper grain
+
   body { background: white !important; color: black !important; }
   .shell, .shell--narrow { max-width: 100% !important; padding: 0 !important; }
   a { color: black !important; text-decoration: underline !important; }

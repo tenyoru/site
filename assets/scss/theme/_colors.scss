@@ -10,7 +10,8 @@ $themes: (
     code: #1a1714,
     subtle: #5f5850,
     heading: #0d0b0a,
-    header-bg: rgba(246, 244, 242, 0.6)
+    header-bg: rgba(246, 244, 242, 0.6),
+    grain-opacity: 0.03
   ),
   dark: (
     bg: #161411,
@@ -23,7 +24,8 @@ $themes: (
     code: #ffffff,
     subtle: #b0a89f,
     heading: #faf9f7,
-    header-bg: rgba(22, 20, 17, 0.8)
+    header-bg: rgba(22, 20, 17, 0.8),
+    grain-opacity: 0.07
   )
 );
 $default-theme: dark !default;
