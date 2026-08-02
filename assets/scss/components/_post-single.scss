@@ -39,7 +39,7 @@
 .article-content :is(h2, h3, h4) + * { margin-top: 0.5rem; }
 .article-content ul, .article-content ol { padding-inline-start: 1.5rem; }
 .article-content p a, .article-content li a { color: theme(accent); }
-.article-content p a:hover, .article-content li a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+.article-content p a:hover, .article-content li a:hover { @include dashed-underline; }
 .article-content h1 a, .article-content h2 a, .article-content h3 a, .article-content h4 a { color: inherit; }
 @media (hover: hover) { // avoid sticky :hover accent lingering on touch taps
   .article-content h1 a:hover, .article-content h2 a:hover, .article-content h3 a:hover, .article-content h4 a:hover { color: theme(accent); }

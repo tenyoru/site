@@ -1,5 +1,4 @@
 @use "../theme" as *;
 
-.theme-switcher { border: none; background: none; padding: 0; font-family: "Silkscreen", monospace; font-size: 0.7rem; letter-spacing: 0.05em; color: theme(muted); cursor: pointer; transition: color 0.15s ease; }
+.theme-switcher { border: none; background: none; padding: 0; font-family: "Silkscreen", monospace; font-size: 0.7rem; letter-spacing: 0.05em; color: theme(muted); cursor: pointer; transition: color 0.15s ease; @include dashed-underline; }
 .theme-switcher:hover, .theme-switcher:focus-visible { color: theme(accent); }
-.theme-switcher [data-theme-label] { font-family: system-ui, -apple-system, sans-serif; font-size: 0.8rem; letter-spacing: normal; }
