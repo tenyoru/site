@@ -21,6 +21,15 @@
   backdrop-filter: blur($amount);
 }
 
+// Site-default underline: dashed, drawn as a background line so it never
+// affects box height (unlike border-bottom / padding).
+@mixin dashed-underline($color: theme(accent), $dash: 3px, $gap: 3px) {
+  background-image: repeating-linear-gradient(to right, $color 0, $color $dash, transparent $dash, transparent #{$dash + $gap});
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  background-repeat: repeat-x;
+}
+
 // Default theme + prepare UA color-scheme hint
 :root {
   @include emit-theme-vars(map.get(c.$themes, c.$default-theme));
