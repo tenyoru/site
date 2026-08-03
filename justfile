@@ -5,11 +5,18 @@ project := "tenyoru"
 # --environment production pins prod templating regardless of any ambient
 # HUGO_ENVIRONMENT in the caller's shell.
 build:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    [ -n "${DEVENV_ROOT:-}" ] || exec devenv shell -- just build
     rm -rf public
     hugo --environment production
 
-deploy project=project: build
-    @grep -q livereload public/index.html && { echo "refusing to deploy: public/ contains dev-server output"; exit 1; } || true
+deploy project=project:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    [ -n "${DEVENV_ROOT:-}" ] || exec devenv shell -- just deploy {{project}}
+    just build
+    grep -q livereload public/index.html && { echo "refusing to deploy: public/ contains dev-server output"; exit 1; } || true
     npm install
     wrangler pages deploy public --project-name {{project}} --commit-dirty=true
 
