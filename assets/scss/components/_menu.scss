@@ -50,6 +50,10 @@
 // nothing is painted over it. Re-enabled on the actual visible/clickable
 // pieces below.
 .menu-panel { position: fixed; inset: 0; z-index: 9999; display: none; opacity: 0; align-items: center; justify-content: center; pointer-events: none; transition: opacity 0.25s ease, display 0.25s allow-discrete; }
+// Same blur strength as .site-header-bar so the two surfaces read as one.
+// No backdrop-filter transition here - recomputing blur every animation
+// frame is far more expensive in Gecko/non-WebKit engines than computing it
+// once at full strength.
 .menu-panel::before { content: ""; position: absolute; top: v.$header-height; left: 0; right: 0; bottom: 0; z-index: -1; background: color-mix(in srgb, theme(bg) 90%, transparent); @include blur-surface(8px); border-top: 1px solid theme(border); pointer-events: auto; }
 .menu-panel > * { pointer-events: auto; }
 .site-header-outer:has(.menu-mobile[open]) .menu-panel { display: flex; opacity: 1; @starting-style { opacity: 0; } }
@@ -70,6 +74,6 @@
 // Mirrored on the bottom-left - reachable one-handed (left thumb) without
 // reaching back up to the toggle in the header.
 .menu-panel__close { position: absolute; left: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); border: none; background: none; padding: 0; font-family: "Silkscreen", monospace; font-size: 0.7rem; letter-spacing: 0.05em; color: theme(muted); cursor: pointer; transition: color 0.15s ease; }
-.menu-panel__close:hover, .menu-panel__close:focus-visible { color: theme(accent); }
+@media (hover: hover) { .menu-panel__close:hover, .menu-panel__close:focus-visible { color: theme(accent); } }
 
 @media (max-width: v.mq(sm)) { .menu-desktop { display: none; } .menu-mobile { display: block; } }
