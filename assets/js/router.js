@@ -180,6 +180,10 @@ export const startRouter = (onAfterSwap) => {
   afterSwap = onAfterSwap;
   history.scrollRestoration = "manual";
 
+  // The page we booted on is already in the DOM — seed the cache with it so
+  // navigating back here doesn't re-fetch what we already have.
+  cache.set(location.href, Promise.resolve(document.documentElement.outerHTML));
+
   // Intent prefetch: warm the cache after the cursor/focus rests on a link for
   // ~150ms; cancel if it leaves first. Sweeping/tabbing through prefetches none.
   let intentTimer;
