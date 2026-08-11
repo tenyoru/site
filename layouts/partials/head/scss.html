@@ -15,8 +15,14 @@
       {{ $asset := $min | fingerprint }}
       {{/* External, not inlined: the same fingerprinted URL on every page
            means the browser fetches it once and reuses it from cache on
-           every other page, instead of re-downloading it inline each time. */}}
-      <link rel="stylesheet" href="{{ $asset.RelPermalink }}" integrity="{{ $asset.Data.Integrity }}" crossorigin="anonymous">
+           every other page, instead of re-downloading it inline each time.
+           onerror: a stylesheet can fail silently (flaky mobile connection,
+           a privacy browser stripping the request, a stale cached HTML
+           pointing at a fingerprint that's since rolled) leaving the page
+           fully unstyled with no visible sign anything went wrong. One
+           retry via reload; the flag stops a genuinely broken deploy from
+           reload-looping forever. */}}
+      <link rel="stylesheet" href="{{ $asset.RelPermalink }}" integrity="{{ $asset.Data.Integrity }}" crossorigin="anonymous" onerror="if(!sessionStorage.getItem('css-retry')){sessionStorage.setItem('css-retry','1');location.reload();}" onload="sessionStorage.removeItem('css-retry')">
     {{ end }}
   {{ end }}
 {{ end }}
