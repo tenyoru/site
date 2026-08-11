@@ -20,6 +20,6 @@
 
 // Error pages
 .error-page { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0.5rem; min-height: 70vh; }
-.error-page__code { font-size: clamp(5rem, 18vw, 9rem); font-weight: 800; color: theme(accent); margin: 0; line-height: 1; letter-spacing: -0.04em; }
-.error-page__title { font-size: 1.5rem; font-weight: 700; color: theme(heading); margin: 0.5rem 0 0; }
-.error-page__body { color: theme(muted); margin: 0 0 1rem; }
+.error-page__code { font-family: "Silkscreen", monospace; font-size: clamp(3.5rem, 12vw, 6rem); font-weight: 400; color: theme(accent); margin: 0; line-height: 1; letter-spacing: -0.02em; }
+.error-page__title { font-size: 1.75rem; font-weight: 700; color: theme(heading); margin: 0.5rem 0 0; }
+.error-page__body { font-size: 1.15rem; color: theme(muted); margin: 0 0 1rem; }
