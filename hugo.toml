@@ -37,7 +37,7 @@ r2Thumb = "cdn-cgi/image/width=600,format=webp"
 
 [params.banner]
 enabled = true
-text = "Currently open to new opportunities."
+text = "Open to new roles."
 url = "/contact/"
 
 [params.contact.contacts]
