@@ -6,7 +6,7 @@
 // Same "window" look as .copy-btn / code panels. The whole panel is the
 // link (button-like); hover only highlights the border + the CTA (not the
 // body text), same restraint as the global a:hover convention elsewhere.
-.home-banner { @include terminal-panel; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.4rem 1rem; padding: 0.65rem 1rem; color: theme(text); font-size: clamp(0.7rem, 3.4vw, 0.875rem); margin-bottom: calc(clamp(2.5rem, 6vw, 3.5rem) * -1 + 1rem); transition: border-color 0.15s ease; }
+.home-banner { @include terminal-panel; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem 1rem; padding: 0.65rem 1rem; color: theme(text); font-size: clamp(0.7rem, 3.4vw, 0.875rem); margin-bottom: calc(clamp(2.5rem, 6vw, 3.5rem) * -1 + 1rem); transition: border-color 0.15s ease; }
 // Counteracts the global a:hover { color: accent } - .home-banner__text has
 // no color of its own, so without this it'd inherit the accent from the
 // <a> itself and the whole line would flip color along with the border.
