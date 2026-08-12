@@ -3,12 +3,23 @@
 
 .home { padding-block: clamp(3rem, 8vw, 5rem) clamp(2rem, 6vw, 4rem); display: flex; flex-direction: column; gap: clamp(2.5rem, 6vw, 3.5rem); }
 
-// Terminal-panel look: same "window" treatment as .skip-link / code blocks
-// (2px border, small radius, card bg) rather than a marketing-style banner.
-.home-banner { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.75rem; padding: 0.65rem 1rem; border: 2px solid theme(border); border-radius: 2px; background: theme(card); font-size: 0.875rem; margin-bottom: calc(clamp(2.5rem, 6vw, 3.5rem) * -1 + 1rem); }
-.home-banner__tag { font-family: "Silkscreen", monospace; color: theme(accent); margin-right: 0.15rem; }
-.home-banner__text { flex: 1 1 auto; min-width: 0; color: theme(text); margin: 0; }
-.home-banner__link { flex: 0 0 auto; font-size: 0.85rem; font-weight: 500; }
+// Same "window" look as .copy-btn / code panels. The whole panel is the
+// link (button-like); hover only highlights the border + the CTA (not the
+// body text), same restraint as the global a:hover convention elsewhere.
+.home-banner { @include terminal-panel; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.4rem 1rem; padding: 0.65rem 1rem; color: theme(text); font-size: clamp(0.7rem, 3.4vw, 0.875rem); margin-bottom: calc(clamp(2.5rem, 6vw, 3.5rem) * -1 + 1rem); transition: border-color 0.15s ease; }
+// Counteracts the global a:hover { color: accent } - .home-banner__text has
+// no color of its own, so without this it'd inherit the accent from the
+// <a> itself and the whole line would flip color along with the border.
+.home-banner:hover { border-color: theme(accent); color: theme(text); }
+// Stays on one line even on narrow phones (the font-size clamp above does
+// most of the work); ellipsis is just the fallback for anything narrower.
+.home-banner__text { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.home-banner__tag { color: theme(accent); margin-right: 0.3rem; }
+// Same arrow convention as .tag-back__link (squeezed via letter-spacing so
+// "->" reads as one glyph), mirrored to a suffix instead of a prefix.
+.home-banner__cta { flex: 0 0 auto; font-size: 0.7rem; font-weight: 500; color: theme(muted); transition: color 0.15s ease; }
+.home-banner__cta::after { content: "\00a0->"; letter-spacing: -0.17em; }
+.home-banner:hover .home-banner__cta { color: theme(accent); }
 
 .home-intro { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: -1.5rem; }
 .topo-icon { width: 1rem; height: 1rem; vertical-align: middle; margin-right: 0.35rem; opacity: 0.8; }

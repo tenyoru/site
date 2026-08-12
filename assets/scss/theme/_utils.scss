@@ -30,6 +30,14 @@
   background-repeat: repeat-x;
 }
 
+// Shared "terminal window" look: code blocks, .copy-btn, .skip-link, the
+// home-page banner. 2px border, small radius, card bg.
+@mixin terminal-panel($radius: 2px) {
+  background: theme(card);
+  border: 2px solid theme(border);
+  border-radius: $radius;
+}
+
 // Default theme + prepare UA color-scheme hint
 :root {
   @include emit-theme-vars(map.get(c.$themes, c.$default-theme));

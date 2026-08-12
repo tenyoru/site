@@ -4,10 +4,10 @@
   {{/* Job-seeking banner */}}
   {{ with .Site.Params.banner }}
   {{ if .enabled }}
-  <div class="home-banner">
-    <p class="home-banner__text"><span class="home-banner__tag">[!]</span> {{ .text }}</p>
-    <a href="{{ .url | default "/contact/" }}" class="home-banner__link link">Contact -&gt;</a>
-  </div>
+  <a href="{{ .url | default "/contact/" }}" class="home-banner">
+    <span class="home-banner__text"><span class="home-banner__tag">[!]</span> {{ .text }}</span>
+    <span class="home-banner__cta">Contact</span>
+  </a>
   {{ end }}
   {{ end }}
 

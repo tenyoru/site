@@ -9,7 +9,7 @@
 
 // Pixel accent font for UI labels, tags, dates/meta, and the ToC heading.
 // Silkscreen is latin-only: keep Cyrillic (and → arrows) out of these spots.
-.label, .tag-list__link, .article-meta, .list__more, .post-toc__summary, .post-toc__title, .section-header__label, .section-header__title, .tag-back__link, .footer__credits a, .menu-list__num { font-family: "Silkscreen", monospace; }
+.label, .tag-list__link, .article-meta, .list__more, .post-toc__summary, .post-toc__title, .section-header__label, .section-header__title, .tag-back__link, .footer__credits a, .menu-list__num, .home-banner__tag, .home-banner__cta { font-family: "Silkscreen", monospace; }
 
 html, body { overflow-x: clip; }
 // Below body's min-width the clip would silently cut content off on the
