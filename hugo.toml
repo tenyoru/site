@@ -35,6 +35,11 @@ r2BaseURL = "https://assets.tenyoru.io"
 r2Transforms = true
 r2Thumb = "cdn-cgi/image/width=600,format=webp"
 
+[params.banner]
+enabled = true
+text = "Open to new opportunities. Hiring? Get in touch."
+url = "/contact/"
+
 [params.contact.contacts]
 
   [[params.contact.contacts.items]]
@@ -57,8 +62,9 @@ r2Thumb = "cdn-cgi/image/width=600,format=webp"
 
   [[params.contact.contacts.items]]
   label = "WhatsApp"
-  value = "+44 745 689 1686"
-  url = "https://wa.me/447456891686"
+  # value = "+44 745 689 1686"
+  # url = "https://wa.me/447456891686"
+  value = "Available if you already have my number"
   icon = "whatsapp"
 
 [[params.media]]

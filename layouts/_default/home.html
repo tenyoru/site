@@ -1,6 +1,16 @@
 {{ define "main" }}
 {{ partial "cloud-hero.html" "TENYORU" }}
 <div class="home shell--narrow">
+  {{/* Job-seeking banner */}}
+  {{ with .Site.Params.banner }}
+  {{ if .enabled }}
+  <div class="home-banner">
+    <p class="home-banner__text"><span class="home-banner__tag">[!]</span> {{ .text }}</p>
+    <a href="{{ .url | default "/contact/" }}" class="home-banner__link link">Contact -&gt;</a>
+  </div>
+  {{ end }}
+  {{ end }}
+
   {{/* Intro */}}
   <section class="home-intro">
     <h1 class="label">About</h1>
