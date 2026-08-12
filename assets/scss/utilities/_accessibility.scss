@@ -11,14 +11,11 @@
   z-index: 10000;
   max-width: calc(100vw - #{v.$padding-inline} * 2);
   padding: 0.4rem 0.85rem;
-  background: theme(card);
+  @include terminal-panel($radius: 3px);
   color: theme(text);
-  // Same "window" look as .copy-btn / code panels (2px border, 3px radius).
-  border: 2px solid theme(border);
   font-weight: 600;
   font-size: 0.875rem;
   line-height: 1.2;
-  border-radius: 3px;
   white-space: nowrap;
   // Hide fully above the viewport. The extra 1.5rem (vs the 0.5rem reveal gap)
   // clears the bottom edge past y=0 so its accent border can't show as a 1px
