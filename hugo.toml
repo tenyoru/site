@@ -48,11 +48,11 @@ url = "/contact/"
   url = "mailto:mail@tenyoru.io"
   icon = "mail"
 
-  [[params.contact.contacts.items]]
-  label = "Matrix"
-  value = "@a:tenyoru.io"
-  url = "https://matrix.to/#/@a:tenyoru.io"
-  icon = "matrix"
+  # [[params.contact.contacts.items]]
+  # label = "Matrix"
+  # value = "@a:tenyoru.io"
+  # url = "https://matrix.to/#/@a:tenyoru.io"
+  # icon = "matrix"
 
   [[params.contact.contacts.items]]
   label = "Telegram"
