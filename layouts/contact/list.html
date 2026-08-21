@@ -28,15 +28,15 @@
   {{ end }}
 
   {{ with site.Params.media }}
-  <section class="contact-social">
+  <header class="contact-header contact-header--media">
     <h2 class="label">Media</h2>
-    <p class="contact-social__text">Find me around the web too</p>
-    <ul class="contact-list list-none">
-      {{ range . }}
-      {{ partial "contact-item.html" . }}
-      {{ end }}
-    </ul>
-  </section>
+    <p class="contact-header__desc">Find me around the web too</p>
+  </header>
+  <ul class="contact-list list-none">
+    {{ range . }}
+    {{ partial "contact-item.html" . }}
+    {{ end }}
+  </ul>
   {{ end }}
 
   {{ with .Content }}
