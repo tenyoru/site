@@ -21,35 +21,22 @@
     {{ with .items }}
     <ul class="contact-list list-none">
       {{ range . }}
-      {{ $value := .value | default .url }}
-      {{ $url := .url }}
-      {{ $isExternal := or (strings.HasPrefix $url "http") (strings.HasPrefix $url "//") }}
-      <li class="contact-item">
-        {{ if $url }}
-        <a href="{{ $url | safeURL }}" class="contact-item__link"{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>
-          {{ with .icon }}
-          <span class="contact-item__icon">{{ partial "icon" . }}</span>
-          {{ end }}
-          <span class="contact-item__info">
-            {{ with .label }}<span class="label">{{ . }}</span>{{ end }}
-            <span class="contact-item__value">{{ $value }}</span>
-          </span>
-        </a>
-        {{ else }}
-        <div class="contact-item__static">
-          {{ with .icon }}
-          <span class="contact-item__icon">{{ partial "icon" . }}</span>
-          {{ end }}
-          <span class="contact-item__info">
-            {{ with .label }}<span class="label">{{ . }}</span>{{ end }}
-            <span class="contact-item__value">{{ $value }}</span>
-          </span>
-        </div>
-        {{ end }}
-      </li>
+      {{ partial "contact-item.html" . }}
       {{ end }}
     </ul>
     {{ end }}
+  {{ end }}
+
+  {{ with site.Params.media }}
+  <section class="contact-social">
+    <h2 class="label">Media</h2>
+    <p class="contact-social__text">Find me around the web too</p>
+    <ul class="contact-list list-none">
+      {{ range . }}
+      {{ partial "contact-item.html" . }}
+      {{ end }}
+    </ul>
+  </section>
   {{ end }}
 
   {{ with .Content }}

@@ -1,0 +1,7 @@
+{{ $items := slice }}
+{{ range (slice "telegram" "mail") }}
+  {{ range where site.Params.contact.contacts.items "icon" . }}
+    {{ $items = $items | append . }}
+  {{ end }}
+{{ end }}
+{{ return $items }}

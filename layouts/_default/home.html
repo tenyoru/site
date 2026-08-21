@@ -22,12 +22,12 @@
         {{ partial "icon" .icon }}
       </a>
       {{ end }}
-      {{ with site.Params.contact.contacts.items }}{{ range . }}{{ if eq .icon "mail" }}
+      {{ range partial "social-contacts.html" . }}
       <a href="{{ .url }}" class="home-media__link" title="{{ .label }}" rel="me">
         {{ partial "icon" .icon }}
         {{ with .value }}<span class="sr-only">{{ . }}</span>{{ end }}
       </a>
-      {{ end }}{{ end }}{{ end }}
+      {{ end }}
     </div>
     {{ end }}
   </section>
