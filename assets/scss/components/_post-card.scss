@@ -8,7 +8,7 @@
 
 .section-header__top { display: flex; align-items: center; gap: 0.5rem; }
 .section-header__title { font-size: clamp(2rem, 5vw, 2.5rem); line-height: 1; margin: 0 0 0.5rem; }
-.section-header__rss { margin-left: auto; }
+.section-header__rss { margin-left: auto; gap: 0.15rem; }
 .section-header__rss svg { width: 1em; height: 1em; }
 .section-header__label { font-size: 0.8rem; font-weight: 500; line-height: 1.2; color: theme(muted); margin: 0; }
 .section-header__label + .section-header__title { margin-top: 0; margin-left: -0.05em; }

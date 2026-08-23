@@ -1,0 +1,27 @@
+{{ define "main" }}
+{{ partial "cloud-hero.html" (upper .Section) }}
+<div class="contact shell--narrow">
+  <header class="contact-header">
+    <h1 class="label">RSS</h1>
+    {{ with .Description }}
+    <p class="contact-header__desc">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  {{ $feeds := slice
+    (dict "label" "All" "value" "Every post, photo & page" "url" (printf "%sindex.xml" site.Home.Permalink))
+  }}
+  {{ with site.GetPage "blog" }}
+    {{ $feeds = $feeds | append (dict "label" "Blog" "value" "Blog posts only" "url" (printf "%sindex.xml" .Permalink)) }}
+  {{ end }}
+  {{ with site.GetPage "photos" }}
+    {{ $feeds = $feeds | append (dict "label" "Photos" "value" "Photo albums only" "url" (printf "%sindex.xml" .Permalink)) }}
+  {{ end }}
+
+  <ul class="contact-list list-none">
+    {{ range $feeds }}
+    {{ partial "contact-item.html" . }}
+    {{ end }}
+  </ul>
+</div>
+{{ end }}
