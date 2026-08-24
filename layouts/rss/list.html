@@ -18,7 +18,7 @@
     {{ $feeds = $feeds | append (dict "label" "Photos" "value" "Photo albums only" "url" (printf "%sindex.xml" .Permalink)) }}
   {{ end }}
 
-  <ul class="contact-list list-none">
+  <ul class="contact-list rss-feed-list list-none">
     {{ range $feeds }}
     {{ partial "contact-item.html" . }}
     {{ end }}

@@ -27,6 +27,21 @@
   .copy-btn { display: none; }
 }
 
+// Small "Copied!" popup for RSS feed links (see copy.js initFeedCopy).
+.copy-tooltip {
+  @include terminal-panel;
+  position: absolute; bottom: 100%; left: 50%;
+  margin-bottom: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem; font-family: "Silkscreen", monospace; white-space: nowrap;
+  color: theme(text);
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
+.copy-tooltip.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
 :not(pre) > code { font-size: 0.85em; background: theme(border); color: theme(code); padding: 0.2em 0.4em; border-radius: 0.25rem; font-family: v.$font-mono; }
 
 .highlight code, pre code { background: transparent; border: 0; padding: 0; color: inherit; font-size: inherit; line-height: inherit; }

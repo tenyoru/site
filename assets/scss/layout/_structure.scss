@@ -33,6 +33,6 @@ body::after {
 .footer__row { display: flex; justify-content: space-between; align-items: center; }
 .footer__row + .footer__row { margin-top: 0.75rem; }
 .footer__social { display: flex; align-items: center; flex-wrap: wrap; gap: 0.9rem; }
-.rss-link { display: inline-flex; align-items: center; gap: 0.2rem; color: theme(muted); transition: color 0.15s ease; }
+.rss-link { display: inline-flex; align-items: center; gap: 0.2rem; vertical-align: middle; color: theme(muted); transition: color 0.15s ease; }
 .rss-link:hover { color: theme(text); }
 .rss-link svg { width: 1em; height: 1em; }
