@@ -53,7 +53,7 @@ I agree with [Sonia Simone](https://copyblogger.com/removing-blog-comments/): co
 When I first wanted to build a landing page, I wanted something elaborate — a unique, visually memorable design. Show identity through aesthetics. For that I picked the image of a ballerina in halftone, dancing on circles. But I soon realized abstract, busy layouts aren't what actually matters on a site: what matters to the reader is content — text. So I moved toward as minimal a design as possible, one where the reader never has to get distracted by animations or a confusing layout. Everything had to feel native.
 
 ### Layout
-There are many ways to direct a user's attention: the key is that elements either follow a deliberate layout or deliberately break from it. I chose a different route — don't think. To get the most native-feeling design possible, I basically had to switch my brain off and focus purely on readability, so on the site everything flows top to bottom, like a book.
+There are many ways to direct a user's attention: the key is that elements either follow a deliberate layout or deliberately break from it. I chose a different route — don't think. To get the most native-feeling design possible, I basically had to switch my brain off and focus purely on readability.
 
 ### 5 colors are more than enough
 Color is a tool. It answers one question: what matters and what doesn't. The moment color starts doing anything else, it turns into noise.
