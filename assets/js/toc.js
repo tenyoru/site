@@ -119,12 +119,6 @@ export const initToc = (signal) => {
   const links = $$("a[href^='#']", toc);
   if (!headings.length || !links.length) return;
 
-  links.forEach((a) =>
-    a.addEventListener("click", () => {
-      if (floating.matches) toc.open = false;
-    }, { signal })
-  );
-
   let activeId = null;
   const setActive = (id) => {
     if (id === activeId) return;
@@ -132,10 +126,31 @@ export const initToc = (signal) => {
     links.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === `#${id}`));
   };
 
+  // While a click-driven smooth scroll is in flight, hold the active link at
+  // the clicked target instead of stepping through every section it scrolls
+  // past on the way there.
+  let lockedId = null;
+  let lockTimer = null;
+  links.forEach((a) =>
+    a.addEventListener("click", () => {
+      if (floating.matches) toc.open = false;
+      const id = a.getAttribute("href").slice(1);
+      lockedId = id;
+      clearTimeout(lockTimer);
+      lockTimer = setTimeout(() => { lockedId = null; }, 1000);
+      setActive(id);
+    }, { signal })
+  );
+
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
+          if (lockedId && entry.target.id !== lockedId) continue;
+          if (lockedId === entry.target.id) {
+            lockedId = null;
+            clearTimeout(lockTimer);
+          }
           setActive(entry.target.id);
           return;
         }
