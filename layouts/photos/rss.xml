@@ -1,6 +1,7 @@
 {{- $pages := .RegularPages -}}
 {{- $pages = where $pages "Draft" false -}}
 {{- $pages = where $pages "Date" "<=" now -}}
+{{- $pages = where $pages "Params.rss" "!=" false -}}
 {{- $pages = sort $pages "Date" "desc" -}}
 {{- $pages = first 20 $pages -}}
 {{- $feed := .OutputFormats.Get "RSS" -}}
@@ -30,7 +31,6 @@
       {{- with .Description }}
       <description>{{ . | transform.XMLEscape | safeHTML }}</description>
       {{- end }}
-      <repost>{{ ne .Params.repost false }}</repost>
       {{- range $rawLinks }}
       {{- $url  := . | replaceRE `^href="` "" | replaceRE `"$` "" }}
       {{- $ext  := path.Ext $url | strings.TrimPrefix "." | lower }}

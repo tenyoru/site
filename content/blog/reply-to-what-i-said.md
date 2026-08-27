@@ -5,7 +5,7 @@ title = 'Reply to a Comment, Not an Assumption'
 tags = ['war', 'story', 'response']
 description = "A comment about the visual design of an anti-war poster got read as a moral position on war I never stated. A reply, and why it's here instead of on Mastodon."
 cover = "https://media.tech.lgbt/media_attachments/files/116/901/692/881/050/532/original/97c19b38d1e7cf26.webp"
-repost = false
+rss = false
 +++
 
 This is a reply to a comment I got on Mastodon. It's here instead of there because Mastodon caps posts at 500 characters, and this runs well past that. Mastodon and this site are both public spaces, and nothing here is meant to discredit the person I replied to, only to lay out context they were missing. For the record, she's right that war is horror. There's no romance, glory, or honor in it.

@@ -2,7 +2,7 @@
 date = '2026-08-01T12:04:41+02:00'
 draft = false
 title = 'Links'
-repost = false
+rss = false
 pin = true
 recent = false
 description = 'Links I found interesting or useful.'
