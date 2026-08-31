@@ -8,6 +8,7 @@
 html {
   scrollbar-width: thin;
   scrollbar-color: theme(accent) transparent;
+  font-size: clamp(16px, 12px + 0.3125vw, 20px); // scales 16→20px between 1280–2560px viewports
 }
 
 ::view-transition-old(root),

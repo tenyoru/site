@@ -1,7 +1,7 @@
 @use "sass:map";
 
 @function content-width() {
-  @return 820px;
+  @return 51.25rem; // 820px at the 16px baseline; grows with the root font-size
 }
 
 $padding-inline: 1rem;

@@ -5,7 +5,7 @@
 import { $, prefersReducedMotion, storage } from "./dom.js";
 
 const RAMP = " .·:•oO@"; // cloud density → glyph
-const TRANSIT = 75; // seconds for the sun/moon to cross the band (at 100% zoom)
+const CELLS_PER_SEC = (144 + 24) / 75; // speed, not duration — keeps px/s constant as cols grows on wide screens
 // Baseline zoom, captured once per page load (module scope, so SPA re-inits
 // don't rebase it and change the speed mid-session).
 const DPR_BASE = window.devicePixelRatio || 1;
@@ -104,6 +104,7 @@ export const initClouds = (signal) => {
   let cell = 10; // px per glyph cell; shrinks on narrow screens so the whole
   // composition scales down instead of showing a small slice of it
   let mask;
+  let TRANSIT = 75; // seconds for the sun/moon to cross the band; recomputed in resize()
 
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
@@ -115,6 +116,7 @@ export const initClouds = (signal) => {
     canvas.height = Math.max(1, Math.floor(h * dpr));
     cols = Math.ceil(w / cell);
     rows = Math.ceil(h / cell);
+    TRANSIT = (cols + 24) / CELLS_PER_SEC;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -136,8 +138,6 @@ export const initClouds = (signal) => {
     };
     colors = { heading: parse("--heading"), muted: parse("--muted"), accent: parse("--accent") };
   };
-
-  let riseAt = FIRST_DELAY; // t of the current/next transit's start
 
   const draw = (t) => {
     readColors();
@@ -245,6 +245,7 @@ export const initClouds = (signal) => {
   // bounded amount instead of jumping to a wildly different pattern/transit.
   const WT_KEY = "cloud-wt";
   const WT_SEEN_KEY = "cloud-wt-seen";
+  const RISE_KEY = "cloud-rise";
   const WT_MAX_GAP = 90; // seconds
   const wtNow = Date.now();
   const savedWt = Number(storage?.getItem(WT_KEY)) || 0;
@@ -252,8 +253,10 @@ export const initClouds = (signal) => {
   let raf = 0;
   let wt = savedWt + Math.min((wtNow - lastSeen) / 1000, WT_MAX_GAP); // world time, in seconds slowed by zoom
   let last = 0;
+  let riseAt = Number(storage?.getItem(RISE_KEY)) || FIRST_DELAY; // t of next transit's start; persisted like wt
   const saveWt = () => {
     storage?.setItem(WT_KEY, wt);
+    storage?.setItem(RISE_KEY, riseAt);
     storage?.setItem(WT_SEEN_KEY, Date.now());
   };
   const loop = (now) => {
@@ -265,8 +268,8 @@ export const initClouds = (signal) => {
     raf = requestAnimationFrame(loop);
   };
 
-  const staticT = TRANSIT * 0.35; // reduced motion: body frozen mid-morning
   resize();
+  const staticT = TRANSIT * 0.35; // reduced motion: body frozen mid-morning
   if (reduced) {
     riseAt = 0;
     draw(staticT);
