@@ -1,0 +1,15 @@
+{{ define "main" }}
+{{ partial "cloud-hero.html" (upper .Section) }}
+<div class="contact shell--narrow">
+  <header class="contact-header">
+    <h1 class="label">License</h1>
+    {{ with .Description }}
+    <p class="contact-header__desc">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  {{ with .Content }}
+  <div class="article-content">{{ . }}</div>
+  {{ end }}
+</div>
+{{ end }}

@@ -14,7 +14,7 @@
     </div>
     {{ end }}
     <div class="footer__row">
-      <span class="footer__credits">{{ or $footer.credits (printf "© %d %s" now.Year site.Title) }} · <a href="{{ site.Params.license.url }}" class="link" target="_blank" rel="noopener license">{{ site.Params.license.name }}</a>{{ with site.Params.repo.url }} · <a href="{{ . }}" class="link" target="_blank" rel="noopener">Source</a>{{ end }} · <a href="{{ "/rss/" | relLangURL }}" class="rss-link" title="RSS Feeds">{{ partial "icon" "rss" }}RSS</a></span>
+      <span class="footer__credits">{{ or $footer.credits (printf "© %d %s" now.Year site.Title) }} · <a href="{{ "/license/" | relLangURL }}" class="link">License</a>{{ with site.Params.repo.url }} · <a href="{{ . }}" class="link" target="_blank" rel="noopener">Source</a>{{ end }} · <a href="{{ "/rss/" | relLangURL }}" class="rss-link" title="RSS Feeds">{{ partial "icon" "rss" }}RSS</a></span>
       {{ partial "theme-switcher.html" }}
     </div>
   </div>
