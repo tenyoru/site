@@ -17,7 +17,7 @@
 .home-banner__tag { color: theme(accent); margin-right: 0.3rem; }
 // Same arrow convention as .tag-back__link (squeezed via letter-spacing so
 // "->" reads as one glyph), mirrored to a suffix instead of a prefix.
-.home-banner__cta { flex: 0 0 auto; font-size: 0.7rem; font-weight: 500; color: theme(muted); transition: color 0.15s ease; }
+.home-banner__cta { flex: 0 0 auto; font-size: 0.7rem; font-weight: 500; color: theme(subtle); transition: color 0.15s ease; }
 .home-banner__cta::after { content: "\00a0->"; letter-spacing: -0.17em; }
 .home-banner:hover .home-banner__cta { color: theme(accent); }
 
