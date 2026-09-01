@@ -5,9 +5,21 @@ defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 capitalizeListTitles = false
 
+[languages]
+  [languages.en]
+    weight = 1
+  [languages.fr]
+    weight = 2
+  [languages.ru]
+    weight = 3
+
+# ---------------------------------------------------------------------------
+# Outputs
 # Generates static/_headers as a Hugo output (see layouts/index.headers) so
 # it can reference the current build's fingerprinted CSS URL for the Link
 # preload header - a plain static/_headers file can't see that hash.
+# ---------------------------------------------------------------------------
+
 [mediaTypes."text/netlify"]
 delimiter = ""
 suffixes = []
@@ -21,141 +33,12 @@ notAlternative = true
 [outputs]
 home = ["HTML", "RSS", "Headers"]
 
-[languages]
-  [languages.en]
-    weight = 1
-  [languages.fr]
-    weight = 2
-  [languages.ru]
-    weight = 3
-
-[params]
-description = "A personal corner for engineering notes, writing, and new collaborations"
-r2BaseURL = "https://assets.tenyoru.io"
-r2Transforms = true
-r2Thumb = "cdn-cgi/image/width=600,format=webp"
-
-[params.banner]
-enabled = true
-text = "Hiring? I'm open to new roles."
-url = "/contact/"
-
-[params.contact.contacts]
-
-  [[params.contact.contacts.items]]
-  label = "Email"
-  value = "mail@tenyoru.io"
-  url = "mailto:mail@tenyoru.io"
-  icon = "mail"
-
-  # [[params.contact.contacts.items]]
-  # label = "Matrix"
-  # value = "@a:tenyoru.io"
-  # url = "https://matrix.to/#/@a:tenyoru.io"
-  # icon = "matrix"
-
-  [[params.contact.contacts.items]]
-  label = "Telegram"
-  value = "@tenyoru"
-  url = "https://t.me/tenyoru"
-  icon = "telegram"
-
-  [[params.contact.contacts.items]]
-  label = "WhatsApp"
-  # value = "+44 745 689 1686"
-  # url = "https://wa.me/447456891686"
-  value = "Available if you already have my number"
-  icon = "whatsapp"
-
-  [[params.contact.contacts.items]]
-  label = "Discord"
-  value = "tenyoru (I check it rarely)"
-  url = "https://discord.com/users/1426989845053440144"
-  icon = "discord"
-
-[[params.media]]
-label = "GitHub"
-value = "tenyoru"
-url = "https://github.com/tenyoru"
-icon = "github"
-
-[[params.media]]
-label = "YouTube"
-value = "@tenyoru"
-url = "https://youtube.com/@tenyoru"
-icon = "youtube"
-
-# [[params.media]]
-# label = "Codeberg"
-# value = "tenyoru"
-# url = "https://codeberg.org/tenyoru"
-# icon = "codeberg"
-
-[[params.media]]
-label = "Bluesky"
-value = "@tenyoru.io"
-url = "https://bsky.app/profile/tenyoru.io"
-icon = "bluesky"
-
-[[params.media]]
-label = "Mastodon"
-value = "@tenyoru@mastodon.social"
-url = "https://mastodon.social/@tenyoru"
-icon = "mastodon"
-
-[[params.projects]]
-name = "topo.love"
-desc = "Past side project"
-url = "https://topo.love"
-icon = "topo"
-
-[params.footer]
-credits = "© 2026 Tenyoru"
-
-[params.license]
-name = "CC BY 4.0"
-url = "https://creativecommons.org/licenses/by/4.0/"
-
-[params.repo]
-url = "https://github.com/tenyoru/site"
-
-[params.giscus]
-repo = "tenyoru/Tenyoru.github.io"
-repoID = "R_kgDOP75SYA"
-category = "Announcements"
-categoryID = "DIC_kwDOP75SYM4CwgqS"
-mapping = "pathname"
-strict = "0"
-reactionsEnabled = "1"
-emitMetadata = "0"
-inputPosition = "bottom"
-theme = "preferred_color_scheme"
-lang = "en"
-themeLight = "light"
-themeDark = "dark"
-
-[caches]
-  [caches.images]
-    dir = ':cacheDir/images'
-
-[menus]
-  [[menus.main]]
-    name = 'Blog'
-    url = '/blog/'
-    weight = 10
-
-  [[menus.main]]
-    name = 'Photos'
-    url = '/photos/'
-    weight = 25
-
-  [[menus.main]]
-    name = 'Contact'
-    url = '/contact/'
-    weight = 30
-
+# ---------------------------------------------------------------------------
+# Mounts
 # First five mounts = Hugo defaults (declaring any mount disables them).
 # The rest expose the site's own sources under assets/src/ for /src/.
+# ---------------------------------------------------------------------------
+
 [module]
   [[module.mounts]]
     source = "content"
@@ -185,10 +68,136 @@ themeDark = "dark"
     source = "hugo.toml"
     target = "assets/src/hugo.toml"
 
-[security]
-  enableInlineShortcodes = true
+# ---------------------------------------------------------------------------
+# Markup
+# ---------------------------------------------------------------------------
+
 [markup.goldmark.renderer]
 unsafe = true
+
+# Chroma classes are styled in assets/scss/components/_chroma.scss
 [markup.highlight]
 noClasses = false
 style = "monokai"
+
+[security]
+  enableInlineShortcodes = true
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
+
+# ---------------------------------------------------------------------------
+# Menus (Tags is intentionally not here - it's a small link in the blog header)
+# ---------------------------------------------------------------------------
+
+[menus]
+  [[menus.main]]
+    name = 'Blog'
+    url = '/blog/'
+    weight = 10
+
+  [[menus.main]]
+    name = 'Photos'
+    url = '/photos/'
+    weight = 25
+
+  [[menus.main]]
+    name = 'Contact'
+    url = '/contact/'
+    weight = 30
+
+# ---------------------------------------------------------------------------
+# Site params
+# ---------------------------------------------------------------------------
+
+[params]
+description = "A personal corner for engineering notes, writing, and new collaborations"
+r2BaseURL = "https://assets.tenyoru.io"
+r2Transforms = true
+r2Thumb = "cdn-cgi/image/width=600,format=webp"
+
+[params.banner]
+enabled = true
+text = "Hiring? I'm open to new roles."
+url = "/contact/"
+
+[params.footer]
+credits = "© 2026 Tenyoru"
+
+[params.license]
+name = "CC BY 4.0"
+url = "https://creativecommons.org/licenses/by/4.0/"
+
+[params.repo]
+url = "https://github.com/tenyoru/site"
+
+[params.contact.contacts]
+
+  [[params.contact.contacts.items]]
+  label = "Email"
+  value = "mail@tenyoru.io"
+  url = "mailto:mail@tenyoru.io"
+  icon = "mail"
+
+  [[params.contact.contacts.items]]
+  label = "Telegram"
+  value = "@tenyoru"
+  url = "https://t.me/tenyoru"
+  icon = "telegram"
+
+  [[params.contact.contacts.items]]
+  label = "WhatsApp"
+  value = "Available if you already have my number"
+  icon = "whatsapp"
+
+  [[params.contact.contacts.items]]
+  label = "Discord"
+  value = "tenyoru (I check it rarely)"
+  url = "https://discord.com/users/1426989845053440144"
+  icon = "discord"
+
+[[params.media]]
+label = "GitHub"
+value = "tenyoru"
+url = "https://github.com/tenyoru"
+icon = "github"
+
+[[params.media]]
+label = "YouTube"
+value = "@tenyoru"
+url = "https://youtube.com/@tenyoru"
+icon = "youtube"
+
+[[params.media]]
+label = "Bluesky"
+value = "@tenyoru.io"
+url = "https://bsky.app/profile/tenyoru.io"
+icon = "bluesky"
+
+[[params.media]]
+label = "Mastodon"
+value = "@tenyoru@mastodon.social"
+url = "https://mastodon.social/@tenyoru"
+icon = "mastodon"
+
+[[params.projects]]
+name = "topo.love"
+desc = "Past side project"
+url = "https://topo.love"
+icon = "topo"
+
+[params.giscus]
+repo = "tenyoru/Tenyoru.github.io"
+repoID = "R_kgDOP75SYA"
+category = "Announcements"
+categoryID = "DIC_kwDOP75SYM4CwgqS"
+mapping = "pathname"
+strict = "0"
+reactionsEnabled = "1"
+emitMetadata = "0"
+inputPosition = "bottom"
+theme = "preferred_color_scheme"
+lang = "en"
+themeLight = "light"
+themeDark = "dark"
