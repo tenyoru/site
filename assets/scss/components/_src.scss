@@ -133,6 +133,10 @@
 
   .chroma .line {
     display: flex;
+    // span the full scrollable width, not just the visible part, so the
+    // selection background doesn't get cut off when scrolled horizontally
+    width: fit-content;
+    min-width: 100%;
   }
 
   // line(s) selected by clicking/dragging a number or via an incoming

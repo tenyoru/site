@@ -43,6 +43,7 @@ Feature modules (each `init*(signal)`):
 - `cards.js` — makes `[data-card-link]` containers fully clickable/keyboard-activatable while leaving inner links working; internal links route through the injected `navigate()`.
 - `photo-preview.js` — lightbox via native `<dialog>`, reusing one `<img>`.
 - `email.js` — decodes Cloudflare-obfuscated email addresses (XOR with leading key byte).
+- `src-view.js` — `/src/` file pages: meta-row "copy", line selection (click / drag / shift+click) with `#t-N` / `#t-N-t-M` links, "copy link / copy line" popup. Selection is a `.is-selected` class, **not** `:target` — the hash is set via `history.pushState` (no scroll jump), which never updates `:target`, so a `:target`-based highlight would go stale. Line-number `href`s are stripped at init so hovering shows no URL preview; ids stay for incoming links.
 
 Everything degrades gracefully without JS, and `storage` wraps localStorage so private-browsing failures don't throw.
 
@@ -72,6 +73,18 @@ CSS-variables-based theming generated from Sass maps.
 - Custom code-fence render hook: `layouts/_default/_markup/render-codeblock.html` strips Hugo's auto-added `tabindex` from highlighted `<pre>`.
 - Shortcodes (`layouts/shortcodes/`): `{{< svg "icon" >}}`, `{{< color "theme-key" "text" >}}`, `{{< ff "key" "value" "url?" >}}`.
 
+## /src/ Section (site browses its own source)
+
+Pure build-time source browser: the site mounts itself into its own assets.
+
+- **Mounts (`hugo.toml` `[module]`):** declaring any `[[module.mounts]]` disables Hugo's defaults, so the real dirs (content/layouts/assets/static/archetypes) are listed explicitly, then content/layouts/assets/`hugo.toml` are mounted a second time under `assets/src/…`. Never mount the repo root (`public/`, `.git/`, `node_modules/` must stay out).
+- **Adapter (`content/src/_content.gotmpl`):** walks `resources.Match "src/**"`, maps extension → Chroma lexer (unmapped = skipped), `AddPage` per file with params `src` (resource path) + `lexer`. Two traps: resource `.Name` comes back with a **leading slash** (`/src/…`), and adapters do **not** create intermediate sections — directories are added explicitly with `kind: section` (param `srcdir` drives the per-dir GitHub link).
+- **Page paths:** dots are replaced with dashes (`hello.md` → `/src/content/blog/hello-md/`); the footer "Source" link just points at `/src/`.
+- **`content/src/_index.md` cascade:** `type = 'src'` + `outputs = ['html']` cascade as top-level fields, but custom params (`rss = false`) only cascade from `[cascade.params]`.
+- **Templates (`layouts/src/`):** `list.html` — breadcrumbs (`src-crumbs.html`), dirs then files, size/mtime via `os.Stat` (strip the `/src/` prefix to get the real path); nested dirs get `.section--flush` because there's no cloud hero to fill `.section`'s top padding. `single.html` — `transform.Highlight` with **inline** line numbers (`lineNumbersInTable=false`; table mode inherits `white-space: pre` and renders the markup's own newlines) and `lineAnchors=t`; `anchorLineNos=true` is required — without it no ids are emitted at all. Markdown files get `--wrap` (soft wrap); note that inside `{{ with resources.Get … }}` the dot is the resource, so page params need `$.Params`.
+- **Feeds:** `layouts/_default/rss.xml` overrides Hugo's embedded home feed (which would list every src page) with the same draft/date/`Params.rss` filters as `blog/rss.xml`; src pages are excluded via the cascaded `rss = false`.
+- **Caveat:** draft posts' sources are published here even though their pages aren't built; `os.Stat` mtimes are honest only for local builds (CI checkout resets them).
+
 ## Content Authoring
 
 - `cover` (front matter) accepts either a filename resolved against the R2 bucket (`site.Params.r2BaseURL`) / `assets/images/posts/`, **or** an absolute `http(s)` URL used as-is — see `layouts/blog/single.html` and the og:image logic in `layouts/partials/head.html`.
@@ -95,4 +108,5 @@ CSS-variables-based theming generated from Sass maps.
 - New page JS not firing after navigation → you registered it outside `main.js`'s re-run path, or didn't pass the `AbortController` signal.
 - New `static/` file 404/stale in prod → run `just deploy`; `git push` updates GitHub Pages, not Cloudflare.
 - Sass won't compile → `dart-sass` not on `PATH` / Hugo not the extended build.
-- `public/` and `resources/` are gitignored build output.
+- `public/` and `resources/` are gitignored build output; `hugo` doesn't clean stale files from `public/` — `rm -rf public` before judging output.
+- New file type 404s on `/src/` → its extension isn't in the lexer map in `content/src/_content.gotmpl`.

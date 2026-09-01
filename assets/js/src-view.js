@@ -55,10 +55,12 @@ export const initSrcView = (signal) => {
     if (m[2]) lines[from - 1]?.scrollIntoView();
   }
 
-  // clicking outside the code block (and not on the popup or "copy") clears
-  // the selection and drops the #t-… fragment from the URL
+  // clicking anywhere but a line number (code text included) clears the
+  // selection and drops the #t-… fragment; popup and "copy" are exempt, and
+  // so is the click that lands right after a drag-selection ends
   document.addEventListener("click", (e) => {
-    if (e.target.closest(".src-view__code, .src-linktip, .src-view__copy")) return;
+    if (e.target.closest(".ln, .src-linktip, .src-view__copy")) return;
+    if (Date.now() - dragEndAt < 300) return;
     if (!code.querySelector(".line.is-selected")) return;
     selectRange(1, 0); // empty range = clear
     anchorNum = null;
@@ -136,6 +138,7 @@ export const initSrcView = (signal) => {
   // range. The hash and popup are applied on release.
   let dragFrom = null;
   let dragTo = null;
+  let dragEndAt = 0;
 
   code.addEventListener("mousedown", (e) => {
     const ln = e.target.closest(".ln");
@@ -166,5 +169,6 @@ export const initSrcView = (signal) => {
     history.pushState(null, "", hash);
     showTip(lines[dragTo - 1]?.querySelector(".ln"), hash);
     dragFrom = null;
+    dragEndAt = Date.now();
   }, { signal });
 };
