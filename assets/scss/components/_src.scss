@@ -1,0 +1,159 @@
+@use "../theme" as *;
+@use "../vars" as v;
+
+.src-crumbs {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: v.$font-mono;
+  font-size: 0.9rem;
+  margin-block-end: 1rem;
+  color: theme(muted);
+
+  &__git .github-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    vertical-align: middle;
+  }
+
+  &__current {
+    display: inline;
+    font-size: inherit;
+    font-weight: 600;
+    color: theme(text);
+  }
+}
+
+.src-tree {
+  font-family: v.$font-mono;
+  font-size: 0.85rem;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.2rem;
+    color: theme(muted);
+  }
+
+  &__info {
+    flex-shrink: 0;
+  }
+}
+
+.src-view__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: v.$font-mono;
+  font-size: 0.8rem;
+  color: theme(muted);
+  margin-block-end: 0.5rem;
+}
+
+.src-view__copy {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  &:hover {
+    color: theme(accent);
+  }
+}
+
+// "copy link / copy line" popup for a clicked line number (see copy.js
+// initSrcCopy); fixed on body, positioned from JS, so overflow can't clip it
+.src-linktip {
+  @include terminal-panel;
+  position: fixed;
+  font-size: 0.7rem;
+  font-family: "Silkscreen", monospace;
+  color: theme(text);
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  z-index: 10;
+  transition: opacity 0.35s ease;
+
+  &.is-hiding {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  button {
+    background: none;
+    border: 0;
+    padding: 0.25rem 0.5rem;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      color: theme(accent);
+    }
+  }
+
+  button + button {
+    border-block-start: 2px solid theme(border);
+  }
+}
+
+.src-view__code {
+  overflow-x: auto;
+
+  // code card, just borderless
+  .highlight {
+    border: 0;
+  }
+
+  .highlight pre {
+    padding-inline-start: 0.5rem;
+  }
+
+  .ln {
+    color: theme(muted);
+    cursor: pointer;
+    align-self: flex-start;
+    flex-shrink: 0;
+
+    &:hover {
+      color: theme(accent);
+    }
+
+    a {
+      color: inherit;
+    }
+  }
+
+  .chroma .line {
+    display: flex;
+  }
+
+  // line(s) selected by clicking/dragging a number or via an incoming
+  // #t-N / #t-N-t-M link (class set in copy.js; :target isn't used because
+  // pushState doesn't update it and stale highlights would linger)
+  .line.is-selected {
+    background: color-mix(in srgb, theme(accent) 15%, transparent);
+  }
+
+  :target,
+  .line {
+    scroll-margin-block-start: 4rem;
+  }
+
+  // markdown: soft-wrap long prose lines instead of horizontal scrolling
+  &--wrap {
+    .highlight,
+    .highlight pre,
+    .cl {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+  }
+}

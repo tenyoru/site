@@ -1,0 +1,15 @@
+{{ define "main" }}
+<article class="src-view">
+  {{ partial "src-crumbs.html" . }}
+  {{ with resources.Get .Params.src }}
+  {{ $raw := .Content }}
+  {{ $bytes := len $raw }}
+  {{ $lines := len (split (strings.TrimSuffix "\n" $raw) "\n") }}
+  {{ $loc := len (findRE `\S[^\n]*` $raw) }}
+  <div class="src-view__meta">{{ $lines }} lines ({{ $loc }} loc) · {{ partial "src-size.html" $bytes }}</div>
+  <div class="src-view__code{{ if eq $.Params.lexer "markdown" }} src-view__code--wrap{{ end }}">
+    {{ transform.Highlight $raw $.Params.lexer "lineNos=true,lineNumbersInTable=false,anchorLineNos=true,lineAnchors=t" }}
+  </div>
+  {{ end }}
+</article>
+{{ end }}

@@ -28,6 +28,7 @@ const makeCopyBtn = (label, getText, signal) => {
  */
 export const initCopy = (signal) => {
   $$(".highlight, pre:not(.chroma)").forEach((block) => {
+    if (block.closest(".src-view__code")) return; // /src/ has its own text "copy"
     if (block.parentElement?.classList.contains("code-wrap")) return;
     const code = block.querySelector("code") || block;
 

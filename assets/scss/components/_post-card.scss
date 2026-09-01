@@ -3,6 +3,7 @@
 
 // Shared page layout
 .section, .article, .contact { padding-block: clamp(2rem, 6vw, 4rem); }
+.section--flush { padding-block-start: 0; } // no cloud hero above to fill the gap
 .article-header { margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
 .section-header { margin-bottom: 0.5rem; }
 

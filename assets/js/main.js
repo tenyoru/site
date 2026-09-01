@@ -4,6 +4,7 @@ import { initPhotoPreview } from "./photo-preview.js";
 import { initCards } from "./cards.js";
 import { initToc } from "./toc.js";
 import { initCopy, initFeedCopy } from "./copy.js";
+import { initSrcView } from "./src-view.js";
 import { initClouds } from "./clouds.js";
 import { navigate, startRouter } from "./router.js";
 
@@ -24,6 +25,7 @@ const initPage = () => {
   initToc(signal);
   initCopy(signal);
   initFeedCopy(signal);
+  initSrcView(signal);
   initClouds(signal);
 };
 

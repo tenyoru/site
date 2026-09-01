@@ -1,0 +1,35 @@
+{{ define "main" }}
+{{ if .Parent.IsHome }}{{ partial "cloud-hero.html" (upper .Title) }}{{ end }}
+<div class="section{{ if not .Parent.IsHome }} section--flush{{ end }} shell--narrow">
+  {{ partial "src-crumbs.html" . }}
+  <ul class="src-tree list-none">
+    {{ range .Sections }}
+    {{ $n := 0 }}
+    {{ $sum := 0 }}
+    {{ range .RegularPagesRecursive }}
+      {{ with .Params.src }}
+        {{ with os.Stat (strings.TrimPrefix "/src/" .) }}
+          {{ $n = add $n 1 }}
+          {{ $sum = add $sum .Size }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    <li>
+      <a href="{{ .RelPermalink }}" class="src-tree__row">
+        <span>{{ .Title }}/</span>
+        <span class="src-tree__info">{{ $n }} files · {{ partial "src-size.html" $sum }}</span>
+      </a>
+    </li>
+    {{ end }}
+    {{ range .RegularPages.ByTitle }}
+    {{ $stat := os.Stat (strings.TrimPrefix "/src/" .Params.src) }}
+    <li>
+      <a href="{{ .RelPermalink }}" class="src-tree__row">
+        <span>{{ .Title }}</span>
+        <span class="src-tree__info">{{ partial "src-size.html" $stat.Size }} · {{ $stat.ModTime.Format "Jan 2, 2006" }}</span>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}

@@ -1,0 +1,2 @@
+{{- /* bytes → human-readable size */ -}}
+{{- if lt . 1024 -}}{{ . }} B{{- else -}}{{ printf "%.2f KB" (div (float .) 1024) }}{{- end -}}

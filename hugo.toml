@@ -154,6 +154,37 @@ themeDark = "dark"
     url = '/contact/'
     weight = 30
 
+# First five mounts = Hugo defaults (declaring any mount disables them).
+# The rest expose the site's own sources under assets/src/ for /src/.
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "archetypes"
+    target = "archetypes"
+  [[module.mounts]]
+    source = "content"
+    target = "assets/src/content"
+  [[module.mounts]]
+    source = "layouts"
+    target = "assets/src/layouts"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets/src/assets"
+  [[module.mounts]]
+    source = "hugo.toml"
+    target = "assets/src/hugo.toml"
+
 [security]
   enableInlineShortcodes = true
 [markup.goldmark.renderer]

@@ -1,0 +1,45 @@
+{{/* Builds /src/ pages from the site's own files mounted under assets/src/
+     (see [module] in hugo.toml). Extension maps to a Chroma lexer;
+     unmapped files (binaries etc.) are skipped. */}}
+{{ $lexers := dict
+  "md" "markdown"
+  "html" "go-html-template"
+  "gotmpl" "go-html-template"
+  "scss" "scss"
+  "css" "css"
+  "js" "javascript"
+  "json" "json"
+  "toml" "toml"
+  "svg" "xml"
+  "xml" "xml"
+  "txt" "text"
+}}
+{{ $dirs := dict }}
+{{ range $r := resources.Match "src/**" }}
+  {{ $ext := strings.TrimPrefix "." (path.Ext $r.Name) }}
+  {{ with $lexer := index $lexers $ext }}
+    {{ $p := strings.TrimPrefix "/src/" $r.Name }}
+    {{ $.AddPage (dict
+      "path" (replace $p "." "-")
+      "title" (path.Base $p)
+      "params" (dict "src" $r.Name "lexer" $lexer)
+    ) }}
+    {{/* collect the dir and all its parents; adapters don't create
+         intermediate sections on their own */}}
+    {{ $d := path.Dir $p }}
+    {{ range seq 8 }}
+      {{ if ne $d "." }}
+        {{ $dirs = merge $dirs (dict $d true) }}
+        {{ $d = path.Dir $d }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ range $d, $_ := $dirs }}
+  {{ $.AddPage (dict
+    "path" (replace $d "." "-")
+    "title" (path.Base $d)
+    "kind" "section"
+    "params" (dict "srcdir" $d)
+  ) }}
+{{ end }}

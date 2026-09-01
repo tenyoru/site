@@ -1,0 +1,12 @@
+<nav class="src-crumbs" aria-label="Breadcrumb">
+  <div class="src-crumbs__path">
+    {{- range .Ancestors.Reverse }}{{ if not .IsHome }}<a href="{{ .RelPermalink }}" class="link">{{ .Title }}</a><span aria-hidden="true"> / </span>{{ end }}{{ end -}}
+    <h1 class="src-crumbs__current">{{ .Title }}</h1>
+  </div>
+  {{- with $repo := site.Params.repo.url -}}
+    {{- $href := $repo -}}
+    {{- with $.Params.src }}{{ $href = printf "%s/blob/main/%s" $repo (strings.TrimPrefix "/src/" .) }}{{ end -}}
+    {{- with $.Params.srcdir }}{{ $href = printf "%s/tree/main/%s" $repo . }}{{ end -}}
+    <a href="{{ $href }}" class="link src-crumbs__git" target="_blank" rel="noopener" aria-label="View on GitHub">{{ partial "icon" "github" }}</a>
+  {{- end }}
+</nav>
