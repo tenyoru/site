@@ -136,29 +136,39 @@ export const initSrcView = (signal) => {
 
   // Click selects a line; dragging across numbers (or shift+click) selects a
   // range. The hash and popup are applied on release.
+  //
+  // Pointer Events (not mouse+touch separately): on touch, a captured
+  // pointer keeps e.target pinned to the element where the drag started, so
+  // "which line is under the finger now" has to come from the coordinates
+  // (elementFromPoint), not e.target - that's true on move for both input
+  // types here, so one code path covers mouse and touch alike.
   let dragFrom = null;
   let dragTo = null;
   let dragEndAt = 0;
 
-  code.addEventListener("mousedown", (e) => {
+  const lineAt = (x, y) => document.elementFromPoint(x, y)?.closest(".ln");
+
+  code.addEventListener("pointerdown", (e) => {
+    if (!e.isPrimary || (e.pointerType === "mouse" && e.button !== 0)) return;
     const ln = e.target.closest(".ln");
-    if (!ln?.id || e.button !== 0) return;
-    e.preventDefault(); // no native text selection while dragging
+    if (!ln?.id) return;
+    // no native text selection / long-press callout while dragging
+    e.preventDefault();
     const num = +ln.id.slice(2);
     dragFrom = e.shiftKey && anchorNum !== null ? anchorNum : num;
     dragTo = num;
     selectRange(Math.min(dragFrom, dragTo), Math.max(dragFrom, dragTo));
   }, { signal });
 
-  code.addEventListener("mouseover", (e) => {
+  code.addEventListener("pointermove", (e) => {
     if (dragFrom === null) return;
-    const ln = e.target.closest(".ln");
+    const ln = lineAt(e.clientX, e.clientY);
     if (!ln?.id) return;
     dragTo = +ln.id.slice(2);
     selectRange(Math.min(dragFrom, dragTo), Math.max(dragFrom, dragTo));
   }, { signal });
 
-  window.addEventListener("mouseup", () => {
+  const endDrag = () => {
     if (dragFrom === null) return;
     const from = Math.min(dragFrom, dragTo);
     const to = Math.max(dragFrom, dragTo);
@@ -170,5 +180,7 @@ export const initSrcView = (signal) => {
     showTip(lines[dragTo - 1]?.querySelector(".ln"), hash);
     dragFrom = null;
     dragEndAt = Date.now();
-  }, { signal });
+  };
+  window.addEventListener("pointerup", endDrag, { signal });
+  window.addEventListener("pointercancel", endDrag, { signal });
 };

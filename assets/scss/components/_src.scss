@@ -121,6 +121,9 @@
     cursor: pointer;
     align-self: flex-start;
     flex-shrink: 0;
+    touch-action: none; // dragging selects lines instead of scrolling
+    -webkit-user-select: none;
+    user-select: none;
 
     &:hover {
       color: theme(accent);
